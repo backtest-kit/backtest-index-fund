@@ -65,7 +65,6 @@ addLauncherSchema({
     "BELUSDT",
     "ETHUSDT",
     "IDEXUSDT",
-    "PLANETUSDT",
     "RENUSDT",
     "RLCUSDT",
     "SKLUSDT",

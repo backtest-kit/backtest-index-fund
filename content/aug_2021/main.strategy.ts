@@ -226,7 +226,6 @@ addLauncherSchema({
     "ETHUSDT",
     "FLMUSDT",
     "GRTUSDT",
-    "LONGUSDT",
     "ONEUSDT",
     "SOLUSDT",
     "ZRXUSDT",

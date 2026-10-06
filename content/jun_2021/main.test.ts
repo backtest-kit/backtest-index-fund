@@ -69,6 +69,5 @@ addLauncherSchema({
     "KNCUSDT",
     "LTCUSDT",
     "REEFUSDT",
-    "WABIUSDT",
   ],
 })

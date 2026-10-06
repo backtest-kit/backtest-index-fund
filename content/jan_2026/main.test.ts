@@ -67,6 +67,5 @@ addLauncherSchema({
     "PHAUSDT",
     "TRBUSDT",
     "TURBOUSDT",
-    "XMRUSDT",
   ],
 })

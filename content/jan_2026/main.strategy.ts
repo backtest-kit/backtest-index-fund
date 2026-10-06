@@ -222,7 +222,6 @@ addLauncherSchema({
     "PHAUSDT",
     "TRBUSDT",
     "TURBOUSDT",
-    "XMRUSDT",
   ],
   cache: false,
 })

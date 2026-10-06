@@ -61,7 +61,6 @@ addLauncherSchema({
   backtest: true,
   symbolList: [
     "BATUSDT",
-    "COINUSDT",
     "SHIBUSDT",
     "TRXUSDT",
   ],

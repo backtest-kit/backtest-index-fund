@@ -217,11 +217,9 @@ addLauncherSchema({
   symbolList: [
     "1000RATSUSDT",
     "APTUSDT",
-    "BDXNUSDT",
     "BEAMXUSDT",
     "BNBUSDT",
     "ETHUSDT",
-    "FREESIGNALUSDT",
     "JUPUSDT",
     "KNCUSDT",
     "PHBUSDT",

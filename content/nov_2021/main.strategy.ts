@@ -230,7 +230,6 @@ addLauncherSchema({
     "MANAUSDT",
     "NEARUSDT",
     "ONEUSDT",
-    "SPOTUSDT",
     "TRXUSDT",
     "XRPUSDT",
   ],

@@ -222,7 +222,6 @@ addLauncherSchema({
     "ETCUSDT",
     "FLOWUSDT",
     "GRTUSDT",
-    "HNTUSDT",
     "MANAUSDT",
     "MASKUSDT",
     "NEOUSDT",

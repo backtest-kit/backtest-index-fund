@@ -240,7 +240,6 @@ addLauncherSchema({
     "MTLUSDT",
     "NKNUSDT",
     "OCEANUSDT",
-    "SHORTUSDT",
     "SKLUSDT",
     "STMXUSDT",
     "TROYUSDT",

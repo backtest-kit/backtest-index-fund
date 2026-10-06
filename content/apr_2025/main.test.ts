@@ -67,13 +67,11 @@ addLauncherSchema({
     "CELRUSDT",
     "HIVEUSDT",
     "LEVERUSDT",
-    "ONDOUSDT",
     "QTUMUSDT",
     "RAREUSDT",
     "SLERFUSDT",
     "SOLUSDT",
     "STORJUSDT",
-    "WHYUSDT",
     "XVGUSDT",
   ],
 })
