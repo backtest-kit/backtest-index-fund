@@ -1,4 +1,4 @@
-import { addStrategySchema, Cache, listenDoneBacktest, Position, setConfig } from "backtest-kit";
+import { addLauncherSchema, addStrategySchema, Cache, listenDoneBacktest, Position, setConfig } from "backtest-kit";
 import { scrapeLookback } from "telegram-reader";
 import { memoize, str } from "functools-kit";
 import {
@@ -209,8 +209,35 @@ addStrategySchema({
   },
 });
 
-// MTProto-клиент telegram-reader держит event loop — выходим по завершении бэктеста
 declare var kill: any;
 
 listenDoneBacktest(() => kill());
 
+addLauncherSchema({
+  launcherName: "main_launcher",
+  backtest: true,
+  symbolList: [
+    "BALUSDT",
+    "BLZUSDT",
+    "CELOUSDT",
+    "CFXUSDT",
+    "CRVUSDT",
+    "CTSIUSDT",
+    "DOTUSDT",
+    "ENSUSDT",
+    "ETHUSDT",
+    "GRTUSDT",
+    "HOTUSDT",
+    "IMXUSDT",
+    "JOEUSDT",
+    "KSMUSDT",
+    "LINAUSDT",
+    "LPTUSDT",
+    "REEFUSDT",
+    "ROSEUSDT",
+    "SUSHIUSDT",
+    "UNFIUSDT",
+    "WOOUSDT",
+    "ZILUSDT",
+  ],
+})
