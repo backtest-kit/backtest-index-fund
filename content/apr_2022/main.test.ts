@@ -214,11 +214,3 @@ addStrategySchema({
 declare var kill: any;
 
 listenDoneBacktest(() => kill());
-
-listenError((error) => {
-  console.log(error);
-  Log.debug("error", {
-    error: errorData(error),
-    message: getErrorMessage(error),
-  });
-});
