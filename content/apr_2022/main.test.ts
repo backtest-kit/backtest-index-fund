@@ -1,6 +1,6 @@
-import { addStrategySchema, Cache, listenDoneBacktest, listenError, Log, Position, setConfig } from "backtest-kit";
+import { addStrategySchema, Cache, listenDoneBacktest, Position, setConfig } from "backtest-kit";
 import { scrapeLookback } from "telegram-reader";
-import { errorData, getErrorMessage, memoize, str } from "functools-kit";
+import { memoize, str } from "functools-kit";
 import {
   generateObject,
   InferenceName,
@@ -214,3 +214,4 @@ addStrategySchema({
 declare var kill: any;
 
 listenDoneBacktest(() => kill());
+
