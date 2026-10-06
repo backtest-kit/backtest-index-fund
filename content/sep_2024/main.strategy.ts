@@ -230,4 +230,5 @@ addLauncherSchema({
     "UNFIUSDT",
     "YFIUSDT",
   ],
+  cache: false,
 })

@@ -233,4 +233,5 @@ addLauncherSchema({
     "XVSUSDT",
     "ZECUSDT",
   ],
+  cache: false,
 })

@@ -231,4 +231,5 @@ addLauncherSchema({
     "SOLUSDT",
     "ZRXUSDT",
   ],
+  cache: false,
 })

@@ -217,4 +217,5 @@ addLauncherSchema({
   symbolList: [
     "SWARMSUSDT",
   ],
+  cache: false,
 })

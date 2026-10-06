@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
-# Шард 5/10 offline-генератора сигналов (generate-signals.mjs: messages.jsonl -> signals.jsonl
-# через LLM, без backtest-kit), хронологически. Запуск из корня репо:
+# Шард 5/10 бэктеста (@backtest-kit/cli: main.test.ts, сигналы из assets/signals.jsonl), хронологически. Запуск из корня репо:
 #   ./scripts/linux/generate_test_5.sh
 # Без остановки при сбое - упавший месяц не прерывает остальные; скрипты резюмятся.
 
-node ./content/sep_2023/scripts/generate-signals.mjs
-node ./content/oct_2023/scripts/generate-signals.mjs
-node ./content/nov_2023/scripts/generate-signals.mjs
-node ./content/dec_2023/scripts/generate-signals.mjs
-node ./content/jan_2024/scripts/generate-signals.mjs
-node ./content/feb_2024/scripts/generate-signals.mjs
-node ./content/mar_2024/scripts/generate-signals.mjs
+node ./node_modules/@backtest-kit/cli/build/index.mjs --backtest --entry ./content/sep_2023/main.test.ts
+node ./node_modules/@backtest-kit/cli/build/index.mjs --backtest --entry ./content/oct_2023/main.test.ts
+node ./node_modules/@backtest-kit/cli/build/index.mjs --backtest --entry ./content/nov_2023/main.test.ts
+node ./node_modules/@backtest-kit/cli/build/index.mjs --backtest --entry ./content/dec_2023/main.test.ts
+node ./node_modules/@backtest-kit/cli/build/index.mjs --backtest --entry ./content/jan_2024/main.test.ts
+node ./node_modules/@backtest-kit/cli/build/index.mjs --backtest --entry ./content/feb_2024/main.test.ts
+node ./node_modules/@backtest-kit/cli/build/index.mjs --backtest --entry ./content/mar_2024/main.test.ts
 
 echo "=== generate_test_5: sep_2023..mar_2024 прогнан ==="

@@ -236,4 +236,5 @@ addLauncherSchema({
     "XRPUSDT",
     "ZILUSDT",
   ],
+  cache: false,
 })

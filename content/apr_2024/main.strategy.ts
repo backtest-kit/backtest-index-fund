@@ -239,4 +239,5 @@ addLauncherSchema({
     "TLMUSDT",
     "TRXUSDT",
   ],
+  cache: false,
 })

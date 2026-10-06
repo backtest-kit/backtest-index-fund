@@ -235,4 +235,5 @@ addLauncherSchema({
     "XTZUSDT",
     "YFIUSDT",
   ],
+  cache: false,
 })

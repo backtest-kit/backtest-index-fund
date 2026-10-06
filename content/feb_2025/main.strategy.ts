@@ -224,4 +224,5 @@ addLauncherSchema({
     "SOLUSDT",
     "XLMUSDT",
   ],
+  cache: false,
 })

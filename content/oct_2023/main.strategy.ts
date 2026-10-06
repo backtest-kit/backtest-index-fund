@@ -234,4 +234,5 @@ addLauncherSchema({
     "TLMUSDT",
     "XLMUSDT",
   ],
+  cache: false,
 })

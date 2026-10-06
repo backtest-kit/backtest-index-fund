@@ -227,4 +227,5 @@ addLauncherSchema({
     "XMRUSDT",
     "XRPUSDT",
   ],
+  cache: false,
 })

@@ -232,4 +232,5 @@ addLauncherSchema({
     "WOOUSDT",
     "ZENUSDT",
   ],
+  cache: false,
 })

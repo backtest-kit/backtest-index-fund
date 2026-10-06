@@ -241,4 +241,5 @@ addLauncherSchema({
     "SFPUSDT",
     "WOOUSDT",
   ],
+  cache: false,
 })

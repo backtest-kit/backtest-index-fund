@@ -222,4 +222,5 @@ addLauncherSchema({
     "VELODROMEUSDT",
     "XRPUSDT",
   ],
+  cache: false,
 })

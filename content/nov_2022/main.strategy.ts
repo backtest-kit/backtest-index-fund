@@ -232,4 +232,5 @@ addLauncherSchema({
     "XRPUSDT",
     "ZECUSDT",
   ],
+  cache: false,
 })

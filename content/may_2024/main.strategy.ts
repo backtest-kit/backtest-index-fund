@@ -236,4 +236,5 @@ addLauncherSchema({
     "TRBUSDT",
     "VETUSDT",
   ],
+  cache: false,
 })

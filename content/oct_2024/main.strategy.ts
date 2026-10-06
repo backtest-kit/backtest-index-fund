@@ -222,4 +222,5 @@ addLauncherSchema({
     "UNFIUSDT",
     "XRPUSDT",
   ],
+  cache: false,
 })

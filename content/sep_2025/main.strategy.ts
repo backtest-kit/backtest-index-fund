@@ -229,4 +229,5 @@ addLauncherSchema({
     "WLDUSDT",
     "XRPUSDT",
   ],
+  cache: false,
 })

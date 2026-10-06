@@ -226,4 +226,5 @@ addLauncherSchema({
     "SHIBUSDT",
     "SOLUSDT",
   ],
+  cache: false,
 })

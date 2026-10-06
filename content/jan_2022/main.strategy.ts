@@ -223,4 +223,5 @@ addLauncherSchema({
     "HNTUSDT",
     "KAVAUSDT",
   ],
+  cache: false,
 })

@@ -225,4 +225,5 @@ addLauncherSchema({
     "SUSHIUSDT",
     "VELODROMEUSDT",
   ],
+  cache: false,
 })

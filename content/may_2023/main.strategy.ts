@@ -246,4 +246,5 @@ addLauncherSchema({
     "WOOUSDT",
     "XRPUSDT",
   ],
+  cache: false,
 })

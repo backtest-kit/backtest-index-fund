@@ -224,4 +224,5 @@ addLauncherSchema({
     "TURBOUSDT",
     "XMRUSDT",
   ],
+  cache: false,
 })

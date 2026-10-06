@@ -229,4 +229,5 @@ addLauncherSchema({
     "SUSHIUSDT",
     "YFIUSDT",
   ],
+  cache: false,
 })

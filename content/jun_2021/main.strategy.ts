@@ -231,4 +231,5 @@ addLauncherSchema({
     "REEFUSDT",
     "WABIUSDT",
   ],
+  cache: false,
 })

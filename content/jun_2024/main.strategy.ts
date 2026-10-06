@@ -224,4 +224,5 @@ addLauncherSchema({
     "GTCUSDT",
     "NEOUSDT",
   ],
+  cache: false,
 })

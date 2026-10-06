@@ -242,4 +242,5 @@ addLauncherSchema({
     "XTZUSDT",
     "ZRXUSDT",
   ],
+  cache: false,
 })

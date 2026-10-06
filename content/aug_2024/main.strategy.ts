@@ -229,4 +229,5 @@ addLauncherSchema({
     "TLMUSDT",
     "ZENUSDT",
   ],
+  cache: false,
 })

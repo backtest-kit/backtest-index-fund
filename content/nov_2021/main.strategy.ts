@@ -234,4 +234,5 @@ addLauncherSchema({
     "TRXUSDT",
     "XRPUSDT",
   ],
+  cache: false,
 })

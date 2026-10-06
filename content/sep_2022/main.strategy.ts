@@ -221,4 +221,5 @@ addLauncherSchema({
     "BAKEUSDT",
     "RLCUSDT",
   ],
+  cache: false,
 })

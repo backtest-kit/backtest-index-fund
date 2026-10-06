@@ -245,4 +245,5 @@ addLauncherSchema({
     "STMXUSDT",
     "TROYUSDT",
   ],
+  cache: false,
 })

@@ -240,4 +240,5 @@ addLauncherSchema({
     "WOOUSDT",
     "ZILUSDT",
   ],
+  cache: false,
 })

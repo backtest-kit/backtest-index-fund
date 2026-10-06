@@ -229,4 +229,5 @@ addLauncherSchema({
     "TRUUSDT",
     "ZECUSDT",
   ],
+  cache: false,
 })

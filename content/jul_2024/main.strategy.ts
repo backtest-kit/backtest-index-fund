@@ -227,4 +227,5 @@ addLauncherSchema({
     "SFPUSDT",
     "YFIUSDT",
   ],
+  cache: false,
 })

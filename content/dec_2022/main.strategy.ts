@@ -224,4 +224,5 @@ addLauncherSchema({
     "KAVAUSDT",
     "UNIUSDT",
   ],
+  cache: false,
 })

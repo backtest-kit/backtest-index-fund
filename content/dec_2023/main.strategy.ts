@@ -237,4 +237,5 @@ addLauncherSchema({
     "SUSHIUSDT",
     "ZRXUSDT",
   ],
+  cache: false,
 })

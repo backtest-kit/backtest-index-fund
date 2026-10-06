@@ -223,4 +223,5 @@ addLauncherSchema({
     "XMRUSDT",
     "ZRXUSDT",
   ],
+  cache: false,
 })

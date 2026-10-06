@@ -232,4 +232,5 @@ addLauncherSchema({
     "SUNUSDT",
     "XAIUSDT",
   ],
+  cache: false,
 })

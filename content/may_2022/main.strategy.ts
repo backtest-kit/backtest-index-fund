@@ -223,4 +223,5 @@ addLauncherSchema({
     "SHIBUSDT",
     "TRXUSDT",
   ],
+  cache: false,
 })

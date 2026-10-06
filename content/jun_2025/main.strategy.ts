@@ -232,4 +232,5 @@ addLauncherSchema({
     "XLMUSDT",
     "ZEREBROUSDT",
   ],
+  cache: false,
 })

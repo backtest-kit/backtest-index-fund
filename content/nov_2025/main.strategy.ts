@@ -222,4 +222,5 @@ addLauncherSchema({
     "TRUMPUSDT",
     "XVGUSDT",
   ],
+  cache: false,
 })

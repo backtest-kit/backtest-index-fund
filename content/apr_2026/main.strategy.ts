@@ -217,4 +217,5 @@ addLauncherSchema({
   symbolList: [
     "CHILLGUYUSDT",
   ],
+  cache: false,
 })

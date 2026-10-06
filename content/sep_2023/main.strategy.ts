@@ -238,4 +238,5 @@ addLauncherSchema({
     "TOMOUSDT",
     "UNIUSDT",
   ],
+  cache: false,
 })

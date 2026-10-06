@@ -233,4 +233,5 @@ addLauncherSchema({
     "WHYUSDT",
     "XVGUSDT",
   ],
+  cache: false,
 })

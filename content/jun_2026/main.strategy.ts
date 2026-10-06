@@ -220,4 +220,5 @@ addLauncherSchema({
     "JASMYUSDT",
     "ONDOUSDT",
   ],
+  cache: false,
 })

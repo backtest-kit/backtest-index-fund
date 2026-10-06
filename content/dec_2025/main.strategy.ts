@@ -222,4 +222,5 @@ addLauncherSchema({
     "HBARUSDT",
     "ZROUSDT",
   ],
+  cache: false,
 })

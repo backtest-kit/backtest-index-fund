@@ -231,4 +231,5 @@ addLauncherSchema({
     "TURBOUSDT",
     "XRPUSDT",
   ],
+  cache: false,
 })

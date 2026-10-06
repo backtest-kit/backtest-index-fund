@@ -245,4 +245,5 @@ addLauncherSchema({
     "XLMUSDT",
     "ZECUSDT",
   ],
+  cache: false,
 })

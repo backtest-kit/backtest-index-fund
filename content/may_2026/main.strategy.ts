@@ -225,4 +225,5 @@ addLauncherSchema({
     "YGGUSDT",
     "ZECUSDT",
   ],
+  cache: false,
 })

@@ -230,4 +230,5 @@ addLauncherSchema({
     "SPELLUSDT",
     "TRXUSDT",
   ],
+  cache: false,
 })

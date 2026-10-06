@@ -227,4 +227,5 @@ addLauncherSchema({
     "SOLUSDT",
     "VETUSDT",
   ],
+  cache: false,
 })

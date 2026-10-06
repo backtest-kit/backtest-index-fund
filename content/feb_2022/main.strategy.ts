@@ -226,4 +226,5 @@ addLauncherSchema({
     "OMGUSDT",
     "UNFIUSDT",
   ],
+  cache: false,
 })

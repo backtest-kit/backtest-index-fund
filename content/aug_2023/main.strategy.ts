@@ -247,4 +247,5 @@ addLauncherSchema({
     "THETAUSDT",
     "XTZUSDT",
   ],
+  cache: false,
 })

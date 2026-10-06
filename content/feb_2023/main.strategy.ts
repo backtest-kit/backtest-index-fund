@@ -219,4 +219,5 @@ addLauncherSchema({
   symbolList: [
     "GMTUSDT",
   ],
+  cache: false,
 })

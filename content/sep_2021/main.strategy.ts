@@ -239,4 +239,5 @@ addLauncherSchema({
     "XRPUSDT",
     "XVGUSDT",
   ],
+  cache: false,
 })

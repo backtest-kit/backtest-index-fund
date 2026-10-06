@@ -230,4 +230,5 @@ addLauncherSchema({
     "ONEUSDT",
     "PEOPLEUSDT",
   ],
+  cache: false,
 })

@@ -229,4 +229,5 @@ addLauncherSchema({
     "VETUSDT",
     "ZECUSDT",
   ],
+  cache: false,
 })

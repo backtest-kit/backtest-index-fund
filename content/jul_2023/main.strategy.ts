@@ -241,4 +241,5 @@ addLauncherSchema({
     "XRPUSDT",
     "ZENUSDT",
   ],
+  cache: false,
 })

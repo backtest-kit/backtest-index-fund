@@ -225,4 +225,5 @@ addLauncherSchema({
     "IOTAUSDT",
     "MORPHOUSDT",
   ],
+  cache: false,
 })

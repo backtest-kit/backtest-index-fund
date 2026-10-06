@@ -218,4 +218,5 @@ addLauncherSchema({
   backtest: true,
   symbolList: [
   ],
+  cache: false,
 })

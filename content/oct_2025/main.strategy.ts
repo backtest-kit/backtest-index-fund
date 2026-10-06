@@ -230,4 +230,5 @@ addLauncherSchema({
     "XVGUSDT",
     "ZENUSDT",
   ],
+  cache: false,
 })
