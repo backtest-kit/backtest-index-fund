@@ -12,7 +12,7 @@
     "@backtest-kit/mongo": "21.5.0",
     "@backtest-kit/pinets": "21.5.0",
     "@backtest-kit/ui": "21.5.0",
-    "backtest-kit": "21.5.0",
+    "backtest-kit": "21.5.1",
     "dayjs": "1.11.20",
     "di-factory": "1.0.9",
     "functools-kit": "5.0.0",
