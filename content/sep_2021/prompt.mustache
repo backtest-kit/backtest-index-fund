@@ -1,0 +1,66 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+#FTM/USDT
+
+#FTM Forming a Bull Flag in daily time frame. Now it looking bullish. So buy a bag of #FTM in our buy range and hold for good profit.
+
+Long Set-up
+
+Entry: 1.16 - 1.04(Buy partially in our buy range)
+
+Target: 1.1920 - 1.2150 - 1.2500 - 1.3100 - 1.4090 - 1.4670 - 1.6360 - 1.7700$(Mid - long term)
+
+Stop loss: 0.8500$
+
+*Note : This Trade is little Risky bcz of BTC . So use small amount of your capital
+```
+
+Бывают и шорты, например
+
+```
+#AVAX/USDT(SHORT SET-UP)
+
+#AVAX Forming a Falling wedge pattern in 4hr time frame and already broke it. So it's looking bearish from here. 
+
+Entry: 64.1 - 67.1$
+
+Target: 62.8 - 61.4 - 59.5 - 57.7 - 55.4 - 52.6$
+
+Stoploss: 70.1$
+
+Note: Risky call (so use small amount)
+```
+
+Правила формата этого периода:
+
+- тег монеты — со слэшем: `#ADA/USDT` (иногда COIN NAME: #BNX/USDT или голый #GMT) — преобразуй в ADAUSDT без # и /;
+- направление — словом в заголовке: LONG SET-UP / SHORT SET-UP; SPOT CALL — это long;
+- поле LEVERAGE (если есть) игнорируй;
+- текстовые аннотации в скобках после цен — (Buy partially), (Enter partially), (short term), (Mid - Long term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / STOP LOSS — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+#BLZ/USDT UPDATE:
+
+Target 3 done✅✅✅
+
+So far 200% Profit with 10x and 400% with 20x Laverage🤑🤑🤑
+
+Enjoy the profits guys🥂🥂 and
+
+#Stay tuned with us🔥🔥🔥
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

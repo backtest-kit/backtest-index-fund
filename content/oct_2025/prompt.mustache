@@ -1,0 +1,80 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #ZENUSDT
+
+Direction: Long
+
+Leverage: 5-10x
+
+#ZEN has already broken out of the falling wedge pattern and is looking bullish.
+
+Entry: 8.174 - 7.530$ (Buy partially)
+
+Targets: 8.400 - 8.600 - 8.800 - 9.000 - 9.600 - 10.200 - 11.000$ (Short-mid term)
+
+Stoploss: 7.150$
+```
+
+Бывают и шорты, например
+
+```
+Coin: #APTUSDT
+
+Direction: Short
+
+Leverage: 5-10x
+
+#APT has already broken down the inverse cup and handle pattern and is looking bearish.
+
+Entry: 4.79 - 4.90$ (Enter partially)
+
+Targets: 4.70 - 4.60 - 4.50 - 4.40 - 4.25 - 4.10$ (Short term)
+
+Stoploss: 5.00$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #HBARUSDT` — полный тикер без слэша, преобразуй в HBARUSDT без #;
+- направление бери только из поля `Direction` (Long или Short); иногда вместо него словом: Long/Short Set-Up;
+- поле `Leverage` (плечо) игнорируй;
+- текстовые аннотации в скобках после цен — (Enter partially), (Buy partially), (Short term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN NAME: #ZENUSDT
+
+Direction: Long
+
+Five Targets done nicely within one day😵
+
+Target 1: 8.400$✅
+Target 2: 8.600$✅
+Target 3: 8.800$✅
+Target 4: 9.000$✅
+Target 5: 9.600$✅
+
+200% Profits booked with 10x Lev🤑
+
+Five Targets destroyed perfectly within one day🔥
+
+Our VIPs are recovering their VIP fees in a single trade, so what are you waiting for, join now and enjoy the bull run with us. Contact @wallstreetqueenadmin✅️ 
+
+Cheers to all VIP members🍾🍾
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

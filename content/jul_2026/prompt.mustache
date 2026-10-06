@@ -1,0 +1,69 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #MORPHOUSDT
+
+Direction: Long
+
+Leverage: 5-10x
+
+Entry: 2.2040 - 2.16$(Buy partially)
+
+Targets: 2.24 - 2.29 - 2.35 - 2.41 - 2.55$+(Short term)
+
+Stoploss: 2.12$
+```
+
+Бывают и шорты, например
+
+```
+Coin: #1000SATSUSDT
+
+Direction: Short
+
+Leverage: 5-10x
+
+Entry: 0.00000921 - 0.00000940$(Enter partially)
+
+Targets: 0.00000906 - 0.00000886 - 0.00000865 - 0.00000840 - 0.00000800$(Short term)
+
+Stoploss: 0.00000950$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #HBARUSDT` — полный тикер без слэша, преобразуй в HBARUSDT без #;
+- направление бери только из поля `Direction` (Long или Short); иногда вместо него словом: Long/Short Set-Up;
+- поле `Leverage` (плечо) игнорируй;
+- текстовые аннотации в скобках после цен — (Enter partially), (Buy partially), (Short term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+✔️✔️#DRIFTUSDT✔️✔️
+
+Two Targets done nicely within one day🔥
+
+Target 1: 0.01650$😵
+Target 2: 0.01690$😵
+
+50% Profit booked with 10x🤑
+
+Our VIP members always know what to do and what not to do😉 Message me now @wallstreetqueenadmin
+
+Cheers to all VIP members🍾🍾
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

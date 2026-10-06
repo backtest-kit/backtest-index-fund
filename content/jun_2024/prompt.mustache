@@ -1,0 +1,80 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #CKB/USDT
+
+Long Set-Up 
+
+Leverage: 5-10x
+
+#CKB already breaked out the Symmetrical traingle and looking Bullish.
+
+Entry: 0.0178 - 0.0172$(Buy partially)
+
+Targets: 0.0183 - 0.0189 - 0.0193 - 0.0198 - 0.0206 - 0.0216 - 0.0225 - 0.0240 - 0.0260$(Short-mid term)
+
+Stop-loss: 0.0166$
+```
+
+Бывают и шорты, например
+
+```
+Coin: #NEO/USDT
+
+Short Set-Up 
+
+Leverage: 5-10x
+
+#NEO already breaked down the symmetrical triangle and looking bearish.
+
+Entry: 14.870 - 15.200$(Enter partially)
+
+Targets: 14.500 - 14.200 - 13.800 - 13.500 - 13.000 - 12.400 - 12.000$(Short term)
+
+Stop-loss: 15.500$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #CELR/USDT` — тег со слэшем, преобразуй в CELRUSDT без # и /;
+- направление — словом: Long Set-Up / Short Set-Up;
+- поле Leverage игнорируй;
+- текстовые аннотации в скобках после цен — (Enter Partially), (Buy partially), (Short - mid term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / Stop-loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN NAME: #IDEX/USDT
+
+LONG SET-UP
+
+Five Targets done nicely😵
+
+Target 1: 0.05900$✔️
+Target 2: 0.06050$✔️
+Target 3: 0.06200$✔️
+Target 4: 0.06350$✔️
+Target 5: 0.06650$✔️
+
+170% Profits booked with 10x Lev🤑
+
+Five Targets destroyed perfectly🔥
+
+Whether the market goes up or down, our VIP members book profits in every direction. So don't miss your Profits and Join our premium and making continuous profits💯. Message me now @wallstreetqueenadmin
+
+Cheers to all VIP members🍾🍾
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

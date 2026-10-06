@@ -1,0 +1,79 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #AVA/USDT
+
+Long Set-Up
+
+Leverage: 5-10x
+
+#AVA already Breaked out the downtrend channel and looking bullish.
+
+Entry: 0.580 - 0.540$(Buy Partially)
+
+Targets: 0.595 - 0.610 - 0.625 - 0.640 - 0.670 - 0.700 - 0.730 - 0.780$(Short-mid term)
+
+Stoploss: 0.510$
+```
+
+Бывают и шорты, например
+
+```
+Coin: #ROSE/USDT
+
+Short Set-Up
+
+Leverage: 5-10x
+
+#ROSE already Breaked down the Uptrend channel and looking Bearsish.
+
+Entry: 0.04850 - 0.05050$(Enter Partially)
+
+Targets: 0.04750 - 0.04650 - 0.04550 - 0.04450 - 0.04300 - 0.04100 - 0.03950 - 0.03800$(Short Term)
+
+Stoploss: 0.05200$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #CELR/USDT` — тег со слэшем, преобразуй в CELRUSDT без # и /;
+- направление — словом: Long Set-Up / Short Set-Up;
+- поле Leverage игнорируй;
+- текстовые аннотации в скобках после цен — (Enter Partially), (Buy partially), (Short - mid term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / Stop-loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN NAME: #LPT/USDT
+
+Short Set-Up
+
+Four Targets done nicely🔥
+
+Target 1: 4.150$✅
+Target 2: 4.050$✅
+Target 3: 3.950$✅
+Target 4: 3.850$✅
+
+90% Profits booked with 10x Lev🤑
+
+Four Targets destroyed perfectly 🎯
+
+Our VIP member always know what to do and what not to do 😉. So don't miss your Profits and Message me now @wallstreetqueenadmin
+
+Cheers to all VIP members🥂🥂
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

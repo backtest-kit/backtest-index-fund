@@ -1,0 +1,81 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #ENS/USDT
+
+Long set-up
+
+Lev: 5-10x
+
+#ENS already Breaked out the Ascending traingle and looking bullish.
+
+Entry: 13.750 - 13.300$(Buy partially)
+
+Target: 14.00 - 14.250 - 14.500 - 14.800 - 15.300 - 15.800 - 16.300 - 16.800 - 18.00$(Short -mid term)
+
+Stoploss: 13.100$
+```
+
+Бывают и шорты, например
+
+```
+Coin: #IOST/USDT
+
+Short Set-up
+
+Lev: 5-10x
+
+#IOST already Breaked down the Ascending traingle and looking bearsish.
+
+Entry: 0.008550 - 0.008700$(Enter partially)
+
+Target: 0.008400 - 0.008200 - 0.008000 - 0.007800 - 0.007500 - 0.007200$(Short term)
+
+Stoploss: 0.008900$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #CELR/USDT` — тег со слэшем, преобразуй в CELRUSDT без # и /;
+- направление — словом: Long Set-Up / Short Set-Up;
+- поле Leverage игнорируй;
+- текстовые аннотации в скобках после цен — (Enter Partially), (Buy partially), (Short - mid term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / Stop-loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN NAME: #REN/USDT
+
+LONG SET-UP
+
+Four Targets done nicely within few hours🔥
+
+Target 1: 0.06400$✅
+Target 2: 0.06500$✅
+Target 3: 0.06600$✅
+Target 4: 0.06700$✅
+
+70% Profits booked with 10x Laverage🤑
+
+Four Targets destroyed perfectly within few hours 🔥
+
+ Join our premium 
+Message me now @wallstreetqueenadmin
+
+
+Cheers to all VIP members🥂🥂
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

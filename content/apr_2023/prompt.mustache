@@ -1,0 +1,79 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #DOT/USDT
+
+Long Set-Up 
+
+Leverage: 5-10x
+
+#DOT already Breaked out the Bull flag and looking Bullish.
+
+Entry: 6.28 - 6.00$(Buy Partially)
+
+Targets: 6.40 - 6.50 - 6.65 - 6.75 - 7.00 - 7.30 - 7.60$(Short - mid term)
+
+Stop-loss: 5.80$
+```
+
+Бывают и шорты, например
+
+```
+Coin: #BAL/USDT
+
+Short Set-up
+
+Leverage: 5- 10x
+
+#BAL rejecting from resistance line and looking Bearsish. 
+
+Entry: 7.090 - 7.400$(Enter Partially)
+
+Targets: 6.960 - 6.850 - 6.720 - 6.550 - 6.250 - 6.000$(Short Term)
+
+Stop-loss: 7.600$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #CELR/USDT` — тег со слэшем, преобразуй в CELRUSDT без # и /;
+- направление — словом: Long Set-Up / Short Set-Up;
+- поле Leverage игнорируй;
+- текстовые аннотации в скобках после цен — (Enter Partially), (Buy partially), (Short - mid term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / Stop-loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN NAME: #DOT/USDT
+
+LONG SET-UP
+
+Two Targets done nicely🔥
+
+Target 1: 6.40$✅
+Target 2: 6.50$✅
+
+60% Profits booked with 10x Lev🤑
+
+Two Targets destroyed perfectly🔥
+
+Our VIP members are making continuous profits in every market condition. If you people want to make such profit then Join our premium 
+Message me now @wallstreetqueenadmin
+
+
+Cheers to all VIP members🥂🥂
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

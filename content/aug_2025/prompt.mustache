@@ -1,0 +1,78 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #OMUSDT
+
+Long Set-Up 
+
+Leverage: 5-10x
+
+#OM already breaked out the Falling wedge pattern and looking Bullish.
+
+Entry: 0.245 - 0.237$(Buy partially)
+
+Targets: 0.252 - 0.258 - 0.264 - 0.270 - 0.285 - 0.300 - 0.320$(Short-mid term)
+
+Stop-loss: 0.230$
+```
+
+Бывают и шорты, например
+
+```
+Coin: #SNXUSDT
+
+Short Set-Up
+
+Leverage: 5-10x
+
+#SNX has already broken down the head and shoulders pattern and is looking bearish.
+
+Entry: 0.6037 - 0.6200$ (Enter partially)
+
+Targets: 0.5850 - 0.5700 - 0.5550 - 0.5400 - 0.5100 - 0.4850 - 0.4600$ (Short term)
+
+Stoploss: 0.6400$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #MAGICUSDT` — полный тикер без слэша, преобразуй в MAGICUSDT без #;
+- направление — словом: Long Set-Up / Short Set-Up;
+- поле Leverage игнорируй;
+- текстовые аннотации в скобках после цен — (Enter partially), (Buy partially), (Short-mid term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / Stop-loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN NAME: #DOTUSDT
+
+SHORT SET-UP
+
+Three Targets done nicely😵
+
+Target 1: 3.760$✔️
+Target 2: 3.680$✔️
+Target 3: 3.600$✔️
+
+80% Profits booked with 10x Lev🤑
+
+Three Targets destroyed perfectly🔥
+
+Whether the market goes up or down, our VIP members book profits in every direction. So don't miss your Profits and Join our premium and making continuous profits💯. Message me now @wallstreetqueenadmin✅️
+
+Cheers to all VIP members🍾🍾
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

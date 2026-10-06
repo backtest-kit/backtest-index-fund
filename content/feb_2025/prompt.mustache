@@ -1,0 +1,82 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #ENS/USDT
+
+Long Set-Up 
+
+Leverage: 5-10x
+
+#ENS already breaked out the traingle and looking Bullish.
+
+Entry: 25.9 - 25.2$(Buy partially)
+
+Targets: 26.5 - 27.1 - 27.8 - 28.5 - 29.8 - 31.0$(Short term)
+
+Stop-loss: 24.6$
+```
+
+Бывают и шорты, например
+
+```
+Coin: #DEFI/USDT
+
+Short Set-Up 
+
+Leverage: 5-10x
+
+#DEFI already breaked down the Cup and handle pattern and looking bearish.
+
+Entry: 882 - 920$(Enter partially)
+
+Targets: 860 - 840 - 820 - 800 - 760 - 720 - 680$(Short term)
+
+Stop-loss: 980$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #CELR/USDT` — тег со слэшем, преобразуй в CELRUSDT без # и /;
+- направление — словом: Long Set-Up / Short Set-Up;
+- поле Leverage игнорируй;
+- текстовые аннотации в скобках после цен — (Enter Partially), (Buy partially), (Short - mid term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / Stop-loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN NAME: #DEFI/USDT
+
+SHORT SET-UP
+
+All Targets done nicely within few hours😵
+
+Target 1: 860$✔️
+Target 2: 840$✔️
+Target 3: 820$✔️
+Target 4: 800$✔️
+Target 5: 760$✔️
+Target 6: 720$✔️
+Target 7: 680$✔️
+
+230% Profits booked with 10x Lev🤑
+
+All Targets destroyed perfectly🔥
+
+Whether the market goes up or down, our VIP members book profits in every direction. So don't miss your Profits and Join our premium and making continuous profits💯. Message me now @wallstreetqueenadmin
+
+Cheers to all VIP members🍾🍾
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

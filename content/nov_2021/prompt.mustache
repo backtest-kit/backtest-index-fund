@@ -1,0 +1,62 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin Name: #NEAR/USDT
+
+LONG SET-UP
+
+#NEAR Now moving inside a Falling wedge pattern and looking bullish from our Buy zone. So buy it and hold it for good profit.
+
+Entry: 10.20 - 9.60$(Buy partially)
+
+Target: 10.40 - 10.60 - 10.80 - 11.20 - 11.60 - 12.60$+(Short-Mid term)
+
+Stoploss: 9.00$
+```
+
+Бывают и шорты, например
+
+```
+COIN NAME: #ETH/USDT
+
+SHORT SET-UP
+
+#ETH forming a Rising Wedge pattern in 4hr time frame and exactly rejected from the upper side of Pattern and looking bearish. So short some #ETH and hold it for good profit.
+
+Entry: 4730 - 4850$
+
+Target: 4680 - 4630 - 4560 - 4440 - 4240 - 4100 - 4000$+(Short term)
+
+Stoploss: 5000$
+```
+
+Правила формата этого периода:
+
+- тег монеты — со слэшем: `#ADA/USDT` (иногда COIN NAME: #BNX/USDT или голый #GMT) — преобразуй в ADAUSDT без # и /;
+- направление — словом в заголовке: LONG SET-UP / SHORT SET-UP; SPOT CALL — это long;
+- поле LEVERAGE (если есть) игнорируй;
+- текстовые аннотации в скобках после цен — (Buy partially), (Enter partially), (short term), (Mid - Long term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / STOP LOSS — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+#DOT/USDT UPDATE:
+
+Target 6 done✅✅✅
+
+So far 230% Profit with 10x Laverage🤑
+
+Enjoy the profits guys🥂🥂
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

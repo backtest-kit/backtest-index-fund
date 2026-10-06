@@ -1,0 +1,79 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #UNFI/USDT
+
+Long Set-Up 
+
+Leverage: 5-10x
+
+#UNFI already breaked out the Symmetrical traingle and looking Bullish.
+
+Entry: 2.868 - 2.800$(Buy partially)
+
+Targets: 2.950 - 3.020 - 3.100 - 3.180 - 3.350 - 3.500 - 3.700$(Short term)
+
+Stop-loss: 2.700$
+```
+
+Бывают и шорты, например
+
+```
+Coin: #QTUM/USDT
+
+Short Set-Up 
+
+Leverage: 5-10x
+
+#QTUM already breaked down the Uptrend Channel and looking bearish.
+
+Entry: 2.470 - 2.520$(Enter partially)
+
+Targets: 2.420 - 2.370 - 2.310 - 2.260 - 2.150 - 2.070 - 2.000$(Short term)
+
+Stop-loss: 2.570$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #CELR/USDT` — тег со слэшем, преобразуй в CELRUSDT без # и /;
+- направление — словом: Long Set-Up / Short Set-Up;
+- поле Leverage игнорируй;
+- текстовые аннотации в скобках после цен — (Enter Partially), (Buy partially), (Short - mid term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / Stop-loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN NAME: #YFI/USDT
+
+LONG SET-UP
+
+Four Targets done nicely😵
+
+Target 1: 5240$✔️
+Target 2: 5360$✔️
+Target 3: 5480$✔️
+Target 4: 5600$✔️
+
+100% Profits booked with 10x Lev🤑
+
+Four Targets destroyed perfectly🔥
+
+Whether the market goes up or down, our VIP members book profits in every direction. So don't miss your Profits and Join our premium and making continuous profits💯. Message me now @wallstreetqueenadmin
+
+Cheers to all VIP members🍾🍾
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

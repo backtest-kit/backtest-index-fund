@@ -1,0 +1,83 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #ONDO/USDT
+
+Long Set-Up 
+
+Leverage: 5-10x
+
+#ONDO already breaked out the Falling wedge pattern and looking Bullish.
+
+Entry: 0.8785 - 0.8000$(Buy partially)
+
+Targets: 0.9000 - 0.9200 - 0.9500 - 0.9700 - 1.0200 - 1.0900 - 1.1500$(Short-mid term)
+
+Stop-loss: 0.7400$
+```
+
+Бывают и шорты, например
+
+```
+Coin: #BANANA/USDT
+
+Short Set-Up 
+
+Leverage: 5-10x
+
+#BANANA already breaked down the Inverse head and shoulder pattern and looking bearish.
+
+Entry: 15.050 - 16.000$(Enter partially)
+
+Targets: 14.600 - 14.200 - 13.800 - 13.400 - 12.600 - 11.800 - 11.000$(Short term)
+
+Stop-loss: 17.000$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #CELR/USDT` — тег со слэшем, преобразуй в CELRUSDT без # и /;
+- направление — словом: Long Set-Up / Short Set-Up;
+- поле Leverage игнорируй;
+- текстовые аннотации в скобках после цен — (Enter Partially), (Buy partially), (Short - mid term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / Stop-loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN NAME: #EOS/USDT
+
+LONG SET-UP
+
+All Targets done nicely😵
+
+Target 1: 0.5750$✔️
+Target 2: 0.5900$✔️
+Target 3: 0.6100$✔️
+Target 4: 0.6300$✔️
+Target 5: 0.6700$✔️
+Target 6: 0.7100$✔️
+Target 7: 0.7500$✔️
+Target 8: 0.8000$✔️
+
+470% Profits booked with 10x Lev🤑
+
+All Targets destroyed perfectly🔥
+
+Whether the market goes up or down, our VIP members book profits in every direction. So don't miss your Profits and Join our premium and making continuous profits💯. Message me now @wallstreetqueenadmin
+
+Cheers to all VIP members🍾🍾
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

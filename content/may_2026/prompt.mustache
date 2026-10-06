@@ -1,0 +1,73 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #SAGAUSDT
+
+Direction: Long
+
+Leverage: 5-10x
+
+It has already broken out and is looking bullish.
+
+Entry: $0.01800 - $0.01760 (Buy partially)
+
+Targets: $0.01840 - $0.01880 - $0.01920 - $0.01960 - $0.02020 - $0.02100 (Short term)
+
+Stop-loss: $0.01720
+```
+
+Бывают и шорты, например
+
+```
+Coin: #CTSIUSDT
+
+Direction: Short
+
+Leverage: 5-10x
+
+It has already broken out of the symmetrical triangle and is looking bearish.
+
+Entry: 0.03020 - 0.03200$ (Enter partially)
+
+Targets: 0.02940 - 0.02880 - 0.02820 - 0.02740 - 0.02600 - 0.02400 - 0.02200$ (Short term)
+
+Stop-loss: 0.03400$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #HBARUSDT` — полный тикер без слэша, преобразуй в HBARUSDT без #;
+- направление бери только из поля `Direction` (Long или Short); иногда вместо него словом: Long/Short Set-Up;
+- поле `Leverage` (плечо) игнорируй;
+- текстовые аннотации в скобках после цен — (Enter partially), (Buy partially), (Short term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+✔️✔️#SAGAUSDT✔️✔️
+
+Two Targets done nicely🔥
+
+Target 1: 0.01840$😵
+Target 2: 0.01880$😵
+
+60% Profit booked with 10x🤑
+
+Our VIP members always know what to do and what not to do😉 Message me now @wallstreetqueenadmin
+
+Cheers to all VIP members🍾🍾
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

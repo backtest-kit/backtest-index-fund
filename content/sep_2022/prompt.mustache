@@ -1,0 +1,79 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin : #BAKE/USDT
+
+Short Set-up
+
+Leverage: 5-10x
+
+#BAKE already Breaked down the symmetrical Traingle and looking Bearish.
+
+Entry: 0.245 - 0.270$(Enter partially)
+
+Target: 0.240 - 0.235 - 0.230 - 0.224 - 0.215 - 0.205 - 0.195$(Short -mid)
+
+Stoploss: 0.290$
+```
+
+Бывают и шорты, например
+
+```
+Coin : #BAKE/USDT
+
+Short Set-up
+
+Leverage: 5-10x
+
+#BAKE already Breaked down the symmetrical Traingle and looking Bearish.
+
+Entry: 0.245 - 0.270$(Enter partially)
+
+Target: 0.240 - 0.235 - 0.230 - 0.224 - 0.215 - 0.205 - 0.195$(Short -mid)
+
+Stoploss: 0.290$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #CELR/USDT` — тег со слэшем, преобразуй в CELRUSDT без # и /;
+- направление — словом: Long Set-Up / Short Set-Up;
+- поле Leverage игнорируй;
+- текстовые аннотации в скобках после цен — (Enter Partially), (Buy partially), (Short - mid term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / Stop-loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN NAME: #1INCH/USDT
+
+SHORT SET-UP
+
+Four Targets done nicely 🔥
+
+Target 1: 0.645$✅
+Target 2: 0.630$✅
+Target 3: 0.615$✅
+Target 4: 0.600$✅
+
+90% Profits booked with 10x Laverage🤑
+
+Four Targets destroyed perfectly🔥
+
+This is the accuracy of our Vip Signals.So For more signals join our VIP today 👍 contact @wallstreetqueenadmin
+
+Cheers to all VIP members🥂🥂
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

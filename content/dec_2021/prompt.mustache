@@ -1,0 +1,59 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+COIN NAME: #ADA/USDT (For both Future and Spot)
+
+LONG SET-UP
+
+LEVERAGE: 5-10X
+
+#ADA Moving inside a Downtrend channel and now it testing the lower side of the channel and looking Bullish. So buy a bag of #ADA in our buy zone and hold it for good profit.
+
+Another thing is it's Fundamental also very good. So we expect a big move from #ADA.
+
+ENTRY: 1.57 - 1.40$
+
+TARGET: 1.60 - 1.65 - 1.70 - 1.76 - 1.84 - 1.95 - 2.10 - 2.30 - 2.60 - 2.80$ (Short-mid term)
+
+STOPLOSS: 1.20$
+```
+
+Правила формата этого периода:
+
+- тег монеты — со слэшем: `#ADA/USDT` (иногда COIN NAME: #BNX/USDT или голый #GMT) — преобразуй в ADAUSDT без # и /;
+- направление — словом в заголовке: LONG SET-UP / SHORT SET-UP; SPOT CALL — это long;
+- поле LEVERAGE (если есть) игнорируй;
+- текстовые аннотации в скобках после цен — (Buy partially), (Enter partially), (short term), (Mid - Long term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / STOP LOSS — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+#NULS/BTC UPDATE:
+
+BOOM💥💥💥💥
+
+All Targets done nicely✅✅✅
+
+
+240% Big profit booked here🤑🤑
+
+This is the Power of our Free siganls. Hope you are enjoying our calls and made good money through this call.
+
+For more Signals like this....
+
+Join our VIP today and
+
+#Stay tuned with us🔥🔥
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

@@ -1,0 +1,66 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+COIN NAME: #CHR/USDT
+
+LONG SET-UP
+
+#CHR also forming a Symmetrical Traingle like #ALPHA and already broke that and looking bullish. So buy a bag of #CHR in our buy zone and hold it for good profit.
+
+Entry: 0.5860 - 0.5600$(Buy partially)
+
+Target: 0.60 - 0.61 - 0.62 - 0.63 - 0.64 - 0.65 - 0.68 - 0.70 - 0.72$(Short - mid term)
+
+Stoploss: 0.53$
+```
+
+Бывают и шорты, например
+
+```
+COIN NAME: #FTM/USDT
+
+SHORT SET-UP
+
+#FTM Forming a Head and shoulder pattern and already broke that and looking Bearish.
+
+Entry: 1.92 - 2.03$
+
+Targets: 1.90 - 1.88 - 1.84 - 1.80 - 1.76 - 1.70 - 1.65 - 1.60$(Short term)
+
+Stoploss: 2.19$
+```
+
+Правила формата этого периода:
+
+- тег монеты — со слэшем: `#ADA/USDT` (иногда COIN NAME: #BNX/USDT или голый #GMT) — преобразуй в ADAUSDT без # и /;
+- направление — словом в заголовке: LONG SET-UP / SHORT SET-UP; SPOT CALL — это long;
+- поле LEVERAGE (если есть) игнорируй;
+- текстовые аннотации в скобках после цен — (Buy partially), (Enter partially), (short term), (Mid - Long term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / STOP LOSS — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+#BAT/USDT UPDATE:
+
+Target 4 Also done✅✅
+
+So far 90% Profit with 10x Laverage🤑
+
+This is the accuracy of our VIP Calls. For more signals join our VIP today😊
+
+Cheers to all VIP members🥂
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

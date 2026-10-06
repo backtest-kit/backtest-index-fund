@@ -1,0 +1,59 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+#LTC/USDT(FUTURE CALL)
+
+#LTC forming a Head and shoulder pattern in 1hr time frame and that indicate bullish sign. MACD also looking good👍
+
+ LONG ENTRY : 174.80 - 171
+
+TARGET : 180 - 183 - 186 - 188+
+
+STOP LOSS : 165
+```
+
+Бывают и шорты, например
+
+```
+#BAND/USDT(FUTURE CALL)
+
+#BAND forming a Head and shoulder pattern and the neckline of the pattern successfully Break. That's indicate the bearish continuation. MACD also looking good👍
+
+SHORT ENTRY : 6.7709 - 6.9097
+
+TARGET : 6.6124 - 6.4866 - 6.2826$
+
+STOP LOSS :7.1
+```
+
+Формат раннего периода канала: сигналы пишутся свободным текстом с блоком уровней. Правила:
+
+- тег монеты бывает `#LTC/USDT`, `#KNC/USDT` или голый `#BTC` — преобразуй в тикер вида LTCUSDT (без # и /);
+- направление — словом в тексте: LONG ENTRY / SHORT ENTRY; «buy», «just buy it» = long;
+- поля пишутся по-разному: ENTRY/Entry, TARGET/Target, STOP LOSS/Stoploss/Stop loss — читай по смыслу;
+- вход «Market price» без чисел — сигнал без диапазона: верни from=0 и to=0, остальное заполни;
+- цели в ПРОЦЕНТАХ (например 50% - 100% - 150%) — это не цены: верни targets=[];
+- стоп текстом («5% below the entry point») без числа-цены — верни stoploss=0;
+- пары НЕ к USDT (например #WABI/BTC) — это не наш рынок, верни wait;
+- чартовые обзоры без конкретных уровней входа — wait.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+#OCEAN/USDT Target 1 done ✅✅
+
+6% profit done here🤑🤑🚀🚀
+
+Hold it for more profit and move you stoploss towards the buying zone👍
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

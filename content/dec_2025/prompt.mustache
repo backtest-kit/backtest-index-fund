@@ -1,0 +1,78 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #ZROUSDT
+
+Direction: Long
+
+Leverage: 5-10x
+
+#ZRO has already broken out of the Falling Wedge pattern and is looking bullish.
+
+Entry: $1.4337 - $1.3600 (Buy partially)
+
+Targets: $1.4808 - $1.5200 - $1.5600 - $1.6000 - $1.7000 - $1.8000 (Short term)
+
+Stop-loss: $1.3000
+```
+
+Бывают и шорты, например
+
+```
+Coin: #HBARUSDT
+
+Direction: Short
+
+Leverage: 5-10x
+
+#HBAR has already broken down from the inverse cup and handle and is looking bearish.
+
+Entry: $0.112 - $0.123(Enter partially)
+
+Targets: $0.108 - $0.104 - $0.100 - $0.096 - $0.088 - $0.080(Short term)
+
+Stoploss: $0.130
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #HBARUSDT` — полный тикер без слэша, преобразуй в HBARUSDT без #;
+- направление бери только из поля `Direction` (Long или Short); иногда вместо него словом: Long/Short Set-Up;
+- поле `Leverage` (плечо) игнорируй;
+- текстовые аннотации в скобках после цен — (Enter partially), (Buy partially), (Short term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN: #ZROUSDT
+
+Direction: LONG📈
+
+First Target done nicely😵
+
+Target 1: 1.4808$✅
+
+70% Profits booked with 10x Lev🤑
+
+First Target destroyed perfectly🔥
+
+Our VIPs know exactly what to do to maximize profits.
+
+Book your seat now and never miss another move!😉 Contact: @wallstreetqueenadmin✅️ 
+
+Cheers to all VIP members🍾🍾
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

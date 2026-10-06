@@ -1,0 +1,62 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin #ANT/USDT
+
+Long Set-up
+
+Lev: 5-10x
+
+#ANT already Breaked out the triangle and looking bullish.
+
+Entry: 1.81 - 1.70$(Buy partially)
+
+Target: 1.850 - 1.890 - 1.930 - 1.970 - 2.030 - 2.100 - 2.200 - 2.300$(Short -mid term)
+
+Stop loss: 1.600$
+```
+
+Бывают и шорты, например
+
+```
+Coin: #XRP/USDT
+
+Short Set-up
+
+Lev: 5-10x
+
+#XRP breaking down the symmetrical Traingle and looking bearsish.
+
+Entry: 0.4350 - 0.4550$(Enter partially)
+
+Target: 0.4250 - 0.4150 - 0.4050 - 0.3950 - 0.3800 - 0.3650 - 0.3500 - 0.3400$(Short -mid term)
+
+Stoploss: 0.4700$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #CELR/USDT` — тег со слэшем, преобразуй в CELRUSDT без # и /;
+- направление — словом: Long Set-Up / Short Set-Up;
+- поле Leverage игнорируй;
+- текстовые аннотации в скобках после цен — (Enter Partially), (Buy partially), (Short - mid term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / Stop-loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+Quick #ETH Update:
+
+#ETH is currently trading around 1550$. #ETH  created a descending triangle in 2hr time frame. If #ETH closes the triangle by breaking the bottom side then it is a bearish signal and the target can be 1500$-1450$ according to the pattern. Second possible scenario is if #ETH bounces from here then it can test the upper side of the triangle and after break out bullish move will be expect. Stay tuned with us for further updates ✅
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

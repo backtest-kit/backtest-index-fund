@@ -1,0 +1,44 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+#ADA/USDT(LONG SET-UP)
+
+#ADA Forming a symmetrical Traingle in 4 hr time frame and looking bullish from here. BTC is also looking bullish so buy a bag of #ADA in our buy zone and hold it for good profit🔥
+
+Entry: 2.24 - 2.20$(Buy partially)
+
+Target: 2.30 - 2.35 - 2.40 - 2.50 - 2.57 - 2.87$(short term)
+
+Stoploss: 2.00$
+
+Note: don't wait for all Targets. Book profit partially👍
+```
+
+Правила формата этого периода:
+
+- тег монеты — со слэшем: `#ADA/USDT` (иногда COIN NAME: #BNX/USDT или голый #GMT) — преобразуй в ADAUSDT без # и /;
+- направление — словом в заголовке: LONG SET-UP / SHORT SET-UP; SPOT CALL — это long;
+- поле LEVERAGE (если есть) игнорируй;
+- текстовые аннотации в скобках после цен — (Buy partially), (Enter partially), (short term), (Mid - Long term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / STOP LOSS — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+#SOL/USDT UPDATE:
+
+Target 4 done✅✅✅
+
+So far 210% Profit with 10x Laverage🤑
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

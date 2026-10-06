@@ -1,0 +1,77 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #GMT/USDT
+
+Long Set-Up
+
+Leverage: 5-10x
+
+#GMT already Breaked out the Symmetrical Triangle and looking bullish.
+
+Entry: 0.1570 - 0.1540💸
+
+Targets: 0.1610 - 0.1640 - 0.1680 - 0.1720 - 0.1780 - 0.1850💸(Short Term)
+
+Stoploss: 0.1520💸
+```
+
+Бывают и шорты, например
+
+```
+Coin: #XLM/USDT
+
+Short Set-Up
+
+Leverage: 5-10x
+
+#XLM already Breaked down the uptrend channel and looking Bearish.
+
+Entry: 0.112 - 0.117$(Enter Partially)
+
+Targets: 0.110 - 0.107 - 0.104 - 0.101 - 0.097 - 0.093 - 0.090$(Short Term)
+
+Stoploss: 0.121$
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #CELR/USDT` — тег со слэшем, преобразуй в CELRUSDT без # и /;
+- направление — словом: Long Set-Up / Short Set-Up;
+- поле Leverage игнорируй;
+- текстовые аннотации в скобках после цен — (Enter Partially), (Buy partially), (Short - mid term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss / Stop-loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN NAME: #UNI/USDT
+
+LONG SET-UP
+
+Two Target done nicely🔥
+
+Target 1: 4.450$✅
+Target 2: 4.550$✅
+
+80% Profits booked with 10x Lev🤑
+
+Two Targets destroyed perfectly🎯
+
+Our VIP member always know what to do and what not to do 😉. So don't miss your Profits and Message me now @wallstreetqueenadmin
+
+Cheers to all VIP members🥂🥂
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой

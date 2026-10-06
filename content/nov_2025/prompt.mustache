@@ -1,0 +1,78 @@
+# Руководство
+
+Я провожу аудит торговых рекомендаций профессионального трейдера.
+Мне нужно преобразовать его рекомендацию из текстового формата в JSON структуру.
+
+Возвращай только позиции для тикера `{{symbol}}`
+
+Из предоставленных сообщений найди его входы в позицию, например
+
+```
+Coin: #HOOKUSDT
+
+Direction: Long
+
+Leverage: 5-10x
+
+Entry: 0.06478 - 0.06200$(Buy partially)
+
+Targets: 0.06800 - 0.07100 - 0.07400 - 0.07800$(Short term)
+
+Stoploss: 0.06000$
+```
+
+Бывают и шорты, например
+
+```
+Coin: #AIXBTUSDT
+
+Direction: Short
+
+Leverage: 5-10x
+
+#AIXBT has already broken down the symmetrical triangle and is looking bearish.
+
+Entry: $0.06200 - $0.06400 (Enter partially)
+
+Targets: $0.06050 - $0.05900 - $0.05750 - $0.05600 - $0.05300 - $0.05000 (Short term)
+
+Stop-loss: $0.06600
+```
+
+Правила формата этого периода:
+
+- шапка поста: `Coin: #HBARUSDT` — полный тикер без слэша, преобразуй в HBARUSDT без #;
+- направление бери только из поля `Direction` (Long или Short); иногда вместо него словом: Long/Short Set-Up;
+- поле `Leverage` (плечо) игнорируй;
+- текстовые аннотации в скобках после цен — (Enter partially), (Buy partially), (Short term) — игнорируй, это не числа;
+- стоп пишется Stoploss / Stop loss — читай любой вариант.
+
+Верни именно входы, публикации о результате работ фильтруй.
+
+```
+COIN: #1000RATSUSDT
+
+Direction: Long📈
+
+Five Targets done nicely😵
+
+Target 1: 0.03040$✅
+Target 2: 0.03120$✅
+Target 3: 0.03200$✅
+Target 4: 0.03280$✅
+Target 5: 0.03450$✅
+
+230% Profits booked with 10x Lev🤑
+
+Five Targets destroyed perfectly🔥
+
+Our VIP members always know what to do and what not to do😎. Join VIP contact @wallstreetqueenadmin✅️
+
+Cheers to all VIP members🍾🍾
+
+VIP ONLY (WALLSTREET QUEEN OFFICIAL)
+```
+
+Аналитику, новости и чартовые обзоры без входа в позицию тоже фильтруй (wait).
+
+Шаблоны произвольные, общий вид такой
