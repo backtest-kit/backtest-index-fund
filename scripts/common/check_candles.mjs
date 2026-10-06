@@ -96,6 +96,27 @@ await exchange.loadMarkets();
 
 const fmt = (ts) => new Date(ts).toISOString().slice(0, 16).replace("T", " ");
 
+const startedAt = Date.now();
+let problems = 0;
+
+function renderProgress(current, total, lastLabel) {
+  const width = 30;
+  const ratio = current / total;
+  const filled = Math.round(ratio * width);
+  const bar = "█".repeat(filled) + "░".repeat(width - filled);
+  const elapsed = (Date.now() - startedAt) / 1000;
+  const eta = current ? Math.round((elapsed / current) * (total - current)) : 0;
+  const etaText = `${Math.floor(eta / 60)}м${String(eta % 60).padStart(2, "0")}с`;
+  const line = `[${bar}] ${current}/${total} (${(ratio * 100).toFixed(1)}%) проблем: ${problems} ETA ${etaText} ${lastLabel}`;
+  if (process.stdout.isTTY) {
+    process.stdout.clearLine(0);
+    process.stdout.cursorTo(0);
+    process.stdout.write(line.slice(0, process.stdout.columns ?? 120));
+  } else if (current % 25 === 0 || current === total) {
+    console.log(line);
+  }
+}
+
 async function checkOne({ month, symbol, start, end }) {
   // как в бэктесте символ передается сырым (CELOUSDT); ccxt резолвит по id
   let marketSymbol = symbol;
@@ -146,6 +167,8 @@ async function worker() {
     const r = await checkOne(task);
     results.push(r);
     done++;
+    if (r.status !== "OK") problems++;
+    renderProgress(done, tasks.length, `${r.month} ${r.symbol}: ${r.status}`);
     const gapsText = r.gaps
       .slice(0, 5)
       .map(([a, b]) => `[${fmt(a)} .. ${fmt(b)}) ${(b - a) / MINUTE}м`)
@@ -168,5 +191,6 @@ appendFileSync(
     bad.map((r) => `${r.month} ${r.symbol}: ${r.status} (${r.gaps.length} пропусков)`).join("\n") +
     "\n",
 );
+if (process.stdout.isTTY) process.stdout.write("\n");
 console.log(`готово: ${results.length - bad.length} OK, ${bad.length} проблемных`);
 process.exit(0);
