@@ -1,4 +1,4 @@
-import { addExchangeSchema, addFrameSchema } from "backtest-kit";
+import { addExchangeSchema, addFrameSchema, getCandlesFilled } from "backtest-kit";
 import { singleshot } from "functools-kit";
 import ccxt from "ccxt";
 
@@ -19,20 +19,11 @@ addExchangeSchema({
   exchangeName: "ccxt-exchange",
   getCandles: async (symbol, interval, since, limit) => {
     const exchange = await getExchange();
-    const candles = await exchange.fetchOHLCV(
-      symbol,
-      interval,
-      since.getTime(),
-      limit,
+    return await getCandlesFilled(
+      (symbol, interval, since, limit) =>
+        exchange.fetchOHLCV(symbol, interval, since, limit),
+      { symbol, interval, since, limit },
     );
-    return candles.map(([timestamp, open, high, low, close, volume]) => ({
-      timestamp,
-      open,
-      high,
-      low,
-      close,
-      volume,
-    }));
   },
 });
 
