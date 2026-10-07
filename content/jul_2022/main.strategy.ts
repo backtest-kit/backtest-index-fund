@@ -205,6 +205,7 @@ addStrategySchema({
         percentStopLoss: NEVER_STOP_PERCENT,
       }),
       note: JSON.stringify(info, null, 2),
+      payload: info,
       minuteEstimatedTime: 3 * 24 * 60,
     };
   },
