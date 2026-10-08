@@ -23,7 +23,6 @@ call node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\
 call node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2022\main.test.ts
 call node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2022\main.test.ts
 call node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2022\main.test.ts
-call node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2023\main.test.ts
 call node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2023\main.test.ts
 call node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2023\main.test.ts
 call node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2023\main.test.ts
