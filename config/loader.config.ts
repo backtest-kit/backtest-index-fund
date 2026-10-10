@@ -3,10 +3,15 @@ import {
   Launcher,
   listenError,
   Log,
+  setConfig,
 } from "backtest-kit";
 import { errorData, getErrorMessage } from "functools-kit";
 
 Launcher.run();
+
+setConfig({
+  CC_LAUNCHER_CANDLE_CACHE_DEFAULT: false,
+});
 
 listenError((error) => {
   console.log(error);
