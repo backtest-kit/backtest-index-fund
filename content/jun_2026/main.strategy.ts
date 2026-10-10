@@ -1,4 +1,4 @@
-import { addLauncherSchema, addStrategySchema, Cache, listenDoneBacktest, Position, setConfig } from "backtest-kit";
+import { addLauncherSchema, addStrategySchema, Cache, getCandles, listenDoneBacktest, Position, setConfig } from "backtest-kit";
 import { scrapeLookback } from "telegram-reader";
 import { memoize, str } from "functools-kit";
 import {
@@ -193,17 +193,30 @@ addStrategySchema({
 
     const info = { symbol, entry, url, message: omit(message, "photo") };
 
+    const [{ low, high }] = await getCandles(symbol, "1m", 1);
+
+    const minPrice = Math.min(entry.entryRange.from, entry.entryRange.to);
+    const maxPrice = Math.max(entry.entryRange.from, entry.entryRange.to);
+
+    if (high < minPrice || low > maxPrice) {
+      return null;
+    }
+
+    if (!entry.targets[2]) {
+      return null;
+    }
+
     return {
       id: `${entry.id}-${entry.symbol.toLowerCase()}`,
       symbol: entry.symbol,
-      ...Position.moonbag({
-        position: entry.position,
-        currentPrice,
-        percentStopLoss: NEVER_STOP_PERCENT,
-      }),
-      note: JSON.stringify(info, null, 2),
+      position: entry.position,
+      priceStopLoss: entry.stoploss,
+      priceTakeProfit: entry.position === "long"
+        ? Math.max(...entry.targets)
+        : Math.min(...entry.targets),
       payload: info,
       minuteEstimatedTime: 3 * 24 * 60,
+      note: JSON.stringify(info, null, 2),
     };
   },
 });
