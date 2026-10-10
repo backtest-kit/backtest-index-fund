@@ -7,7 +7,7 @@ setConfig({
   CC_MAX_STOPLOSS_DISTANCE_PERCENT: 100,
 });
 
-const FRESH_WINDOW_MINUTES = 15;
+const FRESH_WINDOW_MINUTES = 8 * 60;
 const NEVER_STOP_PERCENT = 50;
 
 addStrategySchema({
@@ -54,11 +54,17 @@ addStrategySchema({
     return {
       id: `${entry.id}-${entry.symbol.toLowerCase()}`,
       symbol: entry.symbol,
-      position: entry.position,
+      ...Position.moonbag({
+        position: entry.position,
+        currentPrice,
+        percentStopLoss: NEVER_STOP_PERCENT,
+      }),
+      /*
       priceStopLoss: entry.stoploss,
       priceTakeProfit: entry.position === "long"
         ? Math.max(...entry.targets)
         : Math.min(...entry.targets),
+      */
       payload: info,
       minuteEstimatedTime: 3 * 24 * 60,
       note: JSON.stringify(info, null, 2),

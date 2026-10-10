@@ -66,8 +66,14 @@ export class DatasetUtils {
 
     public getSignal = async (symbol: string, when: Date): Promise<TradingSignal | null> => {
         await this.waitForInit();
-        const signals = this._valueMap.get(toDateKey(when));
-        if (!signals) {
+        // Корзины текущего и предыдущего дня: окно свежести переживает полночь,
+        // предыдущий день целиком в прошлом - look ahead не появляется
+        const dayBefore = new Date(when.getTime() - 24 * 60 * 60 * 1000);
+        const signals = [
+            ...(this._valueMap.get(toDateKey(dayBefore)) ?? []),
+            ...(this._valueMap.get(toDateKey(when)) ?? []),
+        ];
+        if (!signals.length) {
             return null;
         }
         // Без look ahead bias: берем только сигналы, опубликованные не позже when
