@@ -29,8 +29,8 @@ addExchangeSchema({
 
 addFrameSchema({
   frameName: "nov_2022_frame",
-  interval: "1m",
+  interval: "1h",
   startDate: new Date("2022-11-01T00:00:00Z"),
-  endDate: new Date("2022-12-01T23:59:59Z"),
-  note: "NOV 2022 (+1 день на добор 24h-траекторий)",
+  endDate: new Date("2022-11-30T23:59:59Z"),
+  note: "November 2022",
 });

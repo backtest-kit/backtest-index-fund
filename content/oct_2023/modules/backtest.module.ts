@@ -29,8 +29,8 @@ addExchangeSchema({
 
 addFrameSchema({
   frameName: "oct_2023_frame",
-  interval: "1m",
+  interval: "1h",
   startDate: new Date("2023-10-01T00:00:00Z"),
-  endDate: new Date("2023-11-01T23:59:59Z"),
-  note: "OCT 2023 (+1 день на добор 24h-траекторий)",
+  endDate: new Date("2023-10-31T23:59:59Z"),
+  note: "October 2023",
 });

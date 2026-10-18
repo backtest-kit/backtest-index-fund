@@ -29,8 +29,8 @@ addExchangeSchema({
 
 addFrameSchema({
   frameName: "may_2026_frame",
-  interval: "1m",
+  interval: "1h",
   startDate: new Date("2026-05-01T00:00:00Z"),
-  endDate: new Date("2026-06-01T23:59:59Z"),
-  note: "MAY 2026 (+1 день на добор 24h-траекторий)",
+  endDate: new Date("2026-05-31T23:59:59Z"),
+  note: "May 2026",
 });

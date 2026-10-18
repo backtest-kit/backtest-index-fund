@@ -29,8 +29,8 @@ addExchangeSchema({
 
 addFrameSchema({
   frameName: "sep_2025_frame",
-  interval: "1m",
+  interval: "1h",
   startDate: new Date("2025-09-01T00:00:00Z"),
-  endDate: new Date("2025-10-01T23:59:59Z"),
-  note: "SEP 2025 (+1 день на добор 24h-траекторий)",
+  endDate: new Date("2025-09-30T23:59:59Z"),
+  note: "September 2025",
 });

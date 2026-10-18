@@ -29,8 +29,8 @@ addExchangeSchema({
 
 addFrameSchema({
   frameName: "jun_2023_frame",
-  interval: "1m",
+  interval: "1h",
   startDate: new Date("2023-06-01T00:00:00Z"),
-  endDate: new Date("2023-07-01T23:59:59Z"),
-  note: "JUN 2023 (+1 день на добор 24h-траекторий)",
+  endDate: new Date("2023-06-30T23:59:59Z"),
+  note: "June 2023",
 });

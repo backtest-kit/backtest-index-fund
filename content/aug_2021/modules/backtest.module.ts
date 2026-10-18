@@ -29,8 +29,8 @@ addExchangeSchema({
 
 addFrameSchema({
   frameName: "aug_2021_frame",
-  interval: "1m",
+  interval: "1h",
   startDate: new Date("2021-08-01T00:00:00Z"),
-  endDate: new Date("2021-09-01T23:59:59Z"),
-  note: "AUG 2021 (+1 день на добор 24h-траекторий)",
+  endDate: new Date("2021-08-31T23:59:59Z"),
+  note: "August 2021",
 });

@@ -29,8 +29,8 @@ addExchangeSchema({
 
 addFrameSchema({
   frameName: "jul_2024_frame",
-  interval: "1m",
+  interval: "1h",
   startDate: new Date("2024-07-01T00:00:00Z"),
-  endDate: new Date("2024-08-01T23:59:59Z"),
-  note: "JUL 2024 (+1 день на добор 24h-траекторий)",
+  endDate: new Date("2024-07-31T23:59:59Z"),
+  note: "July 2024",
 });

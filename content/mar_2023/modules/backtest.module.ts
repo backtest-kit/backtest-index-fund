@@ -29,8 +29,8 @@ addExchangeSchema({
 
 addFrameSchema({
   frameName: "mar_2023_frame",
-  interval: "1m",
+  interval: "1h",
   startDate: new Date("2023-03-01T00:00:00Z"),
-  endDate: new Date("2023-04-01T23:59:59Z"),
-  note: "MAR 2023 (+1 день на добор 24h-траекторий)",
+  endDate: new Date("2023-03-31T23:59:59Z"),
+  note: "March 2023",
 });

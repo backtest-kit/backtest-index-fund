@@ -1,253 +1,124 @@
-import { addLauncherSchema, addStrategySchema, Cache, getCandles, listenDoneBacktest, Position, setConfig } from "backtest-kit";
-import { scrapeLookback } from "telegram-reader";
-import { memoize, str } from "functools-kit";
 import {
-  generateObject,
-  InferenceName,
-  type FormatModel,
-} from "json-inference";
-import { omit } from "lodash";
-import { readFile } from "fs/promises";
-import Mustache from "mustache";
+  addLauncherSchema,
+  addStrategySchema,
+  Cache,
+  getCandles,
+  listenDoneBacktest,
+  Position,
+  setConfig,
+} from "backtest-kit";
 
 setConfig({
-  CC_MAX_STOPLOSS_DISTANCE_PERCENT: 100,
+  CC_MAX_STOPLOSS_DISTANCE_PERCENT: 100, // иначе валидатор не пропустит технический стоп -50%
 });
 
-const CHANNEL_NAME = "WallstreetQueenOfficial" as const;
+// Депозит делится поровну между тикерами корзины; доля депозита вне корзины паркуется в золото
+const DEPOSIT_USD = 1000;
+const PARKING_SYMBOL = "PAXGUSDT";
 
-const FRESH_WINDOW_MINUTES = 8 * 60;
-const NEVER_STOP_PERCENT = 50;
+// Позиция живёт ровно неделю и закрывается по времени; перезаход на первом тике после закрытия
+const HOLD_MINUTES = 7 * 24 * 60;
 
-const getPrompt = memoize(
-  ([symbol]) => `${symbol}`,
-  async (symbol: string) => {
-    const template = await readFile("./prompt.mustache", "utf-8");
-    return Mustache.render(template, { symbol });
-  },
-);
+// Трендовый гейт по BTC: доля окон 20..45 дней с положительной доходностью BTC. Это экспозиция
+// корзины от 0 до 1; остаток уходит в PARKING_SYMBOL. Ансамбль окон вместо одного N: одиночные
+// окна за пределами 25..45 дней заметно хуже, внутри плато результат от выбора N не зависит.
+const GATE_SYMBOL = "BTCUSDT";
+const GATE_WINDOWS_DAYS = [20, 25, 30, 35, 40, 45];
 
-const TradingPositionFormat = {
-  type: "object",
-  required: [
-    "id",
-    "symbol",
-    "position",
-    "entryRange",
-    "targets",
-    "stoploss",
-    "reasoning",
-  ],
-  properties: {
-    id: {
-      type: "number",
-      description: str.newline(
-        "ID сообщения из которого был сформирован сигнал.",
-        "Это число, пиши только его без строкового префикса ID, например, 2134.",
-        "Если сигнала нет, верни -1",
-      ),
-    },
-    symbol: {
-      type: "string",
-      description: str.newline(
-        "Тикер позиции строго в формате *USDT, Например",
-        "Текст Coin: #CELR/USDT преобразуем в CELRUSDT без # и /",
-      ),
-    },
-    position: {
-      type: "string",
-      enum: ["long", "short", "wait"],
-      description: str.newline(
-        "Тип позиции long или short — направление словом:",
-        "Long Set-Up / Short Set-Up.",
-        "Если позиции нет, верни wait",
-      ),
-    },
-    entryRange: {
-      type: "object",
-      description: str.newline(
-        "Диапазон входа, например для 'Entry: 0.29360 - 0.27500$(Buy Partially)'",
-        "верни from=0.29360, to=0.27500; аннотацию в скобках игнорируй.",
-        "Если сигнала нет, верни from=0 и to=0",
-      ),
-      required: ["from", "to"],
-      properties: {
-        from: {
-          type: "number",
-          description: "Первая цена диапазона входа",
-        },
-        to: {
-          type: "number",
-          description: "Вторая цена диапазона входа",
-        },
-      },
-    },
-    targets: {
-      type: "array",
-      description: str.newline(
-        "Цели из поля Targets — уровней бывает от 3 до 10 и больше, числа.",
-        "Аннотации в скобках после цен игнорируй.",
-        "Если сигнала нет, верни []",
-      ),
-      items: { type: "number" },
-    },
-    stoploss: {
-      type: "number",
-      description: str.newline(
-        "СТОП ЛОСС, одна точка; пишется Stoploss / Stop loss / Stop-loss.",
-        "Если сигнала нет, верни 0",
-      ),
-    },
-    reasoning: {
-      type: "string",
-      description: str.newline(
-        "Строковое описание почему ты сделал именно такое решение",
-        "Будет использовано программистом для отладки",
-      ),
-    },
-  },
-} satisfies FormatModel;
+// Технические уровни: за неделю на споте без плеча недостижимы, штатный выход только по времени
+const STOP_LOSS_PERCENT = 50;
+const TAKE_PROFIT_PERCENT = 500;
 
-const getSignal = Cache.file(
-  async (symbol: string, when: Date) => {
-    // База без USDT ловит все эры тегов канала: #ADA, #ADA/USDT, #ADAUSDT
-    const coin = `#${symbol.replace("USDT", "")}`;
+// BASKET:BEGIN
+// Август 2024: топ-20 USDT-пар спота Binance по обороту за июль 2024 (известен до начала месяца),
+// листинг не моложе 90 дней, без стейблкоинов, плечевых токенов и обёрток BTC/ETH.
+// Сгенерировано scripts/common/generate_months.mjs из scripts/common/universe.json.
+const BASKET = [
+  "BTCUSDT",
+  "ETHUSDT",
+  "SOLUSDT",
+  "PEPEUSDT",
+  "XRPUSDT",
+  "WIFUSDT",
+  "BNBUSDT",
+  "DOGEUSDT",
+  "NOTUSDT",
+  "1000SATSUSDT",
+  "BOMEUSDT",
+  "BONKUSDT",
+  "PEOPLEUSDT",
+  "WLDUSDT",
+  "SHIBUSDT",
+  "FLOKIUSDT",
+  "AVAXUSDT",
+  "ORDIUSDT",
+  "RUNEUSDT",
+  "NEARUSDT",
+];
+// BASKET:END
 
-    let messages = await scrapeLookback({
-      channel: CHANNEL_NAME,
-      limit: FRESH_WINDOW_MINUTES,
-      dimension: "minute",
-      when,
-    });
+const SYMBOL_LIST = [...BASKET, PARKING_SYMBOL];
+const PER_SYMBOL_USD = DEPOSIT_USD / BASKET.length;
 
-    messages = messages
-      .filter(({ content }) => content.length > 0)
-      .filter(({ content }) => content.includes(coin))
-      // Сигнальная форма (вход И цель/стоп) - отчёты "Target done", апдейты и обзоры
-      // не ходят в LLM; эвристика отвалидирована фингерпринт-сканом всех пяти эр
-      .filter(({ content }) => /entry|buy zone|buy:|buy a bag|just buy|buying setup|market price|longing|shorting/i.test(content) && /target|take.?profit|stop/i.test(content));
-
-    if (!messages.length) {
-      return { entry: null };
-    }
-
-    {
-      const [msg] = messages;
-      console.log("Parsing: ", msg.content.slice(0, 64));
-    }
-
-    const entry = await generateObject(
-      InferenceName.OllamaInference,
-      {
-        format: TradingPositionFormat,
-        messages: [
-          { role: "user", content: await getPrompt(symbol) },
-          ...messages.map(({ id, channel, date, content }) => ({
-            role: "user" as const,
-            content: str.newline(
-              `ID ${id}`,
-              "",
-              content,
-              "",
-              `[${date.toISOString()}]: https://t.me/${channel}/${id}`,
-            ),
-          })),
-        ],
-      },
-      "gemma4:31b-cloud",
-    );
-
-    const message = messages.find((message) => message.id === entry.id)!;
-
-    if (!message) {
-      return { entry: null };
-    }
-
-    const url = `https://t.me/${message.channel}/${message.id}`;
-
-    return { entry, message, url };
-  },
-  {
-    interval: "5m",
-    name: "wallstreet_queen_entry_v2"
-  },
-);
+// getCandles внутри getSignal обрезан по времени движка: последняя дневная свеча - последний
+// закрытый день, заглядывания вперёд нет. Cache.fn с интервалом 1d считает гейт один раз
+// в день на все тикеры и сам инвалидируется при переходе движка на следующий день.
+const getGate = Cache.fn(async (): Promise<number> => {
+  const candles = await getCandles(GATE_SYMBOL, "1d", Math.max(...GATE_WINDOWS_DAYS) + 1);
+  const closes = candles.map(({ close }) => close);
+  const last = closes[closes.length - 1];
+  const up = GATE_WINDOWS_DAYS.filter((days) => last > closes[closes.length - 1 - days]).length;
+  return up / GATE_WINDOWS_DAYS.length;
+}, { interval: "1d" });
 
 addStrategySchema({
-  strategyName: "main_strategy",
+  strategyName: "index_fund",
+  interval: "1h",
   getSignal: async (symbol, when, currentPrice) => {
 
-    console.log(symbol, when);
+    const gate = await getGate();
 
-    const { entry, message, url } = await getSignal(symbol, when);
+    const cost = symbol === PARKING_SYMBOL
+      ? DEPOSIT_USD * (1 - gate)
+      : PER_SYMBOL_USD * gate;
 
-    if (!entry) {
-      return null;
-    }
-
-    if (entry.position !== "long" && entry.position !== "short") {
-      return null;
-    }
-
-    if (when.getTime() - new Date(message.date).getTime() > FRESH_WINDOW_MINUTES * 60_000) {
-      return null;
-    }
-
-    const info = { symbol, entry, url, message: omit(message, "photo") };
-
-    const [{ low, high }] = await getCandles(symbol, "1m", 1);
-
-    const minPrice = Math.min(entry.entryRange.from, entry.entryRange.to);
-    const maxPrice = Math.max(entry.entryRange.from, entry.entryRange.to);
-
-    if (high < minPrice || low > maxPrice) {
-      return null;
-    }
-
-    if (!entry.targets[2]) {
+    // cost: 0 движок молча заменяет на CC_POSITION_ENTRY_COST, поэтому нулевая доля - это отсутствие сигнала
+    if (cost < 1) {
       return null;
     }
 
     return {
-      id: `${entry.id}-${entry.symbol.toLowerCase()}`,
-      symbol: entry.symbol,
-      ...Position.moonbag({
-        position: entry.position,
+      id: `${symbol.toLowerCase()}-${when.toISOString().slice(0, 10)}`,
+      symbol,
+      ...Position.bracket({
+        position: "long",
         currentPrice,
-        percentStopLoss: NEVER_STOP_PERCENT,
+        percentStopLoss: STOP_LOSS_PERCENT,
+        percentTakeProfit: TAKE_PROFIT_PERCENT,
       }),
-      /*
-      priceStopLoss: entry.stoploss,
-      priceTakeProfit: entry.position === "long"
-        ? Math.max(...entry.targets)
-        : Math.min(...entry.targets),
-      */
-      payload: info,
-      minuteEstimatedTime: 3 * 24 * 60,
-      note: JSON.stringify(info, null, 2),
+      cost: Math.round(cost * 100) / 100,
+      minuteEstimatedTime: HOLD_MINUTES,
+      payload: { gate, weight: cost / DEPOSIT_USD, basketSize: BASKET.length },
+      note: `${symbol} gate=${gate.toFixed(2)} cost=$${cost.toFixed(2)}`,
     };
   },
 });
 
 declare var kill: any;
 
-listenDoneBacktest(() => kill());
+// listenDoneBacktest срабатывает на каждый символ списка: процесс завершаем после последнего
+let doneCount = 0;
+
+listenDoneBacktest(() => {
+  doneCount += 1;
+  if (doneCount >= SYMBOL_LIST.length) {
+    kill();
+  }
+});
 
 addLauncherSchema({
   launcherName: "main_launcher",
   backtest: true,
-  symbolList: [
-    "ALGOUSDT",
-    "BCHUSDT",
-    "BLZUSDT",
-    "CRVUSDT",
-    "ETHUSDT",
-    "FLOKIUSDT",
-    "IOTXUSDT",
-    "JASMYUSDT",
-    "LITUSDT",
-    "TLMUSDT",
-    "ZENUSDT",
-  ],
+  symbolList: SYMBOL_LIST,
   cache: false,
 })
