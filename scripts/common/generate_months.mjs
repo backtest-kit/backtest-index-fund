@@ -38,9 +38,13 @@ const overridesFor = (basket) => {
   const lines = [...basket, "PAXGUSDT"]
     .filter((symbol) => yahooTickers[symbol]?.ticker && yahooTickers[symbol].ticker !== symbol.replace(/USDT$/, "-USD"))
     .map((symbol) => `  ${symbol}: "${yahooTickers[symbol].ticker}",`);
-  const missing = basket.filter((symbol) => symbol in yahooTickers && yahooTickers[symbol] === null);
-  if (missing.length) {
-    throw new Error(`корзина содержит монеты без тикера Yahoo: ${missing.join(", ")} - пересоберите universe.json (build_universe.mjs)`);
+  const missing = basket.filter((symbol) => yahooTickers[symbol] === null);
+  const unchecked = basket.filter((symbol) => !(symbol in yahooTickers));
+  if (missing.length || unchecked.length) {
+    throw new Error(
+      `корзина содержит монеты без тикера Yahoo (${missing.join(", ") || "-"}) или непроверенные (${unchecked.join(", ") || "-"}): `
+      + "прогоните resolve_yahoo_tickers.mjs и build_universe.mjs до пустого списка непроверенных",
+    );
   }
   return `const TICKER_OVERRIDES: Record<string, string> = {\n${lines.join("\n")}${lines.length ? "\n" : ""}};`;
 };

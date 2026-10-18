@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T21:00:42.752Z",
+  "generatedAt": "2026-10-18T21:31:27.754Z",
   "source": "Binance spot, quoteVolume of previous calendar month, 1M candles via ccxt",
   "params": {
     "top": 20,
@@ -462,10 +462,10 @@
         "FILUSDT",
         "LINKUSDT",
         "ATOMUSDT",
-        "GXSUSDT"
+        "CRVUSDT"
       ],
       "volumeUsdTop1": 57019930535,
-      "volumeUsdCutoff": 3555855462
+      "volumeUsdCutoff": 3548611208
     },
     "2022-02": {
       "rankedBy": "2022-01",
@@ -597,10 +597,10 @@
         "MATICUSDT",
         "WAVESUSDT",
         "ZILUSDT",
-        "ANCUSDT"
+        "AXSUSDT"
       ],
       "volumeUsdTop1": 75935785203,
-      "volumeUsdCutoff": 2042791428
+      "volumeUsdCutoff": 1974304816
     },
     "2022-07": {
       "rankedBy": "2022-06",

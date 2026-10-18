@@ -57,7 +57,7 @@ const BASKET = [
   "MATICUSDT",
   "WAVESUSDT",
   "ZILUSDT",
-  "ANCUSDT",
+  "AXSUSDT",
 ];
 // BASKET:END
 

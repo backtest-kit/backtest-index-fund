@@ -57,7 +57,7 @@ const BASKET = [
   "FILUSDT",
   "LINKUSDT",
   "ATOMUSDT",
-  "GXSUSDT",
+  "CRVUSDT",
 ];
 // BASKET:END
 

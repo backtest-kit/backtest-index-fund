@@ -8,6 +8,10 @@
   "ticker": "ADA-USD",
   "since": "2017-11-09"
  },
+ "AGIXUSDT": {
+  "ticker": "AGIX-USD",
+  "since": "2018-01-19"
+ },
  "AKROUSDT": null,
  "ALGOUSDT": {
   "ticker": "ALGO-USD",
@@ -33,6 +37,7 @@
   "ticker": "ALPINE-USD",
   "since": "2022-02-21"
  },
+ "ANCUSDT": null,
  "ANKRUSDT": {
   "ticker": "ANKR-USD",
   "since": "2019-03-06"
@@ -72,6 +77,10 @@
  "BAKEUSDT": {
   "ticker": "BAKE-USD",
   "since": "2020-09-24"
+ },
+ "BANANAS31USDT": {
+  "ticker": "BANANAS31-USD",
+  "since": "2024-12-01"
  },
  "BANDUSDT": {
   "ticker": "BAND-USD",
@@ -122,9 +131,17 @@
   "ticker": "CAKE-USD",
   "since": "2020-09-29"
  },
+ "CELRUSDT": {
+  "ticker": "CELR-USD",
+  "since": "2019-03-25"
+ },
  "CFXUSDT": {
   "ticker": "CFX-USD",
   "since": "2020-11-11"
+ },
+ "CHRUSDT": {
+  "ticker": "CHR-USD",
+  "since": "2019-05-28"
  },
  "CHZUSDT": {
   "ticker": "CHZ-USD",
@@ -243,6 +260,7 @@
   "ticker": "GRT6719-USD",
   "since": "2020-12-18"
  },
+ "GXSUSDT": null,
  "HBARUSDT": {
   "ticker": "HBAR-USD",
   "since": "2019-09-17"
@@ -358,6 +376,10 @@
  "NOTUSDT": {
   "ticker": "NOT-USD",
   "since": "2024-05-16"
+ },
+ "NPXSUSDT": {
+  "ticker": "NPXS-USD",
+  "since": "2018-03-22"
  },
  "OGNUSDT": {
   "ticker": "OGN-USD",

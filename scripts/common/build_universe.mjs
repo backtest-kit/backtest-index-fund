@@ -71,9 +71,13 @@ const raw = !REFRESH && existsSync(RAW_FILE)
 const TICKERS_FILE = join(ROOT, "scripts", "common", "yahoo_tickers.json");
 const YAHOO_HISTORY_MARGIN_DAYS = 7;
 const yahooTickers = existsSync(TICKERS_FILE) ? JSON.parse(readFileSync(TICKERS_FILE, "utf8")) : {};
+const unresolved = new Set();
 const yahooOk = (symbol, monthStart) => {
   const key = symbol.replace("/", "");
-  if (!(key in yahooTickers)) return true; // не проверялся - решит генератор/прогон
+  if (!(key in yahooTickers)) {
+    unresolved.add(key); // ещё не проверялся резолвером: пропускаем в корзину, но требуем прогон резолвера
+    return true;
+  }
   const entry = yahooTickers[key];
   if (!entry) return false;
   return Date.parse(entry.since) <= monthStart - YAHOO_HISTORY_MARGIN_DAYS * DAY;
@@ -125,3 +129,12 @@ for (const [month, { rankedBy, basket }] of Object.entries(months)) {
   console.log(`${month} (by ${rankedBy}): ${basket.join(" ")}`);
 }
 console.log(`\n${Object.keys(months).length} months -> ${OUT_FILE}`);
+
+// Монеты, вошедшие в корзины без проверки на Yahoo: после резолвера часть из них выпадет и их места
+// займут следующие по обороту, которые тоже надо проверить - повторять до пустого списка.
+const inBaskets = [...unresolved].filter((s) => Object.values(months).some((m) => m.basket.includes(s)));
+if (inBaskets.length) {
+  console.log(`\n${inBaskets.length} basket symbols not yet checked on Yahoo: ${inBaskets.join(" ")}`);
+  console.log("run: node scripts/common/resolve_yahoo_tickers.mjs && node scripts/common/build_universe.mjs ... (repeat until this list is empty)");
+  process.exit(2);
+}
