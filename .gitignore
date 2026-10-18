@@ -41,3 +41,6 @@ build/*
 # Other
 error.txt
 session.txt
+
+# Datasets (скачиваются scripts/*/fetch_messages.* и fetch_signals.* из HuggingFace)
+content/*/assets/*.jsonl
