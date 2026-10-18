@@ -5,7 +5,7 @@
 //
 // Запуск из корня репо: node scripts/common/generate_months.mjs [--source content/sep_2020]
 // Источник списков: scripts/common/universe.json (см. build_universe.mjs).
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
@@ -26,6 +26,24 @@ const moduleSource = readFileSync(join(SOURCE, "modules/backtest.module.ts"), "u
 if (!/\/\/ BASKET:BEGIN[\s\S]*\/\/ BASKET:END/.test(strategySource)) {
   throw new Error(`${SOURCE}/main.strategy.ts: нет блока // BASKET:BEGIN .. // BASKET:END`);
 }
+if (!/const TICKER_OVERRIDES: Record<string, string> = \{[\s\S]*?\};/.test(moduleSource)) {
+  throw new Error(`${SOURCE}/modules/backtest.module.ts: нет блока const TICKER_OVERRIDES`);
+}
+
+// Тикеры Yahoo, отличные от BASE-USD (см. resolve_yahoo_tickers.mjs); в модуль месяца
+// попадают только исключения для монет его корзины
+const tickersPath = join(ROOT, "scripts/common/yahoo_tickers.json");
+const yahooTickers = existsSync(tickersPath) ? JSON.parse(readFileSync(tickersPath, "utf8")) : {};
+const overridesFor = (basket) => {
+  const lines = [...basket, "PAXGUSDT"]
+    .filter((symbol) => yahooTickers[symbol]?.ticker && yahooTickers[symbol].ticker !== symbol.replace(/USDT$/, "-USD"))
+    .map((symbol) => `  ${symbol}: "${yahooTickers[symbol].ticker}",`);
+  const missing = basket.filter((symbol) => symbol in yahooTickers && yahooTickers[symbol] === null);
+  if (missing.length) {
+    throw new Error(`корзина содержит монеты без тикера Yahoo: ${missing.join(", ")} - пересоберите universe.json (build_universe.mjs)`);
+  }
+  return `const TICKER_OVERRIDES: Record<string, string> = {\n${lines.join("\n")}${lines.length ? "\n" : ""}};`;
+};
 
 const folderOf = (month) => {
   const [y, m] = month.split("-").map(Number);
@@ -55,6 +73,7 @@ for (const [month, { rankedBy, basket }] of Object.entries(universe.months)) {
 
   const mm = String(m).padStart(2, "0");
   const module = moduleSource
+    .replace(/const TICKER_OVERRIDES: Record<string, string> = \{[\s\S]*?\};/, overridesFor(basket))
     .replace(/frameName: "[^"]*"/, `frameName: "${folder}_frame"`)
     .replace(/startDate: new Date\("[^"]*"\)/, `startDate: new Date("${y}-${mm}-01T00:00:00Z")`)
     .replace(/endDate: new Date\("[^"]*"\)/, `endDate: new Date("${y}-${mm}-${String(lastDay(y, m)).padStart(2, "0")}T23:59:59Z")`)
@@ -62,6 +81,13 @@ for (const [month, { rankedBy, basket }] of Object.entries(universe.months)) {
 
   writeFileSync(join(dir, "main.strategy.ts"), strategy);
   writeFileSync(join(dir, "modules/backtest.module.ts"), module);
+  // classes/ копируются как есть: источники свечей и прочие утилиты папки месяца
+  if (existsSync(join(SOURCE, "classes"))) {
+    mkdirSync(join(dir, "classes"), { recursive: true });
+    for (const file of readdirSync(join(SOURCE, "classes"))) {
+      copyFileSync(join(SOURCE, "classes", file), join(dir, "classes", file));
+    }
+  }
   generated.push(folder);
 }
 

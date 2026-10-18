@@ -1,31 +1,42 @@
-import { addExchangeSchema, addFrameSchema, getCandlesFilled } from "backtest-kit";
-import { singleshot } from "functools-kit";
-import ccxt from "ccxt";
+import {
+  addExchangeSchema,
+  addFrameSchema,
+  getCandlesFilled,
+  getCandlesSampled,
+  PersistCandleAdapter,
+} from "backtest-kit";
 
-const getExchange = singleshot(async () => {
-  const exchange = new ccxt.binance({
-    options: {
-      defaultType: "spot",
-      adjustForTimeDifference: true,
-      recvWindow: 60000,
-    },
-    enableRateLimit: true,
-  });
-  await exchange.loadMarkets();
-  return exchange;
-});
+import { YahooFinance } from "../classes/YahooFinance";
 
+// Символ стратегии -> тикер Yahoo: BTCUSDT -> BTC-USD. У части монет Yahoo держит тикер с числовым
+// суффиксом (одноимённые токены), такие исключения перечислены явно.
+const TICKER_OVERRIDES: Record<string, string> = {
+  MATICUSDT: "WMATIC-USD",
+  UNIUSDT: "UNI7083-USD",
+};
+
+const tickerOf = (symbol: string): string =>
+  TICKER_OVERRIDES[symbol] ?? symbol.replace(/USDT$/, "-USD");
+
+const fetchOHLCV = (symbol: string, interval: string, since: number, limit: number) =>
+  YahooFinance.getCandles(tickerOf(symbol), interval, since, limit);
+
+// Yahoo отдаёт только дневные бары. Дневные запросы идут через getCandlesFilled (дыры заполняются
+// плоской свечой по последнему закрытию), всё короче дня - через getCandlesSampled, который
+// размножает дневной бар на минуты и часы. Семплер требует интервал строго меньше нативного,
+// поэтому для 1d ветка отдельная.
 addExchangeSchema({
-  exchangeName: "ccxt-exchange",
+  exchangeName: "yahoo-finance",
   getCandles: async (symbol, interval, since, limit) => {
-    const exchange = await getExchange();
-    return await getCandlesFilled(
-      (symbol, interval, since, limit) =>
-        exchange.fetchOHLCV(symbol, interval, since, limit),
-      { symbol, interval, since, limit },
-    );
+    if (interval === "1d") {
+      return await getCandlesFilled(fetchOHLCV, { symbol, interval, since, limit });
+    }
+    return await getCandlesSampled(fetchOHLCV, { symbol, interval, since, limit });
   },
 });
+
+// Семплированные свечи генерируются из памяти: в Mongo их не пишем и не читаем
+PersistCandleAdapter.useDummy();
 
 addFrameSchema({
   frameName: "jun_2021_frame",

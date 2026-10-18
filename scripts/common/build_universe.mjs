@@ -65,6 +65,20 @@ const raw = !REFRESH && existsSync(RAW_FILE)
   ? JSON.parse(readFileSync(RAW_FILE, "utf8"))
   : await fetchRaw();
 
+// Свечи берутся с Yahoo Finance, поэтому монета попадает в корзину месяца, только если у Yahoo
+// есть её тикер (не null в yahoo_tickers.json) и история начинается не позже чем за
+// YAHOO_HISTORY_MARGIN_DAYS до начала месяца. Файл строит resolve_yahoo_tickers.mjs.
+const TICKERS_FILE = join(ROOT, "scripts", "common", "yahoo_tickers.json");
+const YAHOO_HISTORY_MARGIN_DAYS = 7;
+const yahooTickers = existsSync(TICKERS_FILE) ? JSON.parse(readFileSync(TICKERS_FILE, "utf8")) : {};
+const yahooOk = (symbol, monthStart) => {
+  const key = symbol.replace("/", "");
+  if (!(key in yahooTickers)) return true; // не проверялся - решит генератор/прогон
+  const entry = yahooTickers[key];
+  if (!entry) return false;
+  return Date.parse(entry.since) <= monthStart - YAHOO_HISTORY_MARGIN_DAYS * DAY;
+};
+
 // quoteVolume по месяцам и дата первой месячной свечи (приближение даты листинга)
 const volumeByMonth = {};
 const firstSeen = {};
@@ -86,6 +100,7 @@ for (const month of Object.keys(volumeByMonth).sort()) {
   const monthStart = Date.parse(`${month}-01T00:00:00Z`);
   const ranked = Object.entries(volumeByMonth[rankedBy] ?? {})
     .filter(([symbol]) => monthStart - firstSeen[symbol] >= MIN_LISTING_DAYS * DAY)
+    .filter(([symbol]) => yahooOk(symbol, monthStart))
     .sort((a, b) => b[1] - a[1]);
   if (ranked.length < TOP) {
     console.warn(`${month}: only ${ranked.length} candidates, skipped`);

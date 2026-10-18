@@ -1,0 +1,644 @@
+{
+ "1000SATSUSDT": null,
+ "AAVEUSDT": {
+  "ticker": "AAVE-USD",
+  "since": "2020-10-02"
+ },
+ "ADAUSDT": {
+  "ticker": "ADA-USD",
+  "since": "2017-11-09"
+ },
+ "AKROUSDT": null,
+ "ALGOUSDT": {
+  "ticker": "ALGO-USD",
+  "since": "2019-06-21"
+ },
+ "ALICEUSDT": {
+  "ticker": "ALICE-USD",
+  "since": "2021-03-15"
+ },
+ "ALLOUSDT": {
+  "ticker": "ALLO-USD",
+  "since": "2025-11-11"
+ },
+ "ALPACAUSDT": {
+  "ticker": "ALPACA-USD",
+  "since": "2021-03-06"
+ },
+ "ALPHAUSDT": {
+  "ticker": "ALPHA-USD",
+  "since": "2020-10-10"
+ },
+ "ALPINEUSDT": {
+  "ticker": "ALPINE-USD",
+  "since": "2022-02-21"
+ },
+ "ANKRUSDT": {
+  "ticker": "ANKR-USD",
+  "since": "2019-03-06"
+ },
+ "APEUSDT": {
+  "ticker": "APE-USD",
+  "since": "2020-10-01"
+ },
+ "APTUSDT": {
+  "ticker": "APT21794-USD",
+  "since": "2022-10-19"
+ },
+ "ARBUSDT": {
+  "ticker": "ARB-USD",
+  "since": "2017-11-09"
+ },
+ "ARPAUSDT": {
+  "ticker": "ARPA-USD",
+  "since": "2019-07-15"
+ },
+ "ASTERUSDT": {
+  "ticker": "ASTER36341-USD",
+  "since": "2025-09-17"
+ },
+ "ATOMUSDT": {
+  "ticker": "ATOM-USD",
+  "since": "2019-03-14"
+ },
+ "AVAXUSDT": {
+  "ticker": "AVAX-USD",
+  "since": "2020-07-13"
+ },
+ "AXSUSDT": {
+  "ticker": "AXS-USD",
+  "since": "2020-11-04"
+ },
+ "BAKEUSDT": {
+  "ticker": "BAKE-USD",
+  "since": "2020-09-24"
+ },
+ "BANDUSDT": {
+  "ticker": "BAND-USD",
+  "since": "2019-09-18"
+ },
+ "BARDUSDT": null,
+ "BCHUSDT": {
+  "ticker": "BCH-USD",
+  "since": "2017-11-09"
+ },
+ "BIOUSDT": {
+  "ticker": "BIO34812-USD",
+  "since": "2025-02-16"
+ },
+ "BLZUSDT": {
+  "ticker": "BLZ-USD",
+  "since": "2018-02-06"
+ },
+ "BNBUSDT": {
+  "ticker": "BNB-USD",
+  "since": "2017-11-09"
+ },
+ "BNXUSDT": {
+  "ticker": "BNX-USD",
+  "since": "2021-05-18"
+ },
+ "BOMEUSDT": {
+  "ticker": "BOME-USD",
+  "since": "2024-03-14"
+ },
+ "BONDUSDT": {
+  "ticker": "BOND-USD",
+  "since": "2020-10-26"
+ },
+ "BONKUSDT": {
+  "ticker": "BONK-USD",
+  "since": "2022-12-30"
+ },
+ "BTCUSDT": {
+  "ticker": "BTC-USD",
+  "since": "2014-09-17"
+ },
+ "BTTUSDT": {
+  "ticker": "BTT-USD",
+  "since": "2019-01-31"
+ },
+ "CAKEUSDT": {
+  "ticker": "CAKE-USD",
+  "since": "2020-09-29"
+ },
+ "CFXUSDT": {
+  "ticker": "CFX-USD",
+  "since": "2020-11-11"
+ },
+ "CHZUSDT": {
+  "ticker": "CHZ-USD",
+  "since": "2019-07-01"
+ },
+ "COCOSUSDT": null,
+ "COMPUSDT": {
+  "ticker": "COMP5692-USD",
+  "since": "2020-06-17"
+ },
+ "CRVUSDT": {
+  "ticker": "CRV-USD",
+  "since": "2020-08-14"
+ },
+ "CYBERUSDT": {
+  "ticker": "CYBER-USD",
+  "since": "2023-03-17"
+ },
+ "DARUSDT": {
+  "ticker": "DAR-USD",
+  "since": "2026-09-17"
+ },
+ "DASHUSDT": {
+  "ticker": "DASH-USD",
+  "since": "2017-11-09"
+ },
+ "DENTUSDT": {
+  "ticker": "DENT-USD",
+  "since": "2017-11-09"
+ },
+ "DEXEUSDT": {
+  "ticker": "DEXE-USD",
+  "since": "2020-10-07"
+ },
+ "DOGEUSDT": {
+  "ticker": "DOGE-USD",
+  "since": "2017-11-09"
+ },
+ "DOTUSDT": {
+  "ticker": "DOT-USD",
+  "since": "2020-08-20"
+ },
+ "DYDXUSDT": {
+  "ticker": "DYDX-USD",
+  "since": "2021-09-08"
+ },
+ "EGLDUSDT": {
+  "ticker": "EGLD-USD",
+  "since": "2020-09-04"
+ },
+ "ENAUSDT": {
+  "ticker": "ENA-USD",
+  "since": "2024-04-02"
+ },
+ "ENJUSDT": {
+  "ticker": "ENJ-USD",
+  "since": "2017-11-09"
+ },
+ "ENSUSDT": {
+  "ticker": "ENS-USD",
+  "since": "2021-11-09"
+ },
+ "EOSUSDT": {
+  "ticker": "EOS-USD",
+  "since": "2017-11-09"
+ },
+ "ETCUSDT": {
+  "ticker": "ETC-USD",
+  "since": "2017-11-09"
+ },
+ "ETHFIUSDT": {
+  "ticker": "ETHFI-USD",
+  "since": "2024-03-18"
+ },
+ "ETHUSDT": {
+  "ticker": "ETH-USD",
+  "since": "2017-11-09"
+ },
+ "FETUSDT": {
+  "ticker": "FET-USD",
+  "since": "2019-03-02"
+ },
+ "FILUSDT": {
+  "ticker": "FIL-USD",
+  "since": "2017-12-13"
+ },
+ "FLOKIUSDT": {
+  "ticker": "FLOKI-USD",
+  "since": "2021-07-10"
+ },
+ "FRONTUSDT": {
+  "ticker": "FRONT-USD",
+  "since": "2020-09-15"
+ },
+ "FTMUSDT": {
+  "ticker": "WFTM-USD",
+  "since": "2021-06-02"
+ },
+ "FTTUSDT": {
+  "ticker": "FTT-USD",
+  "since": "2019-07-31"
+ },
+ "GALAUSDT": {
+  "ticker": "GALA-USD",
+  "since": "2026-10-18"
+ },
+ "GASUSDT": {
+  "ticker": "GAS-USD",
+  "since": "2017-11-09"
+ },
+ "GMTUSDT": {
+  "ticker": "GMT18069-USD",
+  "since": "2022-03-10"
+ },
+ "GRTUSDT": {
+  "ticker": "GRT6719-USD",
+  "since": "2020-12-18"
+ },
+ "HBARUSDT": {
+  "ticker": "HBAR-USD",
+  "since": "2019-09-17"
+ },
+ "HIFIUSDT": {
+  "ticker": "HIFI23037-USD",
+  "since": "2023-01-30"
+ },
+ "HOOKUSDT": {
+  "ticker": "HOOK-USD",
+  "since": "2022-12-01"
+ },
+ "HOTUSDT": {
+  "ticker": "HOT-USD",
+  "since": "2018-01-20"
+ },
+ "ICPUSDT": {
+  "ticker": "ICP-USD",
+  "since": "2021-05-10"
+ },
+ "IDUSDT": {
+  "ticker": "ID-USD",
+  "since": "2021-02-17"
+ },
+ "INJUSDT": {
+  "ticker": "INJ-USD",
+  "since": "2020-10-21"
+ },
+ "IOSTUSDT": {
+  "ticker": "IOST-USD",
+  "since": "2018-01-16"
+ },
+ "JASMYUSDT": {
+  "ticker": "JASMY-USD",
+  "since": "2021-02-11"
+ },
+ "KITEUSDT": {
+  "ticker": "KITE-USD",
+  "since": "2025-11-03"
+ },
+ "KLAYUSDT": {
+  "ticker": "KLAY-USD",
+  "since": "2020-03-30"
+ },
+ "KNCUSDT": {
+  "ticker": "KNC-USD",
+  "since": "2021-07-28"
+ },
+ "LDOUSDT": {
+  "ticker": "LDO-USD",
+  "since": "2021-01-05"
+ },
+ "LENDUSDT": null,
+ "LINAUSDT": {
+  "ticker": "LINA7102-USD",
+  "since": "2020-09-18"
+ },
+ "LINKUSDT": {
+  "ticker": "LINK-USD",
+  "since": "2017-11-09"
+ },
+ "LOOMUSDT": {
+  "ticker": "LOOM-USD",
+  "since": "2018-03-14"
+ },
+ "LPTUSDT": {
+  "ticker": "LPT-USD",
+  "since": "2018-12-19"
+ },
+ "LRCUSDT": {
+  "ticker": "LRC-USD",
+  "since": "2017-11-09"
+ },
+ "LTCUSDT": {
+  "ticker": "LTC-USD",
+  "since": "2014-09-17"
+ },
+ "LUNAUSDT": null,
+ "LUNCUSDT": {
+  "ticker": "LUNC-USD",
+  "since": "2019-07-27"
+ },
+ "MAGICUSDT": null,
+ "MANAUSDT": {
+  "ticker": "MANA-USD",
+  "since": "2017-11-09"
+ },
+ "MASKUSDT": {
+  "ticker": "MASK8536-USD",
+  "since": "2021-02-24"
+ },
+ "MATICUSDT": {
+  "ticker": "WMATIC-USD",
+  "since": "2021-03-23"
+ },
+ "MEGAUSDT": {
+  "ticker": "MEGA38770-USD",
+  "since": "2026-01-30"
+ },
+ "MKRUSDT": {
+  "ticker": "MKR-USD",
+  "since": "2017-11-20"
+ },
+ "NEARUSDT": {
+  "ticker": "NEAR-USD",
+  "since": "2020-10-14"
+ },
+ "NEIROUSDT": null,
+ "NEOUSDT": {
+  "ticker": "NEO-USD",
+  "since": "2017-11-09"
+ },
+ "NOTUSDT": {
+  "ticker": "NOT-USD",
+  "since": "2024-05-16"
+ },
+ "OGNUSDT": {
+  "ticker": "OGN-USD",
+  "since": "2020-01-09"
+ },
+ "OGUSDT": {
+  "ticker": "OG-USD",
+  "since": "2020-06-21"
+ },
+ "OMGUSDT": {
+  "ticker": "OMG-USD",
+  "since": "2017-11-09"
+ },
+ "OMUSDT": {
+  "ticker": "OM-USD",
+  "since": "2020-08-18"
+ },
+ "ONDOUSDT": {
+  "ticker": "ONDO-USD",
+  "since": "2024-01-18"
+ },
+ "ONEUSDT": {
+  "ticker": "ONE-USD",
+  "since": "2017-12-31"
+ },
+ "ONTUSDT": {
+  "ticker": "ONT-USD",
+  "since": "2018-03-08"
+ },
+ "OPNUSDT": null,
+ "OPUSDT": {
+  "ticker": "OP-USD",
+  "since": "2022-03-14"
+ },
+ "ORDIUSDT": {
+  "ticker": "ORDI-USD",
+  "since": "2023-05-08"
+ },
+ "PAXGUSDT": {
+  "ticker": "PAXG-USD",
+  "since": "2019-09-26"
+ },
+ "PENGUUSDT": {
+  "ticker": "PENGU34466-USD",
+  "since": "2025-01-04"
+ },
+ "PEOPLEUSDT": {
+  "ticker": "PEOPLE-USD",
+  "since": "2021-11-19"
+ },
+ "PEPEUSDT": {
+  "ticker": "PEPE24478-USD",
+  "since": "2023-04-17"
+ },
+ "PERPUSDT": {
+  "ticker": "PERP-USD",
+  "since": "2020-09-13"
+ },
+ "PNUTUSDT": {
+  "ticker": "PNUT-USD",
+  "since": "2024-11-04"
+ },
+ "PUMPUSDT": {
+  "ticker": "PUMP36507-USD",
+  "since": "2025-07-12"
+ },
+ "QTUMUSDT": {
+  "ticker": "QTUM-USD",
+  "since": "2017-11-09"
+ },
+ "RAREUSDT": {
+  "ticker": "RARE11294-USD",
+  "since": "2021-08-18"
+ },
+ "RENUSDT": {
+  "ticker": "REN-USD",
+  "since": "2018-02-21"
+ },
+ "REUSDT": {
+  "ticker": "RE-USD",
+  "since": "2026-06-18"
+ },
+ "RNDRUSDT": {
+  "ticker": "RENDER-USD",
+  "since": "2020-06-11"
+ },
+ "ROSEUSDT": {
+  "ticker": "ROSE-USD",
+  "since": "2020-11-19"
+ },
+ "RUNEUSDT": {
+  "ticker": "RUNE-USD",
+  "since": "2019-07-23"
+ },
+ "RVNUSDT": {
+  "ticker": "RVN-USD",
+  "since": "2018-03-10"
+ },
+ "SAGAUSDT": {
+  "ticker": "SAGA30372-USD",
+  "since": "2024-04-09"
+ },
+ "SANDUSDT": {
+  "ticker": "SAND-USD",
+  "since": "2020-08-14"
+ },
+ "SEIUSDT": {
+  "ticker": "SEI-USD",
+  "since": "2023-08-15"
+ },
+ "SHIBUSDT": {
+  "ticker": "SHIB-USD",
+  "since": "2020-08-01"
+ },
+ "SLPUSDT": {
+  "ticker": "SLP-USD",
+  "since": "2020-07-08"
+ },
+ "SNDKBUSDT": {
+  "ticker": "SNDKB-USD",
+  "since": "2026-06-11"
+ },
+ "SOLUSDT": {
+  "ticker": "SOL-USD",
+  "since": "2020-04-10"
+ },
+ "SPCXBUSDT": {
+  "ticker": "SPCXB-USD",
+  "since": "2026-06-12"
+ },
+ "STXUSDT": {
+  "ticker": "STX4847-USD",
+  "since": "2019-10-29"
+ },
+ "SUIUSDT": {
+  "ticker": "SUI20947-USD",
+  "since": "2023-05-03"
+ },
+ "SUNUSDT": {
+  "ticker": "SUN-USD",
+  "since": "2021-06-21"
+ },
+ "SUSDT": {
+  "ticker": "S32684-USD",
+  "since": "2025-01-03"
+ },
+ "SUSHIUSDT": {
+  "ticker": "SUSHI-USD",
+  "since": "2020-08-28"
+ },
+ "SXPUSDT": {
+  "ticker": "SXP-USD",
+  "since": "2019-08-26"
+ },
+ "SYNUSDT": {
+  "ticker": "SYN12147-USD",
+  "since": "2021-09-27"
+ },
+ "TAOUSDT": {
+  "ticker": "TAO22974-USD",
+  "since": "2023-03-05"
+ },
+ "TFUELUSDT": {
+  "ticker": "TFUEL-USD",
+  "since": "2019-03-28"
+ },
+ "THETAUSDT": {
+  "ticker": "THETA-USD",
+  "since": "2018-01-17"
+ },
+ "TIAUSDT": {
+  "ticker": "TIA-USD",
+  "since": "2022-02-28"
+ },
+ "TLMUSDT": {
+  "ticker": "TLM-USD",
+  "since": "2021-04-07"
+ },
+ "TONUSDT": {
+  "ticker": "TON-USD",
+  "since": "2020-08-29"
+ },
+ "TRBUSDT": {
+  "ticker": "TRB-USD",
+  "since": "2019-11-19"
+ },
+ "TRUMPUSDT": {
+  "ticker": "TRUMP35336-USD",
+  "since": "2025-01-18"
+ },
+ "TRXUSDT": {
+  "ticker": "TRX-USD",
+  "since": "2017-11-09"
+ },
+ "TWTUSDT": {
+  "ticker": "TWT-USD",
+  "since": "2020-07-30"
+ },
+ "UNFIUSDT": {
+  "ticker": "UNFI-USD",
+  "since": "2020-11-20"
+ },
+ "UNIUSDT": {
+  "ticker": "UNI7083-USD",
+  "since": "2020-09-18"
+ },
+ "UUSDT": null,
+ "VETUSDT": {
+  "ticker": "VET-USD",
+  "since": "2018-08-03"
+ },
+ "VIRTUALUSDT": {
+  "ticker": "VIRTUAL-USD",
+  "since": "2024-02-15"
+ },
+ "WAVESUSDT": {
+  "ticker": "WAVES-USD",
+  "since": "2017-11-09"
+ },
+ "WIFUSDT": {
+  "ticker": "WIF-USD",
+  "since": "2023-12-19"
+ },
+ "WINUSDT": {
+  "ticker": "WIN-USD",
+  "since": "2019-08-01"
+ },
+ "WLDUSDT": {
+  "ticker": "WLD-USD",
+  "since": "2022-03-03"
+ },
+ "WLFIUSDT": {
+  "ticker": "WLFI-USD",
+  "since": "2026-07-18"
+ },
+ "XLMUSDT": {
+  "ticker": "XLM-USD",
+  "since": "2017-11-09"
+ },
+ "XMRUSDT": {
+  "ticker": "XMR-USD",
+  "since": "2017-11-09"
+ },
+ "XPLUSDT": {
+  "ticker": "XPL-USD",
+  "since": "2025-07-15"
+ },
+ "XRPUSDT": {
+  "ticker": "XRP-USD",
+  "since": "2017-11-09"
+ },
+ "XTZUSDT": {
+  "ticker": "XTZ-USD",
+  "since": "2017-11-09"
+ },
+ "XVGUSDT": {
+  "ticker": "XVG-USD",
+  "since": "2017-11-09"
+ },
+ "YFIIUSDT": {
+  "ticker": "YFII-USD",
+  "since": "2020-07-29"
+ },
+ "YFIUSDT": {
+  "ticker": "YFI-USD",
+  "since": "2020-07-20"
+ },
+ "YGGUSDT": {
+  "ticker": "YGG-USD",
+  "since": "2021-07-28"
+ },
+ "ZECUSDT": {
+  "ticker": "ZEC-USD",
+  "since": "2017-11-09"
+ },
+ "ZENUSDT": {
+  "ticker": "ZEN-USD",
+  "since": "2017-11-09"
+ },
+ "ZILUSDT": {
+  "ticker": "ZIL-USD",
+  "since": "2018-01-25"
+ }
+}
