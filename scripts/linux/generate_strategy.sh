@@ -1,7 +1,6 @@
 #!/bin/bash
 # Прогон индексного фонда по всем месяцам, один процесс CLI на месяц. Нужны поднятые docker/mongo и docker/redis.
 # Отчёты: content/<месяц>/dump/report/backtest.jsonl. Запуск из корня репо: bash scripts/linux/generate_strategy.sh
-set -e
 node ./node_modules/@backtest-kit/cli/build/index.mjs --backtest --entry ./content/sep_2020/main.strategy.ts
 node ./node_modules/@backtest-kit/cli/build/index.mjs --backtest --entry ./content/oct_2020/main.strategy.ts
 node ./node_modules/@backtest-kit/cli/build/index.mjs --backtest --entry ./content/nov_2020/main.strategy.ts
