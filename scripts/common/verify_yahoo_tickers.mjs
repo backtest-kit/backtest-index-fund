@@ -5,7 +5,7 @@
 // (с причиной в yahoo_tickers_rejected.json); единичные плохие месяцы пишутся в badMonths, и
 // build_universe.mjs не берёт монету в эти месяцы. После сверки universe.json пересобрать и месяцы перегенерировать.
 //
-// Запуск из корня репо: node scripts/common/verify_yahoo_tickers.mjs
+// Запуск из корня репо: node scripts/common/verify_yahoo_tickers.mjs [--only SYM1,SYM2]
 // Месячные закрытия Binance берутся из ./tmp/binance_monthly_usdt.json (их кладёт build_universe.mjs).
 import { readFileSync, writeFileSync } from "fs";
 import { dirname, join } from "path";
@@ -62,10 +62,15 @@ const monthEnd = (month) => {
 };
 const monthsOf = (symbol) => Object.entries(universe.months).filter(([, v]) => v.basket.includes(symbol)).map(([m]) => m);
 
+// --only SYM1,SYM2: проверить только эти символы (остальные записи не трогаются)
+const onlyArg = process.argv.indexOf("--only");
+const only = onlyArg >= 0 && process.argv[onlyArg + 1] ? new Set(process.argv[onlyArg + 1].split(",")) : null;
+
 const rejected = {};
 let checked = 0;
 for (const [symbol, entry] of Object.entries(tickers)) {
   if (!entry) continue;
+  if (only && !only.has(symbol)) continue;
   const months = symbol === "PAXGUSDT" ? Object.keys(universe.months) : monthsOf(symbol);
   if (!months.length) continue;
   const closes = await yahooDaily(entry.ticker);
@@ -77,14 +82,18 @@ for (const [symbol, entry] of Object.entries(tickers)) {
   const yahooAt = (day) => { for (let k = 0; k < 4; k++) { const v = closes.get(day - k * DAY_MS); if (v != null) return v; } return null; };
   const deviations = [];
   for (const month of months) {
-    const checks = [
+    const edges = [
       { edge: "start", binance: binanceMonthClose(symbol, prevMonth(month)), yahoo: yahooAt(monthEnd(prevMonth(month))) },
       { edge: "end", binance: binanceMonthClose(symbol, month), yahoo: yahooAt(monthEnd(month)) },
-    ].filter((c) => c.binance && c.yahoo);
-    if (!checks.length) continue;
-    const worstEdge = checks.map((c) => ({ ...c, dev: Math.abs(Math.log(c.yahoo / c.binance)) })).sort((a, b) => b.dev - a.dev)[0];
+    ].filter((c) => c.binance);
+    if (!edges.length) continue;
+    // Binance торгует, а у Yahoo на краю месяца нет цены - ряд оборван (миграция токена, как DYDX в ноябре 2023):
+    // ядро откажется заполнять такую дыру, месяц плохой
+    const gap = edges.find((c) => !c.yahoo);
+    if (gap) { deviations.push({ month, ...gap, yahoo: null, dev: Infinity, bad: true, gap: true }); continue; }
+    const worstEdge = edges.map((c) => ({ ...c, dev: Math.abs(Math.log(c.yahoo / c.binance)) })).sort((a, b) => b.dev - a.dev)[0];
     // Yahoo хранит цены с 7 знаками: дешевле MIN_PRICE доходности квантованы шагом в проценты
-    const tooCheap = checks.some((c) => c.binance < MIN_PRICE);
+    const tooCheap = edges.some((c) => c.binance < MIN_PRICE);
     deviations.push({ month, ...worstEdge, bad: worstEdge.dev > MAX_DEVIATION || tooCheap, tooCheap });
   }
   if (!deviations.length) { console.log(`${symbol.padEnd(14)} ${entry.ticker.padEnd(16)} no overlapping months to compare`); continue; }
@@ -98,7 +107,8 @@ for (const [symbol, entry] of Object.entries(tickers)) {
   } else {
     entry.badMonths = bad.map((d) => d.month);
     if (!entry.badMonths.length) delete entry.badMonths;
-    console.log(`${symbol.padEnd(14)} ${entry.ticker.padEnd(16)} ok, worst ${(worst.dev * 100).toFixed(1)}% in ${worst.month} ${worst.edge} (${deviations.length} months${bad.length ? `, excluded: ${bad.map((d) => d.month + (d.tooCheap ? "(cheap)" : "")).join(" ")}` : ""})`);
+    const worstText = isFinite(worst.dev) ? `worst ${(worst.dev * 100).toFixed(1)}% in ${worst.month} ${worst.edge}` : `gap in ${worst.month} ${worst.edge}`;
+    console.log(`${symbol.padEnd(14)} ${entry.ticker.padEnd(16)} ok, ${worstText} (${deviations.length} months${bad.length ? `, excluded: ${bad.map((d) => d.month + (d.tooCheap ? "(cheap)" : d.gap ? "(gap)" : "")).join(" ")}` : ""})`);
   }
 }
 

@@ -50,7 +50,6 @@ const BASKET = [
   "FTTUSDT",
   "MATICUSDT",
   "GASUSDT",
-  "DYDXUSDT",
   "SEIUSDT",
   "ADAUSDT",
   "CAKEUSDT",
@@ -58,6 +57,7 @@ const BASKET = [
   "RNDRUSDT",
   "NEARUSDT",
   "FETUSDT",
+  "LUNCUSDT",
 ];
 // BASKET:END
 

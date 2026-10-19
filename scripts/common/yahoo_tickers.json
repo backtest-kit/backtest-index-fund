@@ -176,7 +176,10 @@
  },
  "DYDXUSDT": {
   "ticker": "DYDX-USD",
-  "since": "2021-09-08"
+  "since": "2021-09-08",
+  "badMonths": [
+   "2023-12"
+  ]
  },
  "EGLDUSDT": {
   "ticker": "EGLD-USD",
