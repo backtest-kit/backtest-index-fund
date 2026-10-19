@@ -1,6 +1,6 @@
 @echo off
 REM Прогон индексного фонда по всем кварталам, один процесс CLI на квартал. Нужны поднятые docker\mongo и docker\redis.
-REM Отчёты: content\<квартал>\dump\report\backtest.jsonl. Запуск из корня репо: scripts\win\generate_strategy.bat
+REM Отчёты: content\<квартал>\dump\report\backtest.jsonl. Запуск из корня репо: scripts\win\run_strategy.bat
 REM Каждый квартал завершается kill() с ненулевым кодом - это штатно, прогон продолжается; сводка: node scripts\common\summarize_reports.mjs
 node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\q4_2020\main.strategy.ts
 node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\q1_2021\main.strategy.ts

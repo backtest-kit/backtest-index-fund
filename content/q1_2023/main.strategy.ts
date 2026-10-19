@@ -19,10 +19,16 @@ setConfig({
 const DEPOSIT_USD = 1000;
 const PARKING_SYMBOL = "PAXGUSDT";
 
-// Позиция живёт весь квартал: фрейм месяца-папки покрывает три месяца, вход на первом тике,
-// выход по времени на конце фрейма. Срок больше любого квартала (89..92 дня), чтобы позиция
-// не закрылась раньше: на endDate фрейма ядро само закрывает её с причиной time_expired.
-const HOLD_MINUTES = 92 * 24 * 60 - 1;
+// Позиция живёт до конца календарного квартала: вход на первом тике, выход по времени в 23:59
+// последнего дня квартала. Срок считается от момента входа, поэтому и перезаход после стопа
+// закрывается в ту же минуту; на конец фрейма ядра не полагаемся.
+const quarterEndOf = (when: Date): number => {
+  const endMonth = when.getUTCMonth() - (when.getUTCMonth() % 3) + 3;
+  return Date.UTC(when.getUTCFullYear(), endMonth, 1) - 60_000;
+};
+const holdMinutesOf = (when: Date): number => Math.floor((quarterEndOf(when) - when.getTime()) / 60_000);
+// Короче часа до конца квартала не входим: ядру нечего держать
+const MIN_HOLD_MINUTES = 60;
 
 // Трендовый гейт по BTC: доля окон 20..45 дней с положительной доходностью BTC. Это экспозиция
 // корзины от 0 до 1; остаток уходит в PARKING_SYMBOL. Ансамбль окон вместо одного N: одиночные
@@ -32,7 +38,7 @@ const GATE_WINDOWS_DAYS = [20, 25, 30, 35, 40, 45];
 
 // Технические уровни: за квартал на споте без плеча стоп -50% достижим только в обвале, штатный выход по времени
 const STOP_LOSS_PERCENT = 50;
-const TAKE_PROFIT_PERCENT = 500;
+const TAKE_PROFIT_PERCENT = 2000; // +500% за квартал достижим (ADA, BNB в Q1 2021), тейк должен оставаться техническим
 
 // BASKET:BEGIN
 // Q1 2023 (январь - март): топ-20 USDT-пар спота Binance по обороту за декабрь 2022 (известен до начала квартала),
@@ -92,6 +98,11 @@ addStrategySchema({
       return null;
     }
 
+    const holdMinutes = holdMinutesOf(when);
+    if (holdMinutes < MIN_HOLD_MINUTES) {
+      return null;
+    }
+
     return {
       id: `${symbol.toLowerCase()}-${when.toISOString().slice(0, 10)}`,
       symbol,
@@ -102,7 +113,7 @@ addStrategySchema({
         percentTakeProfit: TAKE_PROFIT_PERCENT,
       }),
       cost: Math.round(cost * 100) / 100,
-      minuteEstimatedTime: HOLD_MINUTES,
+      minuteEstimatedTime: holdMinutes,
       payload: { gate, weight: cost / DEPOSIT_USD, basketSize: BASKET.length },
       note: `${symbol} gate=${gate.toFixed(2)} cost=$${cost.toFixed(2)}`,
     };

@@ -3,7 +3,7 @@
 // main.strategy.ts) и фрейм квартала (в modules/backtest.module.ts). Общего кода между папками нет.
 // Папка это календарный квартал (q1 = январь-март), корзина берётся по обороту месяца перед началом
 // квартала. Кварталы, не закончившиеся к сегодняшнему дню, не штампуются.
-// Заодно переписывает scripts/linux/generate_strategy.sh и scripts/win/generate_strategy.bat.
+// Заодно переписывает scripts/linux/run_strategy.sh и scripts/win/run_strategy.bat.
 //
 // Запуск из корня репо: node scripts/common/generate_months.mjs [--source content/q4_2020]
 // Источник списков: scripts/common/universe.json (см. build_universe.mjs).
@@ -113,18 +113,18 @@ mkdirSync(join(ROOT, "scripts/win"), { recursive: true });
 // Код выхода месяца не проверяется: стратегия завершает процесс через kill() (SIGKILL, код 137),
 // это штатный финал, а не ошибка. Упавший месяц виден по отсутствию closed в его отчёте
 // (node scripts/common/summarize_reports.mjs).
-writeFileSync(join(ROOT, "scripts/linux/generate_strategy.sh"), [
+writeFileSync(join(ROOT, "scripts/linux/run_strategy.sh"), [
   "#!/bin/bash",
   "# Прогон индексного фонда по всем кварталам, один процесс CLI на квартал. Нужны поднятые docker/mongo и docker/redis.",
-  "# Отчёты: content/<квартал>/dump/report/backtest.jsonl. Запуск из корня репо: bash scripts/linux/generate_strategy.sh",
+  "# Отчёты: content/<квартал>/dump/report/backtest.jsonl. Запуск из корня репо: bash scripts/linux/run_strategy.sh",
   "# Каждый квартал завершается kill() со статусом 137 - это штатно, прогон продолжается; сводка: node scripts/common/summarize_reports.mjs",
   ...generated.map((folder) => `node ${cli} --backtest --entry ./content/${folder}/main.strategy.ts`),
   "",
 ].join("\n"));
-writeFileSync(join(ROOT, "scripts/win/generate_strategy.bat"), [
+writeFileSync(join(ROOT, "scripts/win/run_strategy.bat"), [
   "@echo off",
   "REM Прогон индексного фонда по всем кварталам, один процесс CLI на квартал. Нужны поднятые docker\\mongo и docker\\redis.",
-  "REM Отчёты: content\\<квартал>\\dump\\report\\backtest.jsonl. Запуск из корня репо: scripts\\win\\generate_strategy.bat",
+  "REM Отчёты: content\\<квартал>\\dump\\report\\backtest.jsonl. Запуск из корня репо: scripts\\win\\run_strategy.bat",
   "REM Каждый квартал завершается kill() с ненулевым кодом - это штатно, прогон продолжается; сводка: node scripts\\common\\summarize_reports.mjs",
   ...generated.map((folder) => `node ${cli.replace(/\//g, "\\")} --backtest --entry .\\content\\${folder}\\main.strategy.ts`),
   "",

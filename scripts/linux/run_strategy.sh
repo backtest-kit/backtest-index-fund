@@ -1,6 +1,6 @@
 #!/bin/bash
 # Прогон индексного фонда по всем кварталам, один процесс CLI на квартал. Нужны поднятые docker/mongo и docker/redis.
-# Отчёты: content/<квартал>/dump/report/backtest.jsonl. Запуск из корня репо: bash scripts/linux/generate_strategy.sh
+# Отчёты: content/<квартал>/dump/report/backtest.jsonl. Запуск из корня репо: bash scripts/linux/run_strategy.sh
 # Каждый квартал завершается kill() со статусом 137 - это штатно, прогон продолжается; сводка: node scripts/common/summarize_reports.mjs
 node ./node_modules/@backtest-kit/cli/build/index.mjs --backtest --entry ./content/q4_2020/main.strategy.ts
 node ./node_modules/@backtest-kit/cli/build/index.mjs --backtest --entry ./content/q1_2021/main.strategy.ts

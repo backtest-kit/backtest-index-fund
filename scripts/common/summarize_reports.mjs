@@ -37,7 +37,7 @@ for (const folder of folders) {
 }
 
 const pct = (x) => `${(x / DEPOSIT * 100).toFixed(1).padStart(6)}%`;
-console.log(`deposit ${DEPOSIT}, ${folders.length} month folders, ${months.filter((m) => !m.missing).length} with reports\n`);
+console.log(`deposit ${DEPOSIT}, ${folders.length} quarter folders, ${months.filter((m) => !m.missing).length} with reports\n`);
 console.log("month    opened closed  net$     net%   fees$  gross%  PAXG$  gate      non-time closes");
 for (const m of months) {
   if (m.missing) { console.log(`${m.key}  (no report)`); continue; }
@@ -51,7 +51,7 @@ for (const m of months) { if (m.missing) continue; const y = m.key.slice(0, 4); 
 console.log("\nyear   months trades    net$    net%   fees$  gross%");
 let totNet = 0, totFees = 0, totN = 0;
 for (const [y, v] of Object.entries(years)) { totNet += v.net; totFees += v.fees; totN += v.n; console.log(`${y}   ${String(v.n).padStart(4)}  ${String(v.closed).padStart(5)}  ${v.net.toFixed(0).padStart(6)} ${pct(v.net)}  ${v.fees.toFixed(0).padStart(5)} ${pct(v.net + v.fees)}`); }
-const yearsSpan = totN / 12;
+const yearsSpan = totN * 3 / 12; // папка = календарный квартал
 console.log(`TOTAL  ${String(totN).padStart(4)}  ${String(allClosed.length).padStart(5)}  ${totNet.toFixed(0).padStart(6)} ${pct(totNet)}  ${totFees.toFixed(0).padStart(5)} ${pct(totNet + totFees)}   (${yearsSpan.toFixed(1)} years: net ${(totNet / DEPOSIT / yearsSpan * 100).toFixed(1)}%/y simple, gross ${((totNet + totFees) / DEPOSIT / yearsSpan * 100).toFixed(1)}%/y)`);
 
 // кумулятивный P&L по времени закрытия, просадка от пика в долларах

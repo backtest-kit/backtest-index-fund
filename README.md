@@ -42,7 +42,7 @@ npm start -- --backtest --ui --entry ./content/q3_2026/main.strategy.ts
 **3. Run every quarter** in chronological order, one engine process per quarter:
 
 ```bash
-bash scripts/linux/generate_strategy.sh      # scripts/win/generate_strategy.bat on Windows
+bash scripts/linux/run_strategy.sh      # scripts/win/run_strategy.bat on Windows
 ```
 
 Each quarter writes `content/<quarter>/dump/report/backtest.jsonl`; `opened` rows carry the gate, the weight and the basket size of that signal in `payload`, `closed` rows carry the realized PnL. Daily candles are fetched from Yahoo on demand, one request per ticker, nothing is written to Mongo for them. `node scripts/common/summarize_reports.mjs` folds all quarters into one table and flags anything that did not close by time.
