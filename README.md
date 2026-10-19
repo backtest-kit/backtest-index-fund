@@ -2,7 +2,7 @@
 
 # 🧿 backtest-index-fund
 
-> A weekly crypto index fund built on [backtest-kit](https://github.com/tripolskypetr/backtest-kit): a fixed deposit is spread in equal parts over the twenty most traded Binance USDT pairs of the previous month, the share of the deposit that is actually in the market is dictated by a trend gate on Bitcoin, and whatever the gate keeps out of crypto is parked in tokenized gold. Every position lives exactly one week and is reopened at the next tick. One folder per month, no shared code between months, daily candles from Yahoo Finance sampled into the minute feed the engine expects.
+> A quarterly crypto index fund built on [backtest-kit](https://github.com/tripolskypetr/backtest-kit): a fixed deposit is spread in equal parts over the twenty most traded Binance USDT pairs of the month before the quarter, the share of the deposit that is actually in the market is dictated by a trend gate on Bitcoin, and whatever the gate keeps out of crypto is parked in tokenized gold. Every position is opened on the first tick of the quarter and closed by time on its last day. One folder per quarter, no shared code between quarters, daily candles from Yahoo Finance sampled into the minute feed the engine expects.
 
 ![screenshot](https://raw.githubusercontent.com/tripolskypetr/backtest-kit/HEAD/assets/screenshots/screenshot16.png)
 
@@ -11,14 +11,14 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue)]()
 [![Build](https://github.com/tripolskypetr/backtest-kit/actions/workflows/webpack.yml/badge.svg)](https://github.com/tripolskypetr/backtest-kit/actions/workflows/webpack.yml)
 
-Most "crypto index" ideas die on two details that are easy to hand-wave in a spreadsheet and impossible to hand-wave in an engine: **which coins were actually in the index on a given month** (not the ones that survived until today), and **what happens to the money when the index is not worth holding**. This repo answers both mechanically. The basket of each month is frozen into that month's folder from data that was known before the month started, and the deposit never sits idle: the trend gate moves it between the alt basket and gold, week by week, with the whole decision visible in every signal's `payload`.
+Most "crypto index" ideas die on two details that are easy to hand-wave in a spreadsheet and impossible to hand-wave in an engine: **which coins were actually in the index in a given quarter** (not the ones that survived until today), and **what happens to the money when the index is not worth holding**. This repo answers both mechanically. The basket of each quarter is frozen into that quarter's folder from data that was known before the quarter started, and the deposit never sits idle: the trend gate splits it between the alt basket and gold on the day the quarter opens, with the whole decision visible in every signal's `payload`.
 
-- **The index is rebuilt every month from last month's volume.** No survivorship: delisted and forgotten coins are in the baskets of the months when they were liquid, and this year's memecoins are not in 2021. The list a month trades on is literally a constant in that month's `main.strategy.ts`.
+- **The index is rebuilt every quarter from the volume of the month before it.** No survivorship: delisted and forgotten coins are in the baskets of the months when they were liquid, and this year's memecoins are not in 2021. The list a quarter trades on is literally a constant in that quarter's `main.strategy.ts`.
 - **The gate is a vote of six windows, not a single moving average.** For each of 20, 25, 30, 35, 40 and 45 days the strategy asks whether Bitcoin closed higher than that many days ago; the share of "yes" answers (0, ⅙ … 1) is the share of the deposit that goes into the basket. A single lookback is a knife-edge parameter; an ensemble across a plateau of lookbacks is not.
-- **Gold is the counter-position, not cash.** `1 − gate` of the deposit buys PAXG for the same week. When the gate is 0 the fund is entirely in gold; when it is 1 the gold leg returns no signal at all.
-- **Everything is a weekly position with a time exit.** Stop and take-profit exist only to satisfy the engine's validator, at distances a spot position cannot reach in a week. The only normal way out is `time_expired`; the next hourly tick decides the next week's size from the gate of that day.
+- **Gold is the counter-position, not cash.** `1 − gate` of the deposit buys PAXG for the same quarter. When the gate is 0 the fund is entirely in gold; when it is 1 the gold leg returns no signal at all.
+- **Everything is a quarterly position with a time exit.** The take-profit at +500% exists only to satisfy the engine's validator; the stop at −50% is a real drawdown cap over three months and does get hit in crashes, after which the symbol re-enters on the next tick with the gate of that day. The normal way out is `time_expired` on the last day of the frame.
 
-The repo is a template for this kind of research, and it says so in its structure: 73 month folders generated by copy-paste from one reference month, three scripts that build the universe and vet the data source, and a HOWTO that lists every known approximation.
+The repo is a template for this kind of research, and it says so in its structure: 24 quarter folders generated by copy-paste from one reference quarter, three scripts that build the universe and vet the data source, and a HOWTO that lists every known approximation.
 
 📚 **[API Reference](https://backtest-kit.github.io/documents/example_02_first_backtest.html)** | 🌟 **[Quick Start](https://github.com/tripolskypetr/backtest-kit/tree/master/example)** | 📰 **[Article](https://backtest-kit.github.io/documents/article_08_ai_liquidity_harvesting.html)**
 
@@ -33,28 +33,28 @@ docker compose -f docker/mongo/docker-compose.yaml up -d
 docker compose -f docker/redis/docker-compose.yaml up -d
 ```
 
-**2. Run one month** (the frame and the exchange adapter live next to the strategy, in [content/sep_2026/modules/backtest.module.ts](content/sep_2026/modules/backtest.module.ts)):
+**2. Run one quarter** (the frame and the exchange adapter live next to the strategy, in [content/q3_2026/modules/backtest.module.ts](content/q3_2026/modules/backtest.module.ts)):
 
 ```bash
-npm start -- --backtest --ui --entry ./content/sep_2026/main.strategy.ts
+npm start -- --backtest --ui --entry ./content/q3_2026/main.strategy.ts
 ```
 
-**3. Run every month** in chronological order, one engine process per month:
+**3. Run every quarter** in chronological order, one engine process per quarter:
 
 ```bash
-bash scripts/linux/generate_strategy.sh      # scripts/win/generate_strategy.bat on Windows
+bash scripts/linux/run_strategy.sh      # scripts/win/run_strategy.bat on Windows
 ```
 
-Each month writes `content/<month>/dump/report/backtest.jsonl`; `opened` rows carry the gate, the weight and the basket size of that signal in `payload`, `closed` rows carry the realized PnL. Daily candles are fetched from Yahoo on demand, one request per ticker, nothing is written to Mongo for them. `node scripts/common/summarize_reports.mjs` folds all months into one table and flags anything that did not close by time.
+Each quarter writes `content/<quarter>/dump/report/backtest.jsonl`; `opened` rows carry the gate, the weight and the basket size of that signal in `payload`, `closed` rows carry the realized PnL. Daily candles are fetched from Yahoo on demand, one request per ticker, nothing is written to Mongo for them. `node scripts/common/summarize_reports.mjs` folds all quarters into one table and flags anything that did not close by time.
 
 
 ## 📐 How the Fund Works
 
-The whole strategy is one file per month, [content/sep_2020/main.strategy.ts](content/sep_2020/main.strategy.ts) being the reference the others are stamped from. Reading it top to bottom:
+The whole strategy is one file per quarter, [content/q4_2020/main.strategy.ts](content/q4_2020/main.strategy.ts) being the reference the others are stamped from. Reading it top to bottom:
 
 ### The basket
 
-Twenty symbols plus `PAXGUSDT`. The twenty are the top Binance USDT spot pairs by quote volume of the **previous** calendar month, with three filters: listed at least 90 days before the month starts, not a stablecoin, fiat, leveraged token or wrapped/staked derivative of BTC or ETH, and tradable on the candle source for the whole month (see the data section). The ranking uses only information available on the first day of the month; the block between `// BASKET:BEGIN` and `// BASKET:END` is the only thing that differs between the strategies of two months.
+Twenty symbols plus `PAXGUSDT`. The twenty are the top Binance USDT spot pairs by quote volume of the calendar month **before the quarter**, with three filters: listed at least 90 days before the quarter starts, not a stablecoin, fiat, leveraged token or wrapped/staked derivative of BTC or ETH, and tradable on the candle source for the whole quarter (see the data section). The ranking uses only information available on the first day of the quarter; the block between `// BASKET:BEGIN` and `// BASKET:END` is the only thing that differs between the strategies of two quarters.
 
 ### The gate
 
@@ -62,7 +62,7 @@ Twenty symbols plus `PAXGUSDT`. The twenty are the top Binance USDT spot pairs b
 gate = share of N in {20, 25, 30, 35, 40, 45} with close(yesterday) > close(yesterday − N days)
 ```
 
-Computed on Bitcoin's closed daily bars through `getCandles`, which the engine trims at the current backtest time, so there is no look-ahead. Wrapped in `Cache.fn` with a one-day interval: the value is calculated once per day for all symbols and invalidated when the engine moves to the next day.
+Computed on Bitcoin's closed daily bars through `getCandles`, which the engine trims at the current backtest time, so there is no look-ahead. Wrapped in `Cache.fn` with a one-day interval: the value is calculated once per day for all symbols and invalidated when the engine moves to the next day. In a quarterly cycle it matters on the opening day and on any re-entry after a stop.
 
 ### The allocation
 
@@ -70,24 +70,25 @@ Computed on Bitcoin's closed daily bars through `getCandles`, which the engine t
 - `PAXGUSDT`: `cost = deposit × (1 − gate)`
 - any leg whose cost falls below one dollar returns `null` instead of a signal, because the engine silently replaces a zero cost with its default entry cost.
 
-The deposit is a constant of the strategy. backtest-kit has no shared portfolio balance: each symbol is an independent backtest, and the "fund" exists only as this arithmetic plus the sum of `pnlCost` over the month's report.
+The deposit is a constant of the strategy. backtest-kit has no shared portfolio balance: each symbol is an independent backtest, and the "fund" exists only as this arithmetic plus the sum of `pnlCost` over the quarter's report.
 
 ### The cycle
 
-A position is opened long with `Position.bracket` at technical levels (stop −50%, take-profit +500%) and `minuteEstimatedTime` of one week minus one minute. It closes by time at 23:59 and the symbol re-enters on the 00:00 tick with the size dictated by that day's gate. Because the gold leg and the basket legs re-enter independently, their weekly cycles drift apart after the first week in which the gate changed; the HOWTO describes this and the two ways to remove it, and the repo deliberately ships the simple version.
+A position is opened long with `Position.bracket` (stop −50%, take-profit +500%) and `minuteEstimatedTime` of 92 days minus one minute, longer than any quarter: the engine closes whatever is still open at the frame's `endDate` with `time_expired`, so every leg exits at 23:59 of the quarter's last day. There is no re-entry inside the quarter except after a stop, where the symbol re-enters on the next tick with that day's gate and holds to the same end of frame. One round trip per leg per quarter is the whole cost budget of the fund.
 
 
-## 🗂 One Folder Per Month, By Construction
+## 🗂 One Folder Per Quarter, By Construction
 
-`content/<mon>_<yyyy>/` is self-contained: the strategy, the candle source and the exchange adapter with the month's frame. There is no shared module between months, which is a rule of this repo rather than an omission. A backtest should be reproducible from the folder alone, months must never influence each other through a refactor, and the reference month is the only place where the strategy is edited by hand:
+`content/q<n>_<yyyy>/` is one calendar quarter and is self-contained: the strategy, the candle sources and the exchange adapter with the quarter's frame. There is no shared module between quarters, which is a rule of this repo rather than an omission. A backtest should be reproducible from the folder alone, quarters must never influence each other through a refactor, and the reference quarter is the only place where the strategy is edited by hand:
 
 | Path | Role |
 |---|---|
-| `main.strategy.ts` | the fund: constants, gate, allocation, launcher with the month's basket; `setConfig` lives only here |
+| `main.strategy.ts` | the fund: constants, gate, allocation, launcher with the quarter's basket; `setConfig` lives only here |
 | `classes/YahooFinance.ts` | daily candles from Yahoo Finance chart API, no API key, no ccxt; compatible with `getCandlesFilled` / `getCandlesSampled` as a fetcher |
-| `modules/backtest.module.ts` | symbol → Yahoo ticker mapping (`BASEUSDT` → `BASE-USD` plus the month's explicit overrides), the exchange schema, the month's frame |
+| `classes/BinanceFutures.ts`, `classes/BinanceFunding.ts`, `classes/UzSE.ts` | other candle and data sources in the same fetcher shape, not used by the fund itself: Binance USDⓈ-M klines and funding history, Tashkent stock exchange daily bars cached as Excel exports |
+| `modules/backtest.module.ts` | symbol → Yahoo ticker mapping (`BASEUSDT` → `BASE-USD` plus the quarter's explicit overrides), the exchange schema, the quarter's frame |
 
-The generator in [scripts/common/generate_months.mjs](scripts/common/generate_months.mjs) copies the reference folder into every month and substitutes exactly three things: the basket block in the strategy, the ticker overrides block and the frame in the module. It also rewrites the two runner scripts so that they always list every month on disk.
+The generator in [scripts/common/generate_months.mjs](scripts/common/generate_months.mjs) copies the reference folder into every quarter and substitutes exactly three things: the basket block in the strategy, the ticker overrides block and the three-month frame in the module. Quarters that have not ended yet are skipped. It also rewrites the two runner scripts so that they always list every quarter on disk.
 
 
 ## 📊 Data: Daily Bars Driving a Minute Engine
@@ -98,25 +99,25 @@ The engine simulates positions on minute candles and asks the exchange adapter f
 - the strategy sets `CC_BACKTEST_STEP_MINUTES` to a full day, so the engine evaluates each position once per daily bar instead of 1440 times on identical candles;
 - `PersistCandleAdapter.useDummy()` keeps the synthesized candles out of Mongo.
 
-The accepted trade-off is printed in the engine's own documentation of the sampler: every minute of a day carries that day's high, low and close. For a weekly time exit this does not matter; for intraday stops it would.
+The accepted trade-off is printed in the engine's own documentation of the sampler: every minute of a day carries that day's high, low and close. For a time exit on the last day of the quarter this does not matter; for the −50% stop it means the stop fires on the day's low rather than at an intraday moment.
 
 ## 🧭 Design Rules of This Repo
 
 - **Copy-paste over abstraction.** Months are stamped, not imported. A refactor must not be able to change the result of a month that already ran.
 - **`setConfig` only in the strategy file.** The exchange module registers schemas and adapters; it does not change engine behaviour.
-- **Constants describe the process, not the outcome.** The gate windows are a plateau found before this repo existed, the holding period is a calendar week, the listing age is a liquidity requirement. None of them is tuned to a PnL curve, and the README does not quote one.
-- **Every approximation is written down.** [docs/HOWTO.md](docs/HOWTO.md) is the operating manual: prerequisites, the universe/resolve/verify loop, how to change the strategy (edit the reference month, regenerate), and the list of known gaps: the leg desynchronisation, the daily-bar sampling, the per-symbol accounting, the Yahoo aggregate prices.
+- **Constants describe the process, not the outcome.** The gate windows are a plateau found before this repo existed, the holding period is a calendar quarter, the listing age is a liquidity requirement. None of them is tuned to a PnL curve, and the README does not quote one.
+- **Every approximation is written down.** [docs/HOWTO.md](docs/HOWTO.md) is the operating manual: prerequisites, the universe/resolve/verify loop, how to change the strategy (edit the reference month, regenerate), and the list of known gaps: the daily-bar sampling, the per-symbol accounting, the Yahoo aggregate prices, re-entries after a stop.
 
 
 ## 📜 Summary
 
 | Aspect | This repo |
 |---|---|
-| **Subject** | A weekly long-only crypto index fund with a Bitcoin trend gate and a gold counter-position, replayed month by month |
-| **Universe** | Top-20 Binance USDT pairs by previous-month volume, 90-day listing age, no stables/leveraged/wrapped; frozen per month, no survivorship |
+| **Subject** | A quarterly long-only crypto index fund with a Bitcoin trend gate and a gold counter-position, replayed quarter by quarter |
+| **Universe** | Top-20 Binance USDT pairs by volume of the month before the quarter, 90-day listing age, no stables/leveraged/wrapped; frozen per quarter, no survivorship |
 | **Gate** | Share of six lookbacks (20–45 days) on which BTC closed higher; scales basket exposure from 0 to 1 |
-| **Counter-position** | `PAXGUSDT` receives `1 − gate` of the deposit for the same week |
-| **Cycle** | Equal-weight weekly positions, time exit after one week minus a minute, re-entry on the next tick |
+| **Counter-position** | `PAXGUSDT` receives `1 − gate` of the deposit for the same quarter |
+| **Cycle** | Equal-weight positions opened on the first tick of the quarter, time exit at the end of the frame, re-entry only after a −50% stop |
 | **Data** | Yahoo Finance daily bars, sampled to minutes by `getCandlesSampled`, one engine step per day, tickers resolved and price-verified against Binance before generation |
-| **Layout** | 73 self-contained month folders generated from one reference month; generator, universe builder, resolver and verifier in `scripts/common/` |
-| **Honesty budget** | Per-symbol accounting with a fixed deposit, synthetic intraday path, legs that drift out of sync; all documented in `docs/HOWTO.md` |
+| **Layout** | 24 self-contained quarter folders generated from one reference quarter; generator, universe builder, resolver and verifier in `scripts/common/` |
+| **Honesty budget** | Per-symbol accounting with a fixed deposit, synthetic intraday path, stops evaluated on daily lows; all documented in `docs/HOWTO.md` |

@@ -60,7 +60,19 @@ const monthEnd = (month) => {
   const [y, m] = month.split("-").map(Number);
   return Date.UTC(y, m, 0); // последний день месяца, полночь UTC
 };
-const monthsOf = (symbol) => Object.entries(universe.months).filter(([, v]) => v.basket.includes(symbol)).map(([m]) => m);
+// Папка это календарный квартал: монета из корзины его первого месяца торгуется три месяца, сверяются все три
+const QUARTER_MONTHS = 3;
+const nextMonth = (month) => { const [y, m] = month.split("-").map(Number); return m === 12 ? `${y + 1}-01` : `${y}-${String(m + 1).padStart(2, "0")}`; };
+const monthsOf = (symbol) => {
+  const out = new Set();
+  for (const [month, v] of Object.entries(universe.months)) {
+    if (!v.basket.includes(symbol)) continue;
+    if ((Number(month.split("-")[1]) - 1) % QUARTER_MONTHS !== 0) continue; // торгуются только календарные кварталы
+    let m = month;
+    for (let k = 0; k < QUARTER_MONTHS; k++) { out.add(m); m = nextMonth(m); }
+  }
+  return [...out].sort();
+};
 
 // --only SYM1,SYM2: проверить только эти символы (остальные записи не трогаются)
 const onlyArg = process.argv.indexOf("--only");
@@ -105,7 +117,10 @@ for (const [symbol, entry] of Object.entries(tickers)) {
     rejected[symbol] = { ticker: entry.ticker, reason: `price mismatch in ${bad.length}/${deviations.length} months, worst ${worst.month} ${worst.edge}: yahoo ${worst.yahoo} vs binance ${worst.binance}` };
     console.log(`${symbol.padEnd(14)} ${entry.ticker.padEnd(16)} REJECT: ${rejected[symbol].reason}`);
   } else {
-    entry.badMonths = bad.map((d) => d.month);
+    // Плохие месяцы накапливаются: месяц, из-за которого монету уже исключили из корзины, при следующей
+    // сверке не проверяется (монеты там нет), и без накопления он бы «выздоравливал», а сборщик возвращал
+    // монету обратно - цикл сверка/сборка не сходился бы. Данные прошлого не меняются, запись не чистится.
+    entry.badMonths = [...new Set([...(entry.badMonths ?? []), ...bad.map((d) => d.month)])].sort();
     if (!entry.badMonths.length) delete entry.badMonths;
     const worstText = isFinite(worst.dev) ? `worst ${(worst.dev * 100).toFixed(1)}% in ${worst.month} ${worst.edge}` : `gap in ${worst.month} ${worst.edge}`;
     console.log(`${symbol.padEnd(14)} ${entry.ticker.padEnd(16)} ok, ${worstText} (${deviations.length} months${bad.length ? `, excluded: ${bad.map((d) => d.month + (d.tooCheap ? "(cheap)" : d.gap ? "(gap)" : "")).join(" ")}` : ""})`);

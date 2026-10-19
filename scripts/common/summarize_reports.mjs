@@ -13,11 +13,10 @@ const arg = (name, fallback) => { const i = process.argv.indexOf(`--${name}`); r
 const DEPOSIT = Number(arg("deposit", 1000));
 const ROUND_TRIP_COST = 0.004; // 0.1% fee + 0.1% slippage, две стороны
 
-const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-const keyOf = (folder) => { const [mon, year] = folder.split("_"); return `${year}-${String(MONTHS.indexOf(mon) + 1).padStart(2, "0")}`; };
+const keyOf = (folder) => { const [q, year] = folder.split("_"); return `${year}-${q.toUpperCase()}`; }; // q4_2020 -> 2020-Q4
 const reportOf = (folder) => ["dump/report/backtest.jsonl", "assets/backtest.jsonl"].map((p) => join(ROOT, "content", folder, p)).find(existsSync);
 
-const folders = readdirSync(join(ROOT, "content")).filter((f) => /^[a-z]{3}_\d{4}$/.test(f)).sort((a, b) => keyOf(a).localeCompare(keyOf(b)));
+const folders = readdirSync(join(ROOT, "content")).filter((f) => /^q[1-4]_\d{4}$/.test(f)).sort((a, b) => keyOf(a).localeCompare(keyOf(b)));
 const months = [];
 const allClosed = [];
 for (const folder of folders) {
@@ -38,7 +37,7 @@ for (const folder of folders) {
 }
 
 const pct = (x) => `${(x / DEPOSIT * 100).toFixed(1).padStart(6)}%`;
-console.log(`deposit ${DEPOSIT}, ${folders.length} month folders, ${months.filter((m) => !m.missing).length} with reports\n`);
+console.log(`deposit ${DEPOSIT}, ${folders.length} quarter folders, ${months.filter((m) => !m.missing).length} with reports\n`);
 console.log("month    opened closed  net$     net%   fees$  gross%  PAXG$  gate      non-time closes");
 for (const m of months) {
   if (m.missing) { console.log(`${m.key}  (no report)`); continue; }
@@ -52,7 +51,7 @@ for (const m of months) { if (m.missing) continue; const y = m.key.slice(0, 4); 
 console.log("\nyear   months trades    net$    net%   fees$  gross%");
 let totNet = 0, totFees = 0, totN = 0;
 for (const [y, v] of Object.entries(years)) { totNet += v.net; totFees += v.fees; totN += v.n; console.log(`${y}   ${String(v.n).padStart(4)}  ${String(v.closed).padStart(5)}  ${v.net.toFixed(0).padStart(6)} ${pct(v.net)}  ${v.fees.toFixed(0).padStart(5)} ${pct(v.net + v.fees)}`); }
-const yearsSpan = totN / 12;
+const yearsSpan = totN * 3 / 12; // папка = календарный квартал
 console.log(`TOTAL  ${String(totN).padStart(4)}  ${String(allClosed.length).padStart(5)}  ${totNet.toFixed(0).padStart(6)} ${pct(totNet)}  ${totFees.toFixed(0).padStart(5)} ${pct(totNet + totFees)}   (${yearsSpan.toFixed(1)} years: net ${(totNet / DEPOSIT / yearsSpan * 100).toFixed(1)}%/y simple, gross ${((totNet + totFees) / DEPOSIT / yearsSpan * 100).toFixed(1)}%/y)`);
 
 // кумулятивный P&L по времени закрытия, просадка от пика в долларах

@@ -72,6 +72,8 @@ const TICKERS_FILE = join(ROOT, "scripts", "common", "yahoo_tickers.json");
 const YAHOO_HISTORY_MARGIN_DAYS = 7;
 const yahooTickers = existsSync(TICKERS_FILE) ? JSON.parse(readFileSync(TICKERS_FILE, "utf8")) : {};
 const unresolved = new Set();
+const QUARTER_MONTHS = 3;
+const addMonths = (monthStart, n) => { const d = new Date(monthStart); return Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + n, 1); };
 const yahooOk = (symbol, monthStart) => {
   const key = symbol.replace("/", "");
   if (!(key in yahooTickers)) {
@@ -80,7 +82,11 @@ const yahooOk = (symbol, monthStart) => {
   }
   const entry = yahooTickers[key];
   if (!entry) return false;
-  if (entry.badMonths?.includes(ym(monthStart))) return false; // месяц, где ряд Yahoo расходится с Binance (verify_yahoo_tickers.mjs)
+  // Папка это календарный квартал: ряд Yahoo должен быть чистым в его первом месяце и двух следующих
+  // (плохие месяцы по сверке verify_yahoo_tickers.mjs)
+  for (let k = 0; k < QUARTER_MONTHS; k++) {
+    if (entry.badMonths?.includes(ym(addMonths(monthStart, k)))) return false;
+  }
   return Date.parse(entry.since) <= monthStart - YAHOO_HISTORY_MARGIN_DAYS * DAY;
 };
 

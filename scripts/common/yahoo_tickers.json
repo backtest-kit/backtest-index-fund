@@ -106,7 +106,11 @@
  },
  "BONKUSDT": {
   "ticker": "BONK-USD",
-  "since": "2022-12-30"
+  "since": "2022-12-30",
+  "badMonths": [
+   "2025-11",
+   "2025-12"
+  ]
  },
  "BTCUSDT": {
   "ticker": "BTC-USD",
@@ -176,10 +180,7 @@
  },
  "DYDXUSDT": {
   "ticker": "DYDX-USD",
-  "since": "2021-09-08",
-  "badMonths": [
-   "2023-12"
-  ]
+  "since": "2021-09-08"
  },
  "EGLDUSDT": {
   "ticker": "EGLD-USD",
@@ -199,10 +200,7 @@
  },
  "EOSUSDT": {
   "ticker": "EOS-USD",
-  "since": "2017-11-09",
-  "badMonths": [
-   "2025-05"
-  ]
+  "since": "2017-11-09"
  },
  "ETCUSDT": {
   "ticker": "ETC-USD",
@@ -402,7 +400,6 @@
   "ticker": "OP-USD",
   "since": "2022-03-14",
   "badMonths": [
-   "2022-09",
    "2022-10"
   ]
  },
@@ -475,6 +472,10 @@
   "ticker": "SAND-USD",
   "since": "2020-08-14"
  },
+ "SANTOSUSDT": {
+  "ticker": "SANTOS-USD",
+  "since": "2021-12-01"
+ },
  "SEIUSDT": {
   "ticker": "SEI-USD",
   "since": "2023-08-15"
@@ -487,6 +488,7 @@
    "2022-12",
    "2023-01",
    "2023-05",
+   "2023-06",
    "2023-07",
    "2023-08",
    "2023-09"
