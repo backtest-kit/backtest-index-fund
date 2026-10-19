@@ -13,11 +13,10 @@ const arg = (name, fallback) => { const i = process.argv.indexOf(`--${name}`); r
 const DEPOSIT = Number(arg("deposit", 1000));
 const ROUND_TRIP_COST = 0.004; // 0.1% fee + 0.1% slippage, две стороны
 
-const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-const keyOf = (folder) => { const [mon, year] = folder.split("_"); return `${year}-${String(MONTHS.indexOf(mon) + 1).padStart(2, "0")}`; };
+const keyOf = (folder) => { const [q, year] = folder.split("_"); return `${year}-${q.toUpperCase()}`; }; // q4_2020 -> 2020-Q4
 const reportOf = (folder) => ["dump/report/backtest.jsonl", "assets/backtest.jsonl"].map((p) => join(ROOT, "content", folder, p)).find(existsSync);
 
-const folders = readdirSync(join(ROOT, "content")).filter((f) => /^[a-z]{3}_\d{4}$/.test(f)).sort((a, b) => keyOf(a).localeCompare(keyOf(b)));
+const folders = readdirSync(join(ROOT, "content")).filter((f) => /^q[1-4]_\d{4}$/.test(f)).sort((a, b) => keyOf(a).localeCompare(keyOf(b)));
 const months = [];
 const allClosed = [];
 for (const folder of folders) {

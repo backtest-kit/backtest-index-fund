@@ -1,9 +1,11 @@
-// Штампует папки content/<mon>_<yyyy>/ копипастой из эталонного месяца: код стратегии и биржи
+// Штампует папки content/q<n>_<yyyy>/ копипастой из эталонного квартала: код стратегии и биржи
 // копируется как есть, подставляются только список тикеров (блок BASKET:BEGIN..BASKET:END в
-// main.strategy.ts) и фрейм месяца (в modules/backtest.module.ts). Общего кода между месяцами нет.
+// main.strategy.ts) и фрейм квартала (в modules/backtest.module.ts). Общего кода между папками нет.
+// Папка это календарный квартал (q1 = январь-март), корзина берётся по обороту месяца перед началом
+// квартала. Кварталы, не закончившиеся к сегодняшнему дню, не штампуются.
 // Заодно переписывает scripts/linux/generate_strategy.sh и scripts/win/generate_strategy.bat.
 //
-// Запуск из корня репо: node scripts/common/generate_months.mjs [--source content/sep_2020]
+// Запуск из корня репо: node scripts/common/generate_months.mjs [--source content/q4_2020]
 // Источник списков: scripts/common/universe.json (см. build_universe.mjs).
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync } from "fs";
 import { dirname, join } from "path";
@@ -14,7 +16,7 @@ const arg = (name, fallback) => {
   const i = process.argv.indexOf(`--${name}`);
   return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : fallback;
 };
-const SOURCE = join(ROOT, arg("source", "content/sep_2020"));
+const SOURCE = join(ROOT, arg("source", "content/q4_2020"));
 const universe = JSON.parse(readFileSync(join(ROOT, "scripts/common/universe.json"), "utf8"));
 
 const MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -51,13 +53,22 @@ const overridesFor = (basket) => {
 
 const folderOf = (month) => {
   const [y, m] = month.split("-").map(Number);
-  return `${MONTHS_EN[m - 1].slice(0, 3).toLowerCase()}_${y}`;
+  return `q${Math.ceil(m / QUARTER_MONTHS)}_${y}`;
 };
 const lastDay = (y, m) => new Date(Date.UTC(y, m, 0)).getUTCDate(); // m: 1..12
 
+const QUARTER_MONTHS = 3;
+const addMonths = (y, m, n) => [y + Math.floor((m - 1 + n) / 12), ((m - 1 + n) % 12) + 1]; // m: 1..12
+
 const generated = [];
-for (const [month, { rankedBy, basket }] of Object.entries(universe.months)) {
+const quarterStarts = Object.entries(universe.months).filter(([month]) => (Number(month.split("-")[1]) - 1) % QUARTER_MONTHS === 0);
+for (const [month, { rankedBy, basket }] of quarterStarts) {
   const [y, m] = month.split("-").map(Number);
+  const [ey, em] = addMonths(y, m, QUARTER_MONTHS - 1);
+  if (Date.UTC(ey, em, 0, 23, 59, 59) > Date.now()) {
+    console.log(`skip ${month}: quarter ends after today`);
+    continue;
+  }
   const [py, pm] = rankedBy.split("-").map(Number);
   const folder = folderOf(month);
   const dir = join(ROOT, "content", folder);
@@ -65,7 +76,7 @@ for (const [month, { rankedBy, basket }] of Object.entries(universe.months)) {
 
   const basketBlock = [
     "// BASKET:BEGIN",
-    `// ${MONTHS_RU[m - 1]} ${y}: топ-${basket.length} USDT-пар спота Binance по обороту за ${MONTHS_RU_GEN[pm - 1]} ${py} (известен до начала месяца),`,
+    `// ${folder.toUpperCase().replace("_", " ")} (${MONTHS_RU_GEN[m - 1]} - ${MONTHS_RU_GEN[em - 1]}): топ-${basket.length} USDT-пар спота Binance по обороту за ${MONTHS_RU_GEN[pm - 1]} ${py} (известен до начала квартала),`,
     "// листинг не моложе 90 дней, без стейблкоинов, плечевых токенов и обёрток BTC/ETH.",
     "// Сгенерировано scripts/common/generate_months.mjs из scripts/common/universe.json.",
     "const BASKET = [",
@@ -80,8 +91,8 @@ for (const [month, { rankedBy, basket }] of Object.entries(universe.months)) {
     .replace(/const TICKER_OVERRIDES: Record<string, string> = \{[\s\S]*?\};/, overridesFor(basket))
     .replace(/frameName: "[^"]*"/, `frameName: "${folder}_frame"`)
     .replace(/startDate: new Date\("[^"]*"\)/, `startDate: new Date("${y}-${mm}-01T00:00:00Z")`)
-    .replace(/endDate: new Date\("[^"]*"\)/, `endDate: new Date("${y}-${mm}-${String(lastDay(y, m)).padStart(2, "0")}T23:59:59Z")`)
-    .replace(/note: "[^"]*"/, `note: "${MONTHS_EN[m - 1]} ${y}"`);
+    .replace(/endDate: new Date\("[^"]*"\)/, `endDate: new Date("${ey}-${String(em).padStart(2, "0")}-${String(lastDay(ey, em)).padStart(2, "0")}T23:59:59Z")`)
+    .replace(/note: "[^"]*"/, `note: "${folder.toUpperCase().replace("_", " ")}: ${MONTHS_EN[m - 1]} - ${MONTHS_EN[em - 1]}"`);
 
   writeFileSync(join(dir, "main.strategy.ts"), strategy);
   writeFileSync(join(dir, "modules/backtest.module.ts"), module);
@@ -104,20 +115,20 @@ mkdirSync(join(ROOT, "scripts/win"), { recursive: true });
 // (node scripts/common/summarize_reports.mjs).
 writeFileSync(join(ROOT, "scripts/linux/generate_strategy.sh"), [
   "#!/bin/bash",
-  "# Прогон индексного фонда по всем месяцам, один процесс CLI на месяц. Нужны поднятые docker/mongo и docker/redis.",
-  "# Отчёты: content/<месяц>/dump/report/backtest.jsonl. Запуск из корня репо: bash scripts/linux/generate_strategy.sh",
-  "# Каждый месяц завершается kill() со статусом 137 - это штатно, прогон продолжается; сводка: node scripts/common/summarize_reports.mjs",
+  "# Прогон индексного фонда по всем кварталам, один процесс CLI на квартал. Нужны поднятые docker/mongo и docker/redis.",
+  "# Отчёты: content/<квартал>/dump/report/backtest.jsonl. Запуск из корня репо: bash scripts/linux/generate_strategy.sh",
+  "# Каждый квартал завершается kill() со статусом 137 - это штатно, прогон продолжается; сводка: node scripts/common/summarize_reports.mjs",
   ...generated.map((folder) => `node ${cli} --backtest --entry ./content/${folder}/main.strategy.ts`),
   "",
 ].join("\n"));
 writeFileSync(join(ROOT, "scripts/win/generate_strategy.bat"), [
   "@echo off",
-  "REM Прогон индексного фонда по всем месяцам, один процесс CLI на месяц. Нужны поднятые docker\\mongo и docker\\redis.",
-  "REM Отчёты: content\\<месяц>\\dump\\report\\backtest.jsonl. Запуск из корня репо: scripts\\win\\generate_strategy.bat",
-  "REM Каждый месяц завершается kill() с ненулевым кодом - это штатно, прогон продолжается; сводка: node scripts\\common\\summarize_reports.mjs",
+  "REM Прогон индексного фонда по всем кварталам, один процесс CLI на квартал. Нужны поднятые docker\\mongo и docker\\redis.",
+  "REM Отчёты: content\\<квартал>\\dump\\report\\backtest.jsonl. Запуск из корня репо: scripts\\win\\generate_strategy.bat",
+  "REM Каждый квартал завершается kill() с ненулевым кодом - это штатно, прогон продолжается; сводка: node scripts\\common\\summarize_reports.mjs",
   ...generated.map((folder) => `node ${cli.replace(/\//g, "\\")} --backtest --entry .\\content\\${folder}\\main.strategy.ts`),
   "",
 ].join("\r\n"));
 
-console.log(`generated ${generated.length} months: ${generated[0]} .. ${generated[generated.length - 1]}`);
+console.log(`generated ${generated.length} quarters: ${generated[0]} .. ${generated[generated.length - 1]}`);
 if (!existsSync(join(SOURCE, "main.strategy.ts"))) process.exit(1);

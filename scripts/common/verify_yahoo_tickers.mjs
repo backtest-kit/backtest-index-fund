@@ -60,7 +60,19 @@ const monthEnd = (month) => {
   const [y, m] = month.split("-").map(Number);
   return Date.UTC(y, m, 0); // последний день месяца, полночь UTC
 };
-const monthsOf = (symbol) => Object.entries(universe.months).filter(([, v]) => v.basket.includes(symbol)).map(([m]) => m);
+// Папка это календарный квартал: монета из корзины его первого месяца торгуется три месяца, сверяются все три
+const QUARTER_MONTHS = 3;
+const nextMonth = (month) => { const [y, m] = month.split("-").map(Number); return m === 12 ? `${y + 1}-01` : `${y}-${String(m + 1).padStart(2, "0")}`; };
+const monthsOf = (symbol) => {
+  const out = new Set();
+  for (const [month, v] of Object.entries(universe.months)) {
+    if (!v.basket.includes(symbol)) continue;
+    if ((Number(month.split("-")[1]) - 1) % QUARTER_MONTHS !== 0) continue; // торгуются только календарные кварталы
+    let m = month;
+    for (let k = 0; k < QUARTER_MONTHS; k++) { out.add(m); m = nextMonth(m); }
+  }
+  return [...out].sort();
+};
 
 // --only SYM1,SYM2: проверить только эти символы (остальные записи не трогаются)
 const onlyArg = process.argv.indexOf("--only");
