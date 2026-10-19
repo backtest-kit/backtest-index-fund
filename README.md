@@ -94,8 +94,7 @@ The generator in [scripts/common/generate_months.mjs](scripts/common/generate_mo
 
 The engine simulates positions on minute candles and asks the exchange adapter for them. Yahoo only has daily bars. The adapter bridges the two with backtest-kit's own tools:
 
-- requests for `1d` go through `getCandlesFilled`, which puts the bars on a continuous calendar grid and fills weekends and holidays with a flat bar at the last close;
-- anything shorter goes through `getCandlesSampled`, which repeats the daily bar across its minutes or hours;
+- every request goes through `getCandlesSampled`; a `1d` request is handed to `getCandlesFilled`, which puts the bars on a continuous calendar grid and repairs weekends, holidays and anomalous bars (zeros, hundredfold wicks) with a flat bar from the neighbouring closes, and anything shorter repeats the repaired daily bar across its minutes or hours;
 - the strategy sets `CC_BACKTEST_STEP_MINUTES` to a full day, so the engine evaluates each position once per daily bar instead of 1440 times on identical candles;
 - `PersistCandleAdapter.useDummy()` keeps the synthesized candles out of Mongo.
 

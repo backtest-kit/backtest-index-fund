@@ -1,0 +1,54 @@
+{
+ "ALPACAUSDT": {
+  "ticker": "ALPACA-USD",
+  "reason": "price mismatch in 1/1 months, worst 2025-05: yahoo 0.06008300185203552 vs binance 0.2244"
+ },
+ "APEUSDT": {
+  "ticker": "APE-USD",
+  "reason": "price mismatch in 8/8 months, worst 2023-01: yahoo 0.0038930000737309456 vs binance 5.866"
+ },
+ "ARBUSDT": {
+  "ticker": "ARB-USD",
+  "reason": "price mismatch in 11/16 months, worst 2024-01: yahoo 0.00042600001324899495 vs binance 1.7635"
+ },
+ "BNXUSDT": {
+  "ticker": "BNX-USD",
+  "reason": "price mismatch in 1/1 months, worst 2025-03: yahoo 251.9833526611328 vs binance 1.7819"
+ },
+ "CYBERUSDT": {
+  "ticker": "CYBER-USD",
+  "reason": "price mismatch in 1/1 months, worst 2023-11: yahoo 0.1720000058412552 vs binance 6.146"
+ },
+ "HOTUSDT": {
+  "ticker": "HOT-USD",
+  "reason": "price mismatch in 1/2 months, worst 2021-04: yahoo 0.021754000335931778 vs binance 0.016071"
+ },
+ "IDUSDT": {
+  "ticker": "ID-USD",
+  "reason": "price mismatch in 1/1 months, worst 2023-06: yahoo 0.02878499962389469 vs binance 0.27717"
+ },
+ "NPXSUSDT": {
+  "ticker": "NPXS-USD",
+  "reason": "price mismatch in 1/1 months, worst 2021-04: yahoo 0.003152000019326806 vs binance 0.0070301"
+ },
+ "ONEUSDT": {
+  "ticker": "ONE-USD",
+  "reason": "price mismatch in 2/2 months, worst 2021-11: yahoo 0.0021899999119341373 vs binance 0.25214"
+ },
+ "OPUSDT": {
+  "ticker": "OP-USD",
+  "reason": "price mismatch in 1/10 months, worst 2022-09: yahoo 0.0004250000056345016 vs binance 0.91"
+ },
+ "PEPEUSDT": {
+  "ticker": "PEPE24478-USD",
+  "reason": "price mismatch in 2/31 months, worst 2023-08: yahoo 9.999999974752427e-7 vs binance 8e-7"
+ },
+ "TIAUSDT": {
+  "ticker": "TIA-USD",
+  "reason": "price mismatch in 2/2 months, worst 2024-01: yahoo 0.011055000126361847 vs binance 16.2117"
+ },
+ "TONUSDT": {
+  "ticker": "TON-USD",
+  "reason": "price mismatch in 2/2 months, worst 2026-05: yahoo 0.005979999899864197 vs binance 1.895"
+ }
+}

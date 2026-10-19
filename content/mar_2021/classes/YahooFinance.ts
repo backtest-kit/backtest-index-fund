@@ -23,7 +23,8 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
  *
  * Yahoo режет частые запросы (429): повтор с удвоением паузы, хосты query1/query2 чередуются.
  * Timestamp Yahoo - открытие сессии в зоне биржи, приводится к полуночи UTC этого дня;
- * дыры (праздники, null-бары) выбрасываются, заполнение сетки - дело getCandlesFilled.
+ * null-бары выбрасываются. Сетка, дыры и битые бары (нули, выбросы) - дело getCandlesFilled
+ * в ядре: аномальная свеча чинится плоской по соседям, пороги CC_GET_CANDLES_*.
  */
 export class YahooFinanceUtils {
 
