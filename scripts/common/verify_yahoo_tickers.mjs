@@ -1,8 +1,9 @@
-// Сверка карты тикеров Yahoo с ценами Binance: для каждой монеты сравниваются закрытия на концах
-// месяцев, в которых она стоит в корзине. Ловит подмену монеты одноимённым токеном, деноминации
-// (NPXS 1000:1 в 2021) и ряды, где Yahoo тянет другой актив. Расхождение больше MAX_DEVIATION
-// хотя бы в одном месяце корзины - монета помечается null в yahoo_tickers.json (с причиной в
-// yahoo_tickers_rejected.json), после чего universe.json надо пересобрать и месяцы перегенерировать.
+// Сверка карты тикеров Yahoo с ценами Binance: для каждого месяца, где монета стоит в корзине,
+// сравниваются закрытия на входе в месяц и на его конце. Ловит подмену монеты одноимённым токеном,
+// деноминации (NPXS 1000:1 в 2021), куски чужой истории (OP-USD до октября 2022) и цены ниже
+// разрешения Yahoo. Расхождение в большинстве месяцев - монета помечается null в yahoo_tickers.json
+// (с причиной в yahoo_tickers_rejected.json); единичные плохие месяцы пишутся в badMonths, и
+// build_universe.mjs не берёт монету в эти месяцы. После сверки universe.json пересобрать и месяцы перегенерировать.
 //
 // Запуск из корня репо: node scripts/common/verify_yahoo_tickers.mjs
 // Месячные закрытия Binance берутся из ./tmp/binance_monthly_usdt.json (их кладёт build_universe.mjs).
@@ -16,6 +17,11 @@ const REJECTED = join(ROOT, "scripts", "common", "yahoo_tickers_rejected.json");
 const UNIVERSE = join(ROOT, "scripts", "common", "universe.json");
 const RAW = join(ROOT, "tmp", "binance_monthly_usdt.json");
 const MAX_DEVIATION = 0.15; // 15%: агрегат Yahoo против спота Binance в норме расходится на проценты
+const MIN_PRICE = 1e-5;     // ниже этого 7 знаков Yahoo дают шаг цены больше процента (PEPE по 8e-7: шаг 12%)
+const prevMonth = (month) => {
+  const [y, m] = month.split("-").map(Number);
+  return m === 1 ? `${y - 1}-12` : `${y}-${String(m - 1).padStart(2, "0")}`;
+};
 const PAUSE_MS = 1500;
 const UA = "Mozilla/5.0";
 const DAY_MS = 86_400_000;
@@ -66,24 +72,33 @@ for (const [symbol, entry] of Object.entries(tickers)) {
   await sleep(PAUSE_MS);
   checked++;
   if (!closes) { rejected[symbol] = { ticker: entry.ticker, reason: "no yahoo series" }; console.log(`${symbol.padEnd(14)} ${entry.ticker.padEnd(16)} REJECT: no series`); continue; }
+  // Месяц корзины проверяется с двух концов: закрытие предыдущего месяца (вход в месяц) и закрытие
+  // самого месяца. Подменённый кусок истории, как у OP-USD до октября 2022, виден на входе.
+  const yahooAt = (day) => { for (let k = 0; k < 4; k++) { const v = closes.get(day - k * DAY_MS); if (v != null) return v; } return null; };
   const deviations = [];
   for (const month of months) {
-    const b = binanceMonthClose(symbol, month);
-    let y = null;
-    for (let k = 0; k < 4 && y == null; k++) y = closes.get(monthEnd(month) - k * DAY_MS) ?? null;
-    if (!b || !y) continue;
-    deviations.push({ month, binance: b, yahoo: y, dev: Math.abs(Math.log(y / b)) });
+    const checks = [
+      { edge: "start", binance: binanceMonthClose(symbol, prevMonth(month)), yahoo: yahooAt(monthEnd(prevMonth(month))) },
+      { edge: "end", binance: binanceMonthClose(symbol, month), yahoo: yahooAt(monthEnd(month)) },
+    ].filter((c) => c.binance && c.yahoo);
+    if (!checks.length) continue;
+    const worstEdge = checks.map((c) => ({ ...c, dev: Math.abs(Math.log(c.yahoo / c.binance)) })).sort((a, b) => b.dev - a.dev)[0];
+    // Yahoo хранит цены с 7 знаками: дешевле MIN_PRICE доходности квантованы шагом в проценты
+    const tooCheap = checks.some((c) => c.binance < MIN_PRICE);
+    deviations.push({ month, ...worstEdge, bad: worstEdge.dev > MAX_DEVIATION || tooCheap, tooCheap });
   }
-  const worst = deviations.sort((a, b) => b.dev - a.dev)[0];
-  if (!worst) { console.log(`${symbol.padEnd(14)} ${entry.ticker.padEnd(16)} no overlapping month-ends to compare`); continue; }
-  // Подмена монеты расходится с Binance во ВСЕХ месяцах, одиночный битый бар на конце месяца - в одном.
-  // Отвергаем, когда расходится больше половины сравнённых месяцев (единственный месяц - тоже).
-  const bad = deviations.filter((d) => d.dev > MAX_DEVIATION);
-  if (bad.length && bad.length * 2 > deviations.length) {
-    rejected[symbol] = { ticker: entry.ticker, reason: `price mismatch in ${bad.length}/${deviations.length} months, worst ${worst.month}: yahoo ${worst.yahoo} vs binance ${worst.binance}` };
+  if (!deviations.length) { console.log(`${symbol.padEnd(14)} ${entry.ticker.padEnd(16)} no overlapping months to compare`); continue; }
+  const bad = deviations.filter((d) => d.bad);
+  const worst = [...deviations].sort((a, b) => b.dev - a.dev)[0];
+  // Подмена монеты расходится с Binance в большинстве месяцев - тикер целиком в null.
+  // Единичные плохие месяцы (кусок чужой истории, битый край, слишком дешёвая цена) исключаются помесячно.
+  if (bad.length * 2 > deviations.length) {
+    rejected[symbol] = { ticker: entry.ticker, reason: `price mismatch in ${bad.length}/${deviations.length} months, worst ${worst.month} ${worst.edge}: yahoo ${worst.yahoo} vs binance ${worst.binance}` };
     console.log(`${symbol.padEnd(14)} ${entry.ticker.padEnd(16)} REJECT: ${rejected[symbol].reason}`);
   } else {
-    console.log(`${symbol.padEnd(14)} ${entry.ticker.padEnd(16)} ok, worst ${(worst.dev * 100).toFixed(1)}% in ${worst.month} (${bad.length} bad of ${deviations.length} months)`);
+    entry.badMonths = bad.map((d) => d.month);
+    if (!entry.badMonths.length) delete entry.badMonths;
+    console.log(`${symbol.padEnd(14)} ${entry.ticker.padEnd(16)} ok, worst ${(worst.dev * 100).toFixed(1)}% in ${worst.month} ${worst.edge} (${deviations.length} months${bad.length ? `, excluded: ${bad.map((d) => d.month + (d.tooCheap ? "(cheap)" : "")).join(" ")}` : ""})`);
   }
 }
 

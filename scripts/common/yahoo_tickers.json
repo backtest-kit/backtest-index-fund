@@ -25,10 +25,7 @@
   "ticker": "ALLO-USD",
   "since": "2025-11-11"
  },
- "ALPACAUSDT": {
-  "ticker": "ALPACA-USD",
-  "since": "2021-03-06"
- },
+ "ALPACAUSDT": null,
  "ALPHAUSDT": {
   "ticker": "ALPHA-USD",
   "since": "2020-10-10"
@@ -42,18 +39,12 @@
   "ticker": "ANKR-USD",
   "since": "2019-03-06"
  },
- "APEUSDT": {
-  "ticker": "APE-USD",
-  "since": "2020-10-01"
- },
+ "APEUSDT": null,
  "APTUSDT": {
   "ticker": "APT21794-USD",
   "since": "2022-10-19"
  },
- "ARBUSDT": {
-  "ticker": "ARB-USD",
-  "since": "2017-11-09"
- },
+ "ARBUSDT": null,
  "ARPAUSDT": {
   "ticker": "ARPA-USD",
   "since": "2019-07-15"
@@ -86,6 +77,7 @@
   "ticker": "BAND-USD",
   "since": "2019-09-18"
  },
+ "BANKUSDT": null,
  "BARDUSDT": null,
  "BCHUSDT": {
   "ticker": "BCH-USD",
@@ -103,10 +95,7 @@
   "ticker": "BNB-USD",
   "since": "2017-11-09"
  },
- "BNXUSDT": {
-  "ticker": "BNX-USD",
-  "since": "2021-05-18"
- },
+ "BNXUSDT": null,
  "BOMEUSDT": {
   "ticker": "BOME-USD",
   "since": "2024-03-14"
@@ -147,6 +136,10 @@
   "ticker": "CHZ-USD",
   "since": "2019-07-01"
  },
+ "CKBUSDT": {
+  "ticker": "CKB-USD",
+  "since": "2019-11-19"
+ },
  "COCOSUSDT": null,
  "COMPUSDT": {
   "ticker": "COMP5692-USD",
@@ -156,10 +149,7 @@
   "ticker": "CRV-USD",
   "since": "2020-08-14"
  },
- "CYBERUSDT": {
-  "ticker": "CYBER-USD",
-  "since": "2023-03-17"
- },
+ "CYBERUSDT": null,
  "DARUSDT": {
   "ticker": "DAR-USD",
   "since": "2026-09-17"
@@ -206,7 +196,10 @@
  },
  "EOSUSDT": {
   "ticker": "EOS-USD",
-  "since": "2017-11-09"
+  "since": "2017-11-09",
+  "badMonths": [
+   "2025-05"
+  ]
  },
  "ETCUSDT": {
   "ticker": "ETC-USD",
@@ -273,18 +266,12 @@
   "ticker": "HOOK-USD",
   "since": "2022-12-01"
  },
- "HOTUSDT": {
-  "ticker": "HOT-USD",
-  "since": "2018-01-20"
- },
+ "HOTUSDT": null,
  "ICPUSDT": {
   "ticker": "ICP-USD",
   "since": "2021-05-10"
  },
- "IDUSDT": {
-  "ticker": "ID-USD",
-  "since": "2021-02-17"
- },
+ "IDUSDT": null,
  "INJUSDT": {
   "ticker": "INJ-USD",
   "since": "2020-10-21"
@@ -364,6 +351,10 @@
   "ticker": "MKR-USD",
   "since": "2017-11-20"
  },
+ "MULTIUSDT": {
+  "ticker": "MULTI17050-USD",
+  "since": "2022-01-11"
+ },
  "NEARUSDT": {
   "ticker": "NEAR-USD",
   "since": "2020-10-14"
@@ -377,10 +368,7 @@
   "ticker": "NOT-USD",
   "since": "2024-05-16"
  },
- "NPXSUSDT": {
-  "ticker": "NPXS-USD",
-  "since": "2018-03-22"
- },
+ "NPXSUSDT": null,
  "OGNUSDT": {
   "ticker": "OGN-USD",
   "since": "2020-01-09"
@@ -401,10 +389,7 @@
   "ticker": "ONDO-USD",
   "since": "2024-01-18"
  },
- "ONEUSDT": {
-  "ticker": "ONE-USD",
-  "since": "2017-12-31"
- },
+ "ONEUSDT": null,
  "ONTUSDT": {
   "ticker": "ONT-USD",
   "since": "2018-03-08"
@@ -412,7 +397,11 @@
  "OPNUSDT": null,
  "OPUSDT": {
   "ticker": "OP-USD",
-  "since": "2022-03-14"
+  "since": "2022-03-14",
+  "badMonths": [
+   "2022-09",
+   "2022-10"
+  ]
  },
  "ORDIUSDT": {
   "ticker": "ORDI-USD",
@@ -430,10 +419,7 @@
   "ticker": "PEOPLE-USD",
   "since": "2021-11-19"
  },
- "PEPEUSDT": {
-  "ticker": "PEPE24478-USD",
-  "since": "2023-04-17"
- },
+ "PEPEUSDT": null,
  "PERPUSDT": {
   "ticker": "PERP-USD",
   "since": "2020-09-13"
@@ -492,7 +478,16 @@
  },
  "SHIBUSDT": {
   "ticker": "SHIB-USD",
-  "since": "2020-08-01"
+  "since": "2020-08-01",
+  "badMonths": [
+   "2022-11",
+   "2022-12",
+   "2023-01",
+   "2023-05",
+   "2023-07",
+   "2023-08",
+   "2023-09"
+  ]
  },
  "SLPUSDT": {
   "ticker": "SLP-USD",
@@ -509,6 +504,11 @@
  "SPCXBUSDT": {
   "ticker": "SPCXB-USD",
   "since": "2026-06-12"
+ },
+ "STOUSDT": null,
+ "STRAXUSDT": {
+  "ticker": "STRAX-USD",
+  "since": "2017-11-09"
  },
  "STXUSDT": {
   "ticker": "STX4847-USD",
@@ -550,18 +550,12 @@
   "ticker": "THETA-USD",
   "since": "2018-01-17"
  },
- "TIAUSDT": {
-  "ticker": "TIA-USD",
-  "since": "2022-02-28"
- },
+ "TIAUSDT": null,
  "TLMUSDT": {
   "ticker": "TLM-USD",
   "since": "2021-04-07"
  },
- "TONUSDT": {
-  "ticker": "TON-USD",
-  "since": "2020-08-29"
- },
+ "TONUSDT": null,
  "TRBUSDT": {
   "ticker": "TRB-USD",
   "since": "2019-11-19"

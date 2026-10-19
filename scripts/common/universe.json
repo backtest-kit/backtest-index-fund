@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T21:31:27.754Z",
+  "generatedAt": "2026-10-19T11:24:40.125Z",
   "source": "Binance spot, quoteVolume of previous calendar month, 1M candles via ccxt",
   "params": {
     "top": 20,
@@ -207,22 +207,22 @@
         "ADAUSDT",
         "FILUSDT",
         "XRPUSDT",
-        "HOTUSDT",
         "ENJUSDT",
         "DOTUSDT",
         "BTTUSDT",
         "THETAUSDT",
-        "ONEUSDT",
         "ANKRUSDT",
         "TRXUSDT",
         "VETUSDT",
         "LTCUSDT",
         "DENTUSDT",
         "SXPUSDT",
-        "NPXSUSDT"
+        "CHRUSDT",
+        "MANAUSDT",
+        "LINKUSDT"
       ],
       "volumeUsdTop1": 123285137876,
-      "volumeUsdCutoff": 4793332681
+      "volumeUsdCutoff": 4537487501
     },
     "2021-05": {
       "rankedBy": "2021-04",
@@ -243,13 +243,13 @@
         "FILUSDT",
         "EOSUSDT",
         "BCHUSDT",
-        "HOTUSDT",
         "MATICUSDT",
         "SXPUSDT",
-        "LINKUSDT"
+        "LINKUSDT",
+        "SOLUSDT"
       ],
       "volumeUsdTop1": 122162501725,
-      "volumeUsdCutoff": 8614487868
+      "volumeUsdCutoff": 7740929279
     },
     "2021-06": {
       "rankedBy": "2021-05",
@@ -405,13 +405,13 @@
         "FILUSDT",
         "AVAXUSDT",
         "TRXUSDT",
-        "ONEUSDT",
         "LINKUSDT",
         "OMGUSDT",
-        "SANDUSDT"
+        "SANDUSDT",
+        "CHZUSDT"
       ],
       "volumeUsdTop1": 140339193825,
-      "volumeUsdCutoff": 4399780221
+      "volumeUsdCutoff": 4244138113
     },
     "2021-12": {
       "rankedBy": "2021-11",
@@ -584,7 +584,6 @@
         "GMTUSDT",
         "TRXUSDT",
         "SOLUSDT",
-        "APEUSDT",
         "XRPUSDT",
         "ADAUSDT",
         "AVAXUSDT",
@@ -597,10 +596,11 @@
         "MATICUSDT",
         "WAVESUSDT",
         "ZILUSDT",
-        "AXSUSDT"
+        "AXSUSDT",
+        "JASMYUSDT"
       ],
       "volumeUsdTop1": 75935785203,
-      "volumeUsdCutoff": 1974304816
+      "volumeUsdCutoff": 1821814964
     },
     "2022-07": {
       "rankedBy": "2022-06",
@@ -616,7 +616,6 @@
         "AVAXUSDT",
         "SHIBUSDT",
         "DOGEUSDT",
-        "APEUSDT",
         "LINKUSDT",
         "MATICUSDT",
         "DOTUSDT",
@@ -624,10 +623,11 @@
         "WAVESUSDT",
         "FTMUSDT",
         "NEARUSDT",
-        "LTCUSDT"
+        "LTCUSDT",
+        "UNFIUSDT"
       ],
       "volumeUsdTop1": 56158429445,
-      "volumeUsdCutoff": 1422283329
+      "volumeUsdCutoff": 1375420775
     },
     "2022-08": {
       "rankedBy": "2022-07",
@@ -641,7 +641,6 @@
         "ADAUSDT",
         "XRPUSDT",
         "AVAXUSDT",
-        "APEUSDT",
         "GMTUSDT",
         "SHIBUSDT",
         "DOTUSDT",
@@ -651,10 +650,11 @@
         "SANDUSDT",
         "DOGEUSDT",
         "ATOMUSDT",
-        "FTMUSDT"
+        "FTMUSDT",
+        "LINKUSDT"
       ],
       "volumeUsdTop1": 116077102802,
-      "volumeUsdCutoff": 1502852589
+      "volumeUsdCutoff": 1478717582
     },
     "2022-09": {
       "rankedBy": "2022-08",
@@ -671,17 +671,17 @@
         "DOGEUSDT",
         "MATICUSDT",
         "NEARUSDT",
-        "OPUSDT",
         "AVAXUSDT",
         "FILUSDT",
         "DOTUSDT",
         "ATOMUSDT",
-        "APEUSDT",
         "EOSUSDT",
-        "LINKUSDT"
+        "LINKUSDT",
+        "GMTUSDT",
+        "FTMUSDT"
       ],
       "volumeUsdTop1": 114133985284,
-      "volumeUsdCutoff": 1027225985
+      "volumeUsdCutoff": 921010826
     },
     "2022-10": {
       "rankedBy": "2022-09",
@@ -698,17 +698,17 @@
         "SHIBUSDT",
         "MATICUSDT",
         "LINKUSDT",
-        "APEUSDT",
         "DOGEUSDT",
         "DOTUSDT",
         "AVAXUSDT",
         "NEARUSDT",
         "LTCUSDT",
         "RVNUSDT",
-        "OPUSDT"
+        "FILUSDT",
+        "TRXUSDT"
       ],
       "volumeUsdTop1": 191097710629,
-      "volumeUsdCutoff": 824804400
+      "volumeUsdCutoff": 769705036
     },
     "2022-11": {
       "rankedBy": "2022-10",
@@ -718,7 +718,6 @@
         "DOGEUSDT",
         "XRPUSDT",
         "BNBUSDT",
-        "SHIBUSDT",
         "SOLUSDT",
         "MATICUSDT",
         "ADAUSDT",
@@ -732,10 +731,11 @@
         "KLAYUSDT",
         "NEARUSDT",
         "SUSHIUSDT",
-        "UNIUSDT"
+        "UNIUSDT",
+        "LTCUSDT"
       ],
       "volumeUsdTop1": 153662555348,
-      "volumeUsdCutoff": 595544463
+      "volumeUsdCutoff": 585317040
     },
     "2022-12": {
       "rankedBy": "2022-11",
@@ -751,18 +751,18 @@
         "CHZUSDT",
         "MASKUSDT",
         "LINKUSDT",
-        "SHIBUSDT",
         "ADAUSDT",
         "TRXUSDT",
         "TWTUSDT",
-        "APEUSDT",
         "FTTUSDT",
         "DOTUSDT",
         "ATOMUSDT",
-        "DYDXUSDT"
+        "DYDXUSDT",
+        "FTMUSDT",
+        "ETCUSDT"
       ],
       "volumeUsdTop1": 156664445420,
-      "volumeUsdCutoff": 898029709
+      "volumeUsdCutoff": 860108573
     },
     "2023-01": {
       "rankedBy": "2022-12",
@@ -777,19 +777,19 @@
         "SOLUSDT",
         "LINKUSDT",
         "ADAUSDT",
-        "SHIBUSDT",
         "TRXUSDT",
-        "APEUSDT",
         "TWTUSDT",
         "FTMUSDT",
         "DOTUSDT",
         "FILUSDT",
         "ATOMUSDT",
         "CHZUSDT",
-        "APTUSDT"
+        "APTUSDT",
+        "OPUSDT",
+        "LUNCUSDT"
       ],
       "volumeUsdTop1": 96009341607,
-      "volumeUsdCutoff": 437213548
+      "volumeUsdCutoff": 414050989
     },
     "2023-02": {
       "rankedBy": "2023-01",
@@ -813,10 +813,10 @@
         "LDOUSDT",
         "SANDUSDT",
         "FILUSDT",
-        "APEUSDT"
+        "GMTUSDT"
       ],
       "volumeUsdTop1": 184469829818,
-      "volumeUsdCutoff": 1181504433
+      "volumeUsdCutoff": 1156200472
     },
     "2023-03": {
       "rankedBy": "2023-02",
@@ -891,13 +891,13 @@
         "RNDRUSDT",
         "APTUSDT",
         "FILUSDT",
-        "SHIBUSDT",
         "LINKUSDT",
         "AVAXUSDT",
-        "SXPUSDT"
+        "SXPUSDT",
+        "OPUSDT"
       ],
       "volumeUsdTop1": 47554994528,
-      "volumeUsdCutoff": 880113047
+      "volumeUsdCutoff": 830529811
     },
     "2023-06": {
       "rankedBy": "2023-05",
@@ -905,7 +905,6 @@
         "BTCUSDT",
         "ETHUSDT",
         "XRPUSDT",
-        "ARBUSDT",
         "BNBUSDT",
         "LTCUSDT",
         "SOLUSDT",
@@ -920,11 +919,12 @@
         "TRXUSDT",
         "FTMUSDT",
         "APTUSDT",
-        "IDUSDT",
-        "AGIXUSDT"
+        "AGIXUSDT",
+        "LDOUSDT",
+        "OPUSDT"
       ],
       "volumeUsdTop1": 35427889093,
-      "volumeUsdCutoff": 685293635
+      "volumeUsdCutoff": 587260659
     },
     "2023-07": {
       "rankedBy": "2023-06",
@@ -936,7 +936,6 @@
         "LTCUSDT",
         "BCHUSDT",
         "SOLUSDT",
-        "ARBUSDT",
         "MATICUSDT",
         "DOGEUSDT",
         "LINAUSDT",
@@ -948,10 +947,11 @@
         "AVAXUSDT",
         "RNDRUSDT",
         "TRXUSDT",
-        "SHIBUSDT"
+        "LINKUSDT",
+        "INJUSDT"
       ],
       "volumeUsdTop1": 42270986414,
-      "volumeUsdCutoff": 695114765
+      "volumeUsdCutoff": 649082260
     },
     "2023-08": {
       "rankedBy": "2023-07",
@@ -964,7 +964,6 @@
         "DOGEUSDT",
         "LTCUSDT",
         "BCHUSDT",
-        "ARBUSDT",
         "MATICUSDT",
         "OPUSDT",
         "ADAUSDT",
@@ -972,13 +971,14 @@
         "XVGUSDT",
         "XLMUSDT",
         "COMPUSDT",
-        "SHIBUSDT",
-        "PEPEUSDT",
         "AVAXUSDT",
-        "MKRUSDT"
+        "MKRUSDT",
+        "FILUSDT",
+        "TRXUSDT",
+        "SUIUSDT"
       ],
       "volumeUsdTop1": 27062451671,
-      "volumeUsdCutoff": 762672530
+      "volumeUsdCutoff": 658448544
     },
     "2023-09": {
       "rankedBy": "2023-08",
@@ -988,7 +988,6 @@
         "XRPUSDT",
         "BNBUSDT",
         "SOLUSDT",
-        "SHIBUSDT",
         "DOGEUSDT",
         "LTCUSDT",
         "YGGUSDT",
@@ -996,16 +995,17 @@
         "OPUSDT",
         "MATICUSDT",
         "BLZUSDT",
-        "ARBUSDT",
         "RUNEUSDT",
         "UNFIUSDT",
         "SUIUSDT",
         "LINKUSDT",
         "LPTUSDT",
-        "ADAUSDT"
+        "ADAUSDT",
+        "CRVUSDT",
+        "TRXUSDT"
       ],
       "volumeUsdTop1": 26611778489,
-      "volumeUsdCutoff": 574368484
+      "volumeUsdCutoff": 504962187
     },
     "2023-10": {
       "rankedBy": "2023-09",
@@ -1020,7 +1020,6 @@
         "LINKUSDT",
         "LTCUSDT",
         "LOOMUSDT",
-        "ARBUSDT",
         "BCHUSDT",
         "HIFIUSDT",
         "DOGEUSDT",
@@ -1029,10 +1028,11 @@
         "FRONTUSDT",
         "PERPUSDT",
         "OGNUSDT",
-        "TRXUSDT"
+        "TRXUSDT",
+        "MULTIUSDT"
       ],
       "volumeUsdTop1": 21821583042,
-      "volumeUsdCutoff": 553376068
+      "volumeUsdCutoff": 523838409
     },
     "2023-11": {
       "rankedBy": "2023-10",
@@ -1048,18 +1048,18 @@
         "DOGEUSDT",
         "MATICUSDT",
         "RUNEUSDT",
-        "ARBUSDT",
         "AVAXUSDT",
         "BLZUSDT",
         "LTCUSDT",
-        "PEPEUSDT",
         "BCHUSDT",
         "BONDUSDT",
         "APTUSDT",
-        "CYBERUSDT"
+        "TRXUSDT",
+        "STRAXUSDT",
+        "WLDUSDT"
       ],
       "volumeUsdTop1": 39537960949,
-      "volumeUsdCutoff": 733191094
+      "volumeUsdCutoff": 694175034
     },
     "2023-12": {
       "rankedBy": "2023-11",
@@ -1077,16 +1077,16 @@
         "MATICUSDT",
         "GASUSDT",
         "DYDXUSDT",
-        "ARBUSDT",
         "SEIUSDT",
         "ADAUSDT",
         "CAKEUSDT",
         "WLDUSDT",
         "RNDRUSDT",
-        "NEARUSDT"
+        "NEARUSDT",
+        "FETUSDT"
       ],
       "volumeUsdTop1": 39824829830,
-      "volumeUsdCutoff": 1461009405
+      "volumeUsdCutoff": 1413227776
     },
     "2024-01": {
       "rankedBy": "2023-12",
@@ -1098,22 +1098,22 @@
         "AVAXUSDT",
         "XRPUSDT",
         "OPUSDT",
-        "ARBUSDT",
         "ADAUSDT",
         "DOGEUSDT",
         "MATICUSDT",
         "SEIUSDT",
-        "TIAUSDT",
         "INJUSDT",
         "NEARUSDT",
         "LINKUSDT",
         "ICPUSDT",
         "BAKEUSDT",
         "DOTUSDT",
-        "FILUSDT"
+        "FILUSDT",
+        "LUNCUSDT",
+        "TRBUSDT"
       ],
       "volumeUsdTop1": 50546213353,
-      "volumeUsdCutoff": 2678763477
+      "volumeUsdCutoff": 2206212608
     },
     "2024-02": {
       "rankedBy": "2024-01",
@@ -1122,12 +1122,10 @@
         "ETHUSDT",
         "SOLUSDT",
         "BNBUSDT",
-        "ARBUSDT",
         "XRPUSDT",
         "SUIUSDT",
         "SEIUSDT",
         "ORDIUSDT",
-        "TIAUSDT",
         "AVAXUSDT",
         "LINKUSDT",
         "OPUSDT",
@@ -1137,10 +1135,12 @@
         "INJUSDT",
         "PEOPLEUSDT",
         "ADAUSDT",
-        "ENSUSDT"
+        "ENSUSDT",
+        "RUNEUSDT",
+        "ICPUSDT"
       ],
       "volumeUsdTop1": 59757148824,
-      "volumeUsdCutoff": 1978758072
+      "volumeUsdCutoff": 1870609784
     },
     "2024-03": {
       "rankedBy": "2024-02",
@@ -1155,19 +1155,19 @@
         "LINKUSDT",
         "FILUSDT",
         "AVAXUSDT",
-        "ARBUSDT",
         "ADAUSDT",
-        "PEPEUSDT",
         "ORDIUSDT",
         "SUIUSDT",
         "MATICUSDT",
         "SEIUSDT",
         "JASMYUSDT",
         "INJUSDT",
-        "RNDRUSDT"
+        "RNDRUSDT",
+        "FETUSDT",
+        "CKBUSDT"
       ],
       "volumeUsdTop1": 73730851063,
-      "volumeUsdCutoff": 2425683175
+      "volumeUsdCutoff": 2181406976
     },
     "2024-04": {
       "rankedBy": "2024-03",
@@ -1176,7 +1176,6 @@
         "ETHUSDT",
         "SOLUSDT",
         "DOGEUSDT",
-        "PEPEUSDT",
         "BNBUSDT",
         "SHIBUSDT",
         "XRPUSDT",
@@ -1185,16 +1184,17 @@
         "NEARUSDT",
         "FETUSDT",
         "WLDUSDT",
-        "ARBUSDT",
         "BCHUSDT",
         "RUNEUSDT",
         "FTMUSDT",
         "FILUSDT",
         "BONKUSDT",
-        "SUIUSDT"
+        "SUIUSDT",
+        "LTCUSDT",
+        "RNDRUSDT"
       ],
       "volumeUsdTop1": 121661247210,
-      "volumeUsdCutoff": 5034199915
+      "volumeUsdCutoff": 4646438813
     },
     "2024-05": {
       "rankedBy": "2024-04",
@@ -1203,7 +1203,6 @@
         "ETHUSDT",
         "SOLUSDT",
         "BNBUSDT",
-        "PEPEUSDT",
         "DOGEUSDT",
         "XRPUSDT",
         "SHIBUSDT",
@@ -1212,23 +1211,23 @@
         "LTCUSDT",
         "BCHUSDT",
         "AVAXUSDT",
-        "ARBUSDT",
         "ORDIUSDT",
         "WLDUSDT",
         "FETUSDT",
         "ADAUSDT",
         "BONKUSDT",
-        "FLOKIUSDT"
+        "FLOKIUSDT",
+        "FTMUSDT",
+        "FILUSDT"
       ],
       "volumeUsdTop1": 72897466155,
-      "volumeUsdCutoff": 1956192243
+      "volumeUsdCutoff": 1841604675
     },
     "2024-06": {
       "rankedBy": "2024-05",
       "basket": [
         "BTCUSDT",
         "ETHUSDT",
-        "PEPEUSDT",
         "SOLUSDT",
         "DOGEUSDT",
         "WIFUSDT",
@@ -1239,16 +1238,17 @@
         "BONKUSDT",
         "PEOPLEUSDT",
         "FLOKIUSDT",
-        "ARBUSDT",
         "RNDRUSDT",
         "NEARUSDT",
         "RUNEUSDT",
         "WLDUSDT",
         "TRBUSDT",
-        "ETHFIUSDT"
+        "ETHFIUSDT",
+        "ORDIUSDT",
+        "LINKUSDT"
       ],
       "volumeUsdTop1": 63827405941,
-      "volumeUsdCutoff": 2546754431
+      "volumeUsdCutoff": 2198728585
     },
     "2024-07": {
       "rankedBy": "2024-06",
@@ -1256,7 +1256,6 @@
         "BTCUSDT",
         "ETHUSDT",
         "SOLUSDT",
-        "PEPEUSDT",
         "BNBUSDT",
         "WIFUSDT",
         "XRPUSDT",
@@ -1272,10 +1271,11 @@
         "NEARUSDT",
         "JASMYUSDT",
         "ENSUSDT",
-        "ARBUSDT"
+        "INJUSDT",
+        "CRVUSDT"
       ],
       "volumeUsdTop1": 43740678277,
-      "volumeUsdCutoff": 1270488901
+      "volumeUsdCutoff": 1191656041
     },
     "2024-08": {
       "rankedBy": "2024-07",
@@ -1283,7 +1283,6 @@
         "BTCUSDT",
         "ETHUSDT",
         "SOLUSDT",
-        "PEPEUSDT",
         "XRPUSDT",
         "WIFUSDT",
         "BNBUSDT",
@@ -1299,10 +1298,11 @@
         "ORDIUSDT",
         "RUNEUSDT",
         "NEARUSDT",
-        "ADAUSDT"
+        "ADAUSDT",
+        "ENSUSDT"
       ],
       "volumeUsdTop1": 58682504115,
-      "volumeUsdCutoff": 1211067008
+      "volumeUsdCutoff": 1197749368
     },
     "2024-09": {
       "rankedBy": "2024-08",
@@ -1310,7 +1310,6 @@
         "BTCUSDT",
         "ETHUSDT",
         "SOLUSDT",
-        "PEPEUSDT",
         "XRPUSDT",
         "BNBUSDT",
         "WIFUSDT",
@@ -1326,10 +1325,11 @@
         "AVAXUSDT",
         "AAVEUSDT",
         "RAREUSDT",
-        "NEARUSDT"
+        "NEARUSDT",
+        "SHIBUSDT"
       ],
       "volumeUsdTop1": 59580919282,
-      "volumeUsdCutoff": 1344717878
+      "volumeUsdCutoff": 1251173048
     },
     "2024-10": {
       "rankedBy": "2024-09",
@@ -1337,7 +1337,6 @@
         "BTCUSDT",
         "ETHUSDT",
         "SOLUSDT",
-        "PEPEUSDT",
         "SUIUSDT",
         "WIFUSDT",
         "BNBUSDT",
@@ -1353,10 +1352,11 @@
         "AVAXUSDT",
         "ORDIUSDT",
         "PEOPLEUSDT",
-        "AAVEUSDT"
+        "AAVEUSDT",
+        "FLOKIUSDT"
       ],
       "volumeUsdTop1": 46489865185,
-      "volumeUsdCutoff": 1399425158
+      "volumeUsdCutoff": 1360473870
     },
     "2024-11": {
       "rankedBy": "2024-10",
@@ -1365,7 +1365,6 @@
         "ETHUSDT",
         "SOLUSDT",
         "DOGEUSDT",
-        "PEPEUSDT",
         "SUIUSDT",
         "WIFUSDT",
         "BNBUSDT",
@@ -1380,10 +1379,11 @@
         "TAOUSDT",
         "SEIUSDT",
         "FTMUSDT",
-        "BONKUSDT"
+        "BONKUSDT",
+        "FLOKIUSDT"
       ],
       "volumeUsdTop1": 53141523172,
-      "volumeUsdCutoff": 1445295669
+      "volumeUsdCutoff": 1395886717
     },
     "2024-12": {
       "rankedBy": "2024-11",
@@ -1393,7 +1393,6 @@
         "ETHUSDT",
         "XRPUSDT",
         "SOLUSDT",
-        "PEPEUSDT",
         "ADAUSDT",
         "BNBUSDT",
         "SUIUSDT",
@@ -1407,10 +1406,11 @@
         "DOTUSDT",
         "FETUSDT",
         "FLOKIUSDT",
-        "NEARUSDT"
+        "NEARUSDT",
+        "ENAUSDT"
       ],
       "volumeUsdTop1": 129529845986,
-      "volumeUsdCutoff": 4430545948
+      "volumeUsdCutoff": 4421893555
     },
     "2025-01": {
       "rankedBy": "2024-12",
@@ -1420,7 +1420,6 @@
         "XRPUSDT",
         "DOGEUSDT",
         "SOLUSDT",
-        "PEPEUSDT",
         "BNBUSDT",
         "SUIUSDT",
         "TRXUSDT",
@@ -1434,10 +1433,11 @@
         "AAVEUSDT",
         "CRVUSDT",
         "WLDUSDT",
-        "XLMUSDT"
+        "XLMUSDT",
+        "UNIUSDT"
       ],
       "volumeUsdTop1": 95396059355,
-      "volumeUsdCutoff": 3467074829
+      "volumeUsdCutoff": 3386264463
     },
     "2025-02": {
       "rankedBy": "2025-01",
@@ -1448,7 +1448,6 @@
         "XRPUSDT",
         "DOGEUSDT",
         "SUIUSDT",
-        "PEPEUSDT",
         "ADAUSDT",
         "TRXUSDT",
         "BNBUSDT",
@@ -1461,10 +1460,11 @@
         "WIFUSDT",
         "AAVEUSDT",
         "AVAXUSDT",
-        "SHIBUSDT"
+        "SHIBUSDT",
+        "TAOUSDT"
       ],
       "volumeUsdTop1": 88553912851,
-      "volumeUsdCutoff": 2294964922
+      "volumeUsdCutoff": 2281257054
     },
     "2025-03": {
       "rankedBy": "2025-02",
@@ -1477,9 +1477,7 @@
         "BNBUSDT",
         "SUIUSDT",
         "LTCUSDT",
-        "PEPEUSDT",
         "TRXUSDT",
-        "BNXUSDT",
         "ADAUSDT",
         "RUNEUSDT",
         "PNUTUSDT",
@@ -1488,10 +1486,12 @@
         "ENAUSDT",
         "LINKUSDT",
         "HBARUSDT",
-        "APTUSDT"
+        "APTUSDT",
+        "TAOUSDT",
+        "AVAXUSDT"
       ],
       "volumeUsdTop1": 68395164142,
-      "volumeUsdCutoff": 2020188016
+      "volumeUsdCutoff": 1923038043
     },
     "2025-04": {
       "rankedBy": "2025-03",
@@ -1503,7 +1503,6 @@
         "ADAUSDT",
         "BNBUSDT",
         "DOGEUSDT",
-        "PEPEUSDT",
         "SUIUSDT",
         "TRUMPUSDT",
         "TRXUSDT",
@@ -1515,10 +1514,11 @@
         "SUSDT",
         "HBARUSDT",
         "WIFUSDT",
-        "CAKEUSDT"
+        "CAKEUSDT",
+        "RUNEUSDT"
       ],
       "volumeUsdTop1": 69778989438,
-      "volumeUsdCutoff": 1397462420
+      "volumeUsdCutoff": 1330496393
     },
     "2025-05": {
       "rankedBy": "2025-04",
@@ -1528,11 +1528,9 @@
         "SOLUSDT",
         "XRPUSDT",
         "SUIUSDT",
-        "PEPEUSDT",
         "TRUMPUSDT",
         "DOGEUSDT",
         "BNBUSDT",
-        "ALPACAUSDT",
         "TRXUSDT",
         "ADAUSDT",
         "WIFUSDT",
@@ -1542,10 +1540,12 @@
         "AVAXUSDT",
         "CRVUSDT",
         "LTCUSDT",
-        "ENAUSDT"
+        "ENAUSDT",
+        "BONKUSDT",
+        "HBARUSDT"
       ],
       "volumeUsdTop1": 74734616853,
-      "volumeUsdCutoff": 1271029052
+      "volumeUsdCutoff": 1199244089
     },
     "2025-06": {
       "rankedBy": "2025-05",
@@ -1553,7 +1553,6 @@
         "BTCUSDT",
         "ETHUSDT",
         "SOLUSDT",
-        "PEPEUSDT",
         "XRPUSDT",
         "SUIUSDT",
         "DOGEUSDT",
@@ -1569,10 +1568,11 @@
         "LTCUSDT",
         "LINKUSDT",
         "AAVEUSDT",
-        "UNIUSDT"
+        "UNIUSDT",
+        "ETHFIUSDT"
       ],
       "volumeUsdTop1": 67170635926,
-      "volumeUsdCutoff": 1462650374
+      "volumeUsdCutoff": 1306548344
     },
     "2025-07": {
       "rankedBy": "2025-06",
@@ -1581,7 +1581,6 @@
         "ETHUSDT",
         "SOLUSDT",
         "XRPUSDT",
-        "PEPEUSDT",
         "DOGEUSDT",
         "SUIUSDT",
         "TRXUSDT",
@@ -1596,10 +1595,11 @@
         "VIRTUALUSDT",
         "LINKUSDT",
         "AVAXUSDT",
-        "PENGUUSDT"
+        "PENGUUSDT",
+        "BCHUSDT"
       ],
       "volumeUsdTop1": 45810107136,
-      "volumeUsdCutoff": 1097527599
+      "volumeUsdCutoff": 943355389
     },
     "2025-08": {
       "rankedBy": "2025-07",
@@ -1609,7 +1609,6 @@
         "XRPUSDT",
         "SOLUSDT",
         "DOGEUSDT",
-        "PEPEUSDT",
         "SUIUSDT",
         "BNBUSDT",
         "PENGUUSDT",
@@ -1623,10 +1622,11 @@
         "WIFUSDT",
         "LTCUSDT",
         "LINKUSDT",
-        "AVAXUSDT"
+        "AVAXUSDT",
+        "TRUMPUSDT"
       ],
       "volumeUsdTop1": 72532548128,
-      "volumeUsdCutoff": 1982072018
+      "volumeUsdCutoff": 1771821357
     },
     "2025-09": {
       "rankedBy": "2025-08",
@@ -1642,18 +1642,18 @@
         "ADAUSDT",
         "TRXUSDT",
         "SUIUSDT",
-        "PEPEUSDT",
         "PENGUUSDT",
         "UNIUSDT",
-        "ARBUSDT",
         "LTCUSDT",
         "AVAXUSDT",
         "BIOUSDT",
         "BONKUSDT",
-        "AAVEUSDT"
+        "AAVEUSDT",
+        "HBARUSDT",
+        "TRUMPUSDT"
       ],
       "volumeUsdTop1": 90686842180,
-      "volumeUsdCutoff": 1586706021
+      "volumeUsdCutoff": 1276571893
     },
     "2025-10": {
       "rankedBy": "2025-09",
@@ -1670,17 +1670,17 @@
         "WLDUSDT",
         "ENAUSDT",
         "ADAUSDT",
-        "PEPEUSDT",
         "LINKUSDT",
         "PENGUUSDT",
         "LTCUSDT",
-        "ARBUSDT",
         "NEARUSDT",
         "BONKUSDT",
-        "ALPINEUSDT"
+        "ALPINEUSDT",
+        "UNIUSDT",
+        "HBARUSDT"
       ],
       "volumeUsdTop1": 49928316469,
-      "volumeUsdCutoff": 918147607
+      "volumeUsdCutoff": 899237889
     },
     "2025-11": {
       "rankedBy": "2025-10",
@@ -1700,14 +1700,14 @@
         "LTCUSDT",
         "AVAXUSDT",
         "TRUMPUSDT",
-        "PEPEUSDT",
         "ENAUSDT",
         "CAKEUSDT",
         "HBARUSDT",
-        "ZENUSDT"
+        "ZENUSDT",
+        "NEARUSDT"
       ],
       "volumeUsdTop1": 78950680842,
-      "volumeUsdCutoff": 1351844286
+      "volumeUsdCutoff": 1242319207
     },
     "2025-12": {
       "rankedBy": "2025-11",
@@ -1753,15 +1753,15 @@
         "BCHUSDT",
         "LINKUSDT",
         "AVAXUSDT",
-        "PEPEUSDT",
         "UNIUSDT",
         "LTCUSDT",
         "XPLUSDT",
         "ENAUSDT",
-        "LUNCUSDT"
+        "LUNCUSDT",
+        "NEARUSDT"
       ],
       "volumeUsdTop1": 43042669040,
-      "volumeUsdCutoff": 734542344
+      "volumeUsdCutoff": 665200851
     },
     "2026-02": {
       "rankedBy": "2026-01",
@@ -1775,7 +1775,6 @@
         "ZECUSDT",
         "SUIUSDT",
         "TRXUSDT",
-        "PEPEUSDT",
         "ADAUSDT",
         "DASHUSDT",
         "LTCUSDT",
@@ -1785,10 +1784,11 @@
         "LINKUSDT",
         "AVAXUSDT",
         "AXSUSDT",
-        "ENAUSDT"
+        "ENAUSDT",
+        "TAOUSDT"
       ],
       "volumeUsdTop1": 38721146204,
-      "volumeUsdCutoff": 622141597
+      "volumeUsdCutoff": 582128236
     },
     "2026-03": {
       "rankedBy": "2026-02",
@@ -1803,7 +1803,6 @@
         "TRXUSDT",
         "ADAUSDT",
         "SUIUSDT",
-        "PEPEUSDT",
         "ASTERUSDT",
         "LINKUSDT",
         "AVAXUSDT",
@@ -1812,10 +1811,11 @@
         "TAOUSDT",
         "NEARUSDT",
         "KITEUSDT",
-        "BCHUSDT"
+        "BCHUSDT",
+        "PUMPUSDT"
       ],
       "volumeUsdTop1": 56116069255,
-      "volumeUsdCutoff": 613920705
+      "volumeUsdCutoff": 504470871
     },
     "2026-04": {
       "rankedBy": "2026-03",
@@ -1829,7 +1829,6 @@
         "TAOUSDT",
         "ZECUSDT",
         "TRXUSDT",
-        "PEPEUSDT",
         "ADAUSDT",
         "SUIUSDT",
         "LINKUSDT",
@@ -1839,10 +1838,11 @@
         "FETUSDT",
         "TRUMPUSDT",
         "ASTERUSDT",
-        "BANANAS31USDT"
+        "BANANAS31USDT",
+        "KITEUSDT"
       ],
       "volumeUsdTop1": 48184252549,
-      "volumeUsdCutoff": 459823100
+      "volumeUsdCutoff": 414458056
     },
     "2026-05": {
       "rankedBy": "2026-04",
@@ -1855,10 +1855,8 @@
         "ZECUSDT",
         "BNBUSDT",
         "TAOUSDT",
-        "PEPEUSDT",
         "TRXUSDT",
         "ADAUSDT",
-        "TONUSDT",
         "SUIUSDT",
         "LINKUSDT",
         "AVAXUSDT",
@@ -1866,10 +1864,12 @@
         "ENJUSDT",
         "AAVEUSDT",
         "ORDIUSDT",
-        "BIOUSDT"
+        "BIOUSDT",
+        "NEARUSDT",
+        "ENAUSDT"
       ],
       "volumeUsdTop1": 36131508201,
-      "volumeUsdCutoff": 521976961
+      "volumeUsdCutoff": 429927355
     },
     "2026-06": {
       "rankedBy": "2026-05",
@@ -1883,7 +1883,6 @@
         "DOGEUSDT",
         "NEARUSDT",
         "SUIUSDT",
-        "TONUSDT",
         "TRXUSDT",
         "XLMUSDT",
         "TAOUSDT",
@@ -1891,12 +1890,13 @@
         "ALLOUSDT",
         "LINKUSDT",
         "ONDOUSDT",
-        "PEPEUSDT",
         "ADAUSDT",
-        "FETUSDT"
+        "FETUSDT",
+        "INJUSDT",
+        "LUNCUSDT"
       ],
       "volumeUsdTop1": 31336004212,
-      "volumeUsdCutoff": 608339602
+      "volumeUsdCutoff": 529030395
     },
     "2026-07": {
       "rankedBy": "2026-06",
@@ -1920,10 +1920,10 @@
         "ENAUSDT",
         "MEGAUSDT",
         "AVAXUSDT",
-        "TONUSDT"
+        "AAVEUSDT"
       ],
       "volumeUsdTop1": 37089593204,
-      "volumeUsdCutoff": 588323652
+      "volumeUsdCutoff": 568927270
     },
     "2026-08": {
       "rankedBy": "2026-07",
@@ -1941,16 +1941,16 @@
         "NEARUSDT",
         "UNIUSDT",
         "DEXEUSDT",
-        "PEPEUSDT",
         "AAVEUSDT",
         "WLDUSDT",
         "KITEUSDT",
         "SUIUSDT",
         "LTCUSDT",
-        "ONDOUSDT"
+        "ONDOUSDT",
+        "TAOUSDT"
       ],
       "volumeUsdTop1": 31225612653,
-      "volumeUsdCutoff": 375922466
+      "volumeUsdCutoff": 363284272
     },
     "2026-09": {
       "rankedBy": "2026-08",
@@ -1972,12 +1972,12 @@
         "TRXUSDT",
         "SPCXBUSDT",
         "LINKUSDT",
-        "PEPEUSDT",
         "UNIUSDT",
-        "ADAUSDT"
+        "ADAUSDT",
+        "NEARUSDT"
       ],
       "volumeUsdTop1": 37094554800,
-      "volumeUsdCutoff": 831701315
+      "volumeUsdCutoff": 781160798
     }
   }
 }

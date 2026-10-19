@@ -54,10 +54,10 @@ const BASKET = [
   "FILUSDT",
   "AVAXUSDT",
   "TRXUSDT",
-  "ONEUSDT",
   "LINKUSDT",
   "OMGUSDT",
   "SANDUSDT",
+  "CHZUSDT",
 ];
 // BASKET:END
 

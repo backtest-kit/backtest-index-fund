@@ -99,11 +99,14 @@ for (const [month, { rankedBy, basket }] of Object.entries(universe.months)) {
 const cli = "./node_modules/@backtest-kit/cli/build/index.mjs";
 mkdirSync(join(ROOT, "scripts/linux"), { recursive: true });
 mkdirSync(join(ROOT, "scripts/win"), { recursive: true });
+// Код выхода месяца не проверяется: стратегия завершает процесс через kill() (SIGKILL, код 137),
+// это штатный финал, а не ошибка. Упавший месяц виден по отсутствию closed в его отчёте
+// (node scripts/common/summarize_reports.mjs).
 writeFileSync(join(ROOT, "scripts/linux/generate_strategy.sh"), [
   "#!/bin/bash",
   "# Прогон индексного фонда по всем месяцам, один процесс CLI на месяц. Нужны поднятые docker/mongo и docker/redis.",
   "# Отчёты: content/<месяц>/dump/report/backtest.jsonl. Запуск из корня репо: bash scripts/linux/generate_strategy.sh",
-  "set -e",
+  "# Каждый месяц завершается kill() со статусом 137 - это штатно, прогон продолжается; сводка: node scripts/common/summarize_reports.mjs",
   ...generated.map((folder) => `node ${cli} --backtest --entry ./content/${folder}/main.strategy.ts`),
   "",
 ].join("\n"));
@@ -111,7 +114,8 @@ writeFileSync(join(ROOT, "scripts/win/generate_strategy.bat"), [
   "@echo off",
   "REM Прогон индексного фонда по всем месяцам, один процесс CLI на месяц. Нужны поднятые docker\\mongo и docker\\redis.",
   "REM Отчёты: content\\<месяц>\\dump\\report\\backtest.jsonl. Запуск из корня репо: scripts\\win\\generate_strategy.bat",
-  ...generated.map((folder) => `node ${cli.replace(/\//g, "\\")} --backtest --entry .\\content\\${folder}\\main.strategy.ts || exit /b 1`),
+  "REM Каждый месяц завершается kill() с ненулевым кодом - это штатно, прогон продолжается; сводка: node scripts\\common\\summarize_reports.mjs",
+  ...generated.map((folder) => `node ${cli.replace(/\//g, "\\")} --backtest --entry .\\content\\${folder}\\main.strategy.ts`),
   "",
 ].join("\r\n"));
 

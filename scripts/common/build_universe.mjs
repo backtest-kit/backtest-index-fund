@@ -80,6 +80,7 @@ const yahooOk = (symbol, monthStart) => {
   }
   const entry = yahooTickers[key];
   if (!entry) return false;
+  if (entry.badMonths?.includes(ym(monthStart))) return false; // месяц, где ряд Yahoo расходится с Binance (verify_yahoo_tickers.mjs)
   return Date.parse(entry.since) <= monthStart - YAHOO_HISTORY_MARGIN_DAYS * DAY;
 };
 

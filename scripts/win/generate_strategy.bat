@@ -1,76 +1,77 @@
 @echo off
 REM Прогон индексного фонда по всем месяцам, один процесс CLI на месяц. Нужны поднятые docker\mongo и docker\redis.
 REM Отчёты: content\<месяц>\dump\report\backtest.jsonl. Запуск из корня репо: scripts\win\generate_strategy.bat
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2020\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2020\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2020\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2020\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2021\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2021\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2021\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2021\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\may_2021\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jun_2021\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jul_2021\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\aug_2021\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2021\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2021\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2021\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2021\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2022\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2022\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2022\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2022\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\may_2022\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jun_2022\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jul_2022\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\aug_2022\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2022\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2022\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2022\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2022\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2023\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2023\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2023\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2023\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\may_2023\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jun_2023\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jul_2023\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\aug_2023\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2023\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2023\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2023\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2023\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2024\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2024\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2024\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2024\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\may_2024\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jun_2024\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jul_2024\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\aug_2024\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2024\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2024\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2024\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2024\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2025\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2025\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2025\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2025\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\may_2025\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jun_2025\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jul_2025\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\aug_2025\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2025\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2025\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2025\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2025\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2026\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2026\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2026\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2026\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\may_2026\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jun_2026\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jul_2026\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\aug_2026\main.strategy.ts || exit /b 1
-node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2026\main.strategy.ts || exit /b 1
+REM Каждый месяц завершается kill() с ненулевым кодом - это штатно, прогон продолжается; сводка: node scripts\common\summarize_reports.mjs
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2020\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2020\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2020\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2020\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2021\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2021\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2021\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2021\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\may_2021\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jun_2021\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jul_2021\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\aug_2021\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2021\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2021\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2021\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2021\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2022\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2022\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2022\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2022\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\may_2022\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jun_2022\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jul_2022\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\aug_2022\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2022\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2022\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2022\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2022\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2023\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2023\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2023\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2023\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\may_2023\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jun_2023\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jul_2023\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\aug_2023\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2023\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2023\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2023\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2023\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2024\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2024\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2024\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2024\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\may_2024\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jun_2024\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jul_2024\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\aug_2024\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2024\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2024\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2024\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2024\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2025\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2025\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2025\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2025\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\may_2025\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jun_2025\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jul_2025\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\aug_2025\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2025\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\oct_2025\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\nov_2025\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\dec_2025\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jan_2026\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\feb_2026\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\mar_2026\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\apr_2026\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\may_2026\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jun_2026\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\jul_2026\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\aug_2026\main.strategy.ts
+node .\node_modules\@backtest-kit\cli\build\index.mjs --backtest --entry .\content\sep_2026\main.strategy.ts

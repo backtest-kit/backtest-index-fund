@@ -11,10 +11,6 @@ const RETRY_BASE_MS = 6_000;
 const MAX_ATTEMPTS = 6;
 const USER_AGENT = "Mozilla/5.0";
 
-/** Бар отбрасывается, если тень длиннее тела в MAX_WICK_RATIO раз или open и close различаются в MAX_BODY_RATIO раз */
-const MAX_WICK_RATIO = 3;
-const MAX_BODY_RATIO = 3;
-
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
@@ -27,7 +23,8 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
  *
  * Yahoo режет частые запросы (429): повтор с удвоением паузы, хосты query1/query2 чередуются.
  * Timestamp Yahoo - открытие сессии в зоне биржи, приводится к полуночи UTC этого дня;
- * дыры (праздники, null-бары) выбрасываются, заполнение сетки - дело getCandlesFilled.
+ * null-бары выбрасываются. Сетка, дыры и битые бары (нули, выбросы) - дело getCandlesFilled
+ * в ядре: аномальная свеча чинится плоской по соседям, пороги CC_GET_CANDLES_*.
  */
 export class YahooFinanceUtils {
 
@@ -55,22 +52,9 @@ export class YahooFinanceUtils {
         const result = chart.result[0];
         const quote = result.indicators.quote[0];
         const byDay = new Map<number, TRawCandle>();
-        let dropped = 0;
         result.timestamp.forEach((t: number, i: number) => {
           const [open, high, low, close] = [quote.open[i], quote.high[i], quote.low[i], quote.close[i]];
           if ([open, high, low, close].some((v) => v == null)) {
-            return;
-          }
-          // Битые бары Yahoo: нули и выбросы в сотни раз (OP-USD 2022-10-06: low 0.00043 при цене 1.07).
-          // Движок такие свечи отвергает и роняет прогон; выброшенный день заполнит getCandlesFilled
-          // плоской свечой по предыдущему закрытию.
-          const body = [open, close];
-          const sane = [open, high, low, close].every((v) => v > 0)
-            && high >= Math.max(...body) && low <= Math.min(...body)
-            && high <= Math.max(...body) * MAX_WICK_RATIO && low >= Math.min(...body) / MAX_WICK_RATIO
-            && Math.max(...body) / Math.min(...body) <= MAX_BODY_RATIO;
-          if (!sane) {
-            dropped++;
             return;
           }
           const day = Math.floor((t * 1000 + 12 * 3600_000) / DAY_MS) * DAY_MS;
@@ -80,7 +64,7 @@ export class YahooFinanceUtils {
         if (!candles.length) {
           throw new Error(`YahooFinance ${ticker}: no daily bars returned`);
         }
-        console.log(`YahooFinance ${ticker}: ${candles.length} daily bars ${new Date(candles[0][0]!).toISOString().slice(0, 10)} .. ${new Date(candles[candles.length - 1][0]!).toISOString().slice(0, 10)}${dropped ? `, dropped ${dropped} malformed` : ""}`);
+        console.log(`YahooFinance ${ticker}: ${candles.length} daily bars ${new Date(candles[0][0]!).toISOString().slice(0, 10)} .. ${new Date(candles[candles.length - 1][0]!).toISOString().slice(0, 10)}`);
         return candles;
       }
       throw new Error(`YahooFinance ${ticker}: no response after ${MAX_ATTEMPTS} attempts`);

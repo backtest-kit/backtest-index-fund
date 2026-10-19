@@ -41,7 +41,6 @@ const BASKET = [
   "BTCUSDT",
   "ETHUSDT",
   "SOLUSDT",
-  "PEPEUSDT",
   "SUIUSDT",
   "WIFUSDT",
   "BNBUSDT",
@@ -58,6 +57,7 @@ const BASKET = [
   "ORDIUSDT",
   "PEOPLEUSDT",
   "AAVEUSDT",
+  "FLOKIUSDT",
 ];
 // BASKET:END
 

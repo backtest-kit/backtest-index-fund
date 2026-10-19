@@ -40,7 +40,6 @@ const TAKE_PROFIT_PERCENT = 500;
 const BASKET = [
   "BTCUSDT",
   "ETHUSDT",
-  "PEPEUSDT",
   "SOLUSDT",
   "DOGEUSDT",
   "WIFUSDT",
@@ -51,13 +50,14 @@ const BASKET = [
   "BONKUSDT",
   "PEOPLEUSDT",
   "FLOKIUSDT",
-  "ARBUSDT",
   "RNDRUSDT",
   "NEARUSDT",
   "RUNEUSDT",
   "WLDUSDT",
   "TRBUSDT",
   "ETHFIUSDT",
+  "ORDIUSDT",
+  "LINKUSDT",
 ];
 // BASKET:END
 

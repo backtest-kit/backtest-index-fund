@@ -57,7 +57,7 @@ const BASKET = [
   "ENAUSDT",
   "MEGAUSDT",
   "AVAXUSDT",
-  "TONUSDT",
+  "AAVEUSDT",
 ];
 // BASKET:END
 

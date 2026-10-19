@@ -42,12 +42,10 @@ const BASKET = [
   "ETHUSDT",
   "SOLUSDT",
   "BNBUSDT",
-  "ARBUSDT",
   "XRPUSDT",
   "SUIUSDT",
   "SEIUSDT",
   "ORDIUSDT",
-  "TIAUSDT",
   "AVAXUSDT",
   "LINKUSDT",
   "OPUSDT",
@@ -58,6 +56,8 @@ const BASKET = [
   "PEOPLEUSDT",
   "ADAUSDT",
   "ENSUSDT",
+  "RUNEUSDT",
+  "ICPUSDT",
 ];
 // BASKET:END
 

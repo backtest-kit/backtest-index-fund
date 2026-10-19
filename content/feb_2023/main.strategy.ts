@@ -57,7 +57,7 @@ const BASKET = [
   "LDOUSDT",
   "SANDUSDT",
   "FILUSDT",
-  "APEUSDT",
+  "GMTUSDT",
 ];
 // BASKET:END
 

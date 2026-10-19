@@ -1,7 +1,6 @@
 import {
   addExchangeSchema,
   addFrameSchema,
-  getCandlesFilled,
   getCandlesSampled,
   PersistCandleAdapter,
 } from "backtest-kit";
@@ -11,7 +10,7 @@ import { YahooFinance } from "../classes/YahooFinance";
 // Символ стратегии -> тикер Yahoo: BTCUSDT -> BTC-USD. У части монет Yahoo держит тикер с числовым
 // суффиксом (одноимённые токены), такие исключения перечислены явно.
 const TICKER_OVERRIDES: Record<string, string> = {
-  PEPEUSDT: "PEPE24478-USD",
+  FTMUSDT: "WFTM-USD",
 };
 
 const tickerOf = (symbol: string): string =>
@@ -20,18 +19,13 @@ const tickerOf = (symbol: string): string =>
 const fetchOHLCV = (symbol: string, interval: string, since: number, limit: number) =>
   YahooFinance.getCandles(tickerOf(symbol), interval, since, limit);
 
-// Yahoo отдаёт только дневные бары. Дневные запросы идут через getCandlesFilled (дыры заполняются
-// плоской свечой по последнему закрытию), всё короче дня - через getCandlesSampled, который
-// размножает дневной бар на минуты и часы. Семплер требует интервал строго меньше нативного,
-// поэтому для 1d ветка отдельная.
+// Yahoo отдаёт только дневные бары. getCandlesSampled размножает дневной бар на минуты и часы,
+// дневные запросы отдаёт как есть через getCandlesFilled: сетка, дыры выходных и битые бары
+// чинятся в ядре плоской свечой по соседям.
 addExchangeSchema({
   exchangeName: "yahoo-finance",
-  getCandles: async (symbol, interval, since, limit) => {
-    if (interval === "1d") {
-      return await getCandlesFilled(fetchOHLCV, { symbol, interval, since, limit });
-    }
-    return await getCandlesSampled(fetchOHLCV, { symbol, interval, since, limit });
-  },
+  getCandles: async (symbol, interval, since, limit) =>
+    await getCandlesSampled(fetchOHLCV, { symbol, interval, since, limit }),
 });
 
 // Семплированные свечи генерируются из памяти: в Mongo их не пишем и не читаем

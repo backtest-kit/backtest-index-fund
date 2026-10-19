@@ -52,12 +52,12 @@ const BASKET = [
   "BCHUSDT",
   "LINKUSDT",
   "AVAXUSDT",
-  "PEPEUSDT",
   "UNIUSDT",
   "LTCUSDT",
   "XPLUSDT",
   "ENAUSDT",
   "LUNCUSDT",
+  "NEARUSDT",
 ];
 // BASKET:END
 

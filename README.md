@@ -45,7 +45,7 @@ npm start -- --backtest --ui --entry ./content/sep_2026/main.strategy.ts
 bash scripts/linux/generate_strategy.sh      # scripts/win/generate_strategy.bat on Windows
 ```
 
-Each month writes `content/<month>/dump/report/backtest.jsonl`; `opened` rows carry the gate, the weight and the basket size of that signal in `payload`, `closed` rows carry the realized PnL. Daily candles are fetched from Yahoo on demand, one request per ticker, nothing is written to Mongo for them.
+Each month writes `content/<month>/dump/report/backtest.jsonl`; `opened` rows carry the gate, the weight and the basket size of that signal in `payload`, `closed` rows carry the realized PnL. Daily candles are fetched from Yahoo on demand, one request per ticker, nothing is written to Mongo for them. `node scripts/common/summarize_reports.mjs` folds all months into one table and flags anything that did not close by time.
 
 
 ## 📐 How the Fund Works
