@@ -3,26 +3,12 @@ import {
   addStrategySchema,
   commitDividend,
   listenActivePing,
-  listenDoneBacktest,
   Position,
-  setConfig,
 } from "backtest-kit";
 
 import { UzSEDividends } from "./classes/UzSEDividends";
 
-setConfig({
-  CC_MAX_STOPLOSS_DISTANCE_PERCENT: 100, // иначе валидатор не пропустит стоп -50%
-  // Свечи дневные с биржи, минутки семплированы и внутри дня одинаковы: позиции оцениваются
-  // раз в сутки вместо поминутного цикла. Каденция тиков стратегии остаётся по интервалу фрейма.
-  CC_BACKTEST_STEP_MINUTES: 24 * 60,
-  // Издержки UzSE: комиссия брокера и биржи около 0.15% за сделку, спред ликвидных бумаг 1-3%,
-  // половина спреда ложится на каждую сторону. Движок применяет оба числа на входе и на выходе.
-  CC_PERCENT_FEE: 0.15,
-  CC_PERCENT_SLIPPAGE: 0.5,
-  // Валидатор требует, чтобы минимальная дистанция тейка покрывала круг издержек (1.3% при этих числах)
-  CC_MIN_TAKEPROFIT_DISTANCE_PERCENT: 2,
-});
-
+// Параметры движка (издержки, дневной шаг, дистанции стопа и тейка) общие для всех годов и заданы в config/setup.config.ts
 // Депозит в сумах делится поровну между бумагами корзины года; все суммы стратегии и отчётов в сумах
 const DEPOSIT_UZS = 10_000_000;
 
@@ -94,8 +80,6 @@ addStrategySchema({
   },
 });
 
-declare var kill: any;
-
 // Дивиденд начисляется на дату решения собрания, если оно принято за время жизни позиции.
 // Движок сам календаря не ведёт: когда и сколько - решает стратегия, он лишь складывает
 // сумму в pnlCost позиции (строки action=dividend в dump/report/strategy.jsonl), стоп и тейк
@@ -119,16 +103,6 @@ listenActivePing(async ({ symbol, data, timestamp }) => {
       amount,
       note: `FY${dividend.fiscalYear}: ${dividend.perShare} UZS/share x ${shares.toFixed(2)}, decision ${new Date(dividend.decisionDate).toISOString().slice(0, 10)}`,
     });
-  }
-});
-
-// listenDoneBacktest срабатывает на каждый символ списка: процесс завершаем после последнего
-let doneCount = 0;
-
-listenDoneBacktest(() => {
-  doneCount += 1;
-  if (doneCount >= BASKET.length) {
-    kill();
   }
 });
 

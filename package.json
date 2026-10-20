@@ -1,6 +1,24 @@
 {
-  "name": "pro",
+  "name": "backtest-dividend-fund",
   "version": "1.0.0",
+  "description": "Backtesting stocks on daily bars with dividends: the engine replays each trading day, holds positions in the most liquid shares of the previous year, and credits every dividend the company declares to the position that holds it. Ships a yearly equal-weight dividend fund as the reference strategy; the exchange is a swappable data source.",
+  "keywords": [
+    "backtest",
+    "backtesting",
+    "daily-bars",
+    "daily-trading",
+    "end-of-day",
+    "dividends",
+    "dividend-investing",
+    "dividend-fund",
+    "stocks",
+    "equities",
+    "trading-strategy",
+    "typescript",
+    "backtest-kit"
+  ],
+  "license": "MIT",
+  "private": true,
   "scripts": {
     "start": "node ./node_modules/@backtest-kit/cli/build/index.mjs",
     "start:debug": "node --inspect-brk ./node_modules/@backtest-kit/cli/build/index.mjs"

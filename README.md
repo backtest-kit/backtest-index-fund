@@ -23,12 +23,10 @@ A frontier stock market is a different animal from a crypto exchange: a handful 
 
 ## 🚀 Quick Start
 
-**1. Start the persistence** the engine expects (`config/loader.config.ts` waits for both before loading any strategy):
+**1. Install** (every store is an in-memory dummy in `config/setup.config.ts`, a backtest needs no database):
 
 ```bash
 npm install
-docker compose -f docker/mongo/docker-compose.yaml up -d
-docker compose -f docker/redis/docker-compose.yaml up -d
 ```
 
 **2. Run one year** (the frame and the exchange adapter live next to the strategy, in [content/2021/modules/backtest.module.ts](content/2021/modules/backtest.module.ts)):
@@ -54,7 +52,7 @@ The whole strategy is one file per year, [content/2021/main.strategy.ts](content
 
 ### The costs
 
-`setConfig` in the strategy sets the engine's fee to 0.15% and slippage to 0.5% per transaction, i.e. 1.3% per round trip, and raises the minimum take-profit distance so that the engine's validator accepts them. These are the numbers for a liquid UzSE share bought and sold at market inside the spread; the HOWTO explains where they come from and how to change them for your broker's tariff.
+`setConfig` in `config/loader.config.ts` sets the engine's fee to 0.15% and slippage to 0.5% per transaction, i.e. 1.3% per round trip, and raises the minimum take-profit distance so that the engine's validator accepts them. `config/setup.config.ts` switches every persistence adapter to its in-memory dummy, so a backtest needs no database and the process ends by itself when the last symbol reaches the end of the frame. These are the numbers for a liquid UzSE share bought and sold at market inside the spread; the HOWTO explains where they come from and how to change them for your broker's tariff.
 
 ### The basket
 
@@ -75,7 +73,7 @@ A top-level `listenActivePing` subscription fires on every engine step for every
 
 | Path | Role |
 |---|---|
-| `main.strategy.ts` | the fund: costs, deposit, basket and issuer map, time exit, dividend crediting; `setConfig` lives only here |
+| `main.strategy.ts` | the fund: deposit, basket and issuer map, time exit, dividend crediting |
 | `classes/UzSE.ts` | daily bars of a share from the exchange's Excel export, ticker → ISIN by the exchange's own list, persistent cache with `.part` downloads, waits out the export rate limit; compatible with `getCandlesFilled` / `getCandlesSampled` as a fetcher |
 | `classes/UzSEDividends.ts` | the exchange's dividend table (decision date, dividend per common and preferred share, payout window) cached once, queried as "decisions known at `when`" |
 | `modules/backtest.module.ts` | the exchange schema (`getCandlesSampled` over `UzSE.getCandles`), the year's frame |
@@ -88,8 +86,7 @@ The generator in [scripts/common/generate_months.mjs](scripts/common/generate_mo
 The engine simulates positions on minute candles and asks the exchange adapter for them. The exchange publishes daily bars. The adapter bridges the two with backtest-kit's own tools:
 
 - every request goes through `getCandlesSampled`; a `1d` request is handed to `getCandlesFilled`, which puts the bars on a continuous calendar grid and repairs weekends, holidays and anomalous bars (zero closes on days without trades) with a flat bar from the neighbouring closes, and anything shorter repeats the repaired daily bar across its minutes or hours;
-- the strategy sets `CC_BACKTEST_STEP_MINUTES` to a full day, so the engine evaluates each position once per daily bar;
-- `PersistCandleAdapter.useDummy()` keeps the synthesized candles out of Mongo.
+- `config/loader.config.ts` sets `CC_BACKTEST_STEP_MINUTES` to a full day, so the engine evaluates each position once per daily bar; `config/setup.config.ts` keeps candles and every other store in memory.
 
 The accepted trade-off: every minute of a day carries that day's high, low and close. For a time exit on 31 December this does not matter; for the −50% stop it means the stop fires on the day's low.
 
@@ -99,7 +96,7 @@ The exchange's series are not adjusted for splits. [scripts/common/build_univers
 ## 🧭 Design Rules of This Repo
 
 - **Copy-paste over abstraction.** Years are stamped, not imported. A refactor must not be able to change the result of a year that already ran.
-- **`setConfig` only in the strategy file.** The exchange module registers schemas and adapters; it does not change engine behaviour.
+- **Engine parameters in one place.** Costs, the daily step and the validator distances live in `config/loader.config.ts`, shared by every year; the exchange module registers schemas only, the strategy holds the fund's own constants.
 - **Constants describe the process, not the outcome.** The liquidity thresholds are what a ten-million-soum deposit can buy and sell in a day, the holding period is the calendar year the dividend cycle runs on, the costs are the spread and the tariff. None of them is tuned to a PnL curve, and the README does not quote one.
 - **Every approximation is written down.** [docs/HOWTO.md](docs/HOWTO.md) is the operating manual: prerequisites, the universe build, the issuer map, how to change the strategy (edit the reference year, regenerate), and the list of known gaps: decision date instead of record date, daily-bar sampling, unadjusted splits, per-symbol accounting with a fixed deposit.
 
@@ -112,7 +109,7 @@ The exchange's series are not adjusted for splits. [scripts/common/build_univers
 | **Universe** | Shares with a median daily turnover above one million soum and trades on 90% of the days of the previous year, top names by turnover; frozen per year, no survivorship |
 | **Cycle** | Equal-weight positions opened on the first tick of the year, time exit at 23:59 on 31 December, re-entry only after a −50% stop |
 | **Dividends** | Every decision taken while the position is open is credited with `commitDividend` on its decision date |
-| **Costs** | 0.15% fee and 0.5% slippage per side set in the strategy |
+| **Costs** | 0.15% fee and 0.5% slippage per side, set once in `config/loader.config.ts` |
 | **Data** | Exchange Excel exports and dividend table, cached once, sampled to minutes by `getCandlesSampled`, one engine step per day |
 | **Layout** | Self-contained year folders generated from one reference year; universe builder, issuer map and summary in `scripts/common/` |
 | **Honesty budget** | Decision date for record date, synthetic intraday path, stops on daily lows, unadjusted splits excluded by rule; all documented in `docs/HOWTO.md` |
