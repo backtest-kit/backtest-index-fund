@@ -46,9 +46,9 @@ for (const [year, { rankedBy, basket }] of Object.entries(universe.years)) {
 
   const basketBlock = [
     "// BASKET:BEGIN",
-    `// ${year}: акции UzSE с медианным дневным оборотом за ${rankedBy} от ${MIN_MEDIAN_TURNOVER_UZS / 1e6} млн сумов, сделки не реже ${MIN_ACTIVE_SHARE * 100}% дней,`,
-    `// история от начала ${rankedBy}, без дроблений внутри года; топ по обороту. Сгенерировано`,
-    "// scripts/common/generate_months.mjs из scripts/common/universe.json.",
+    `// ${year}: акции UzSE с эмитентом в таблице дивидендов, историей от начала ${rankedBy}, сделками не реже`,
+    `// ${MIN_ACTIVE_SHARE * 100}% дней ${rankedBy} года и без дроблений внутри года. Сгенерировано scripts/common/generate_months.mjs`,
+    "// из scripts/common/universe.json.",
     "const BASKET = [",
     ...basket.map((ticker) => `  "${ticker}",`),
     "];",
