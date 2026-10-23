@@ -53,7 +53,8 @@ for (const folder of folders) {
   const days = Math.round((y1 - y0) / DAY_MS);
   const deployed = new Float64Array(days);
   for (const r of closed) {
-    const from = Math.max(0, Math.floor((r.data.pendingAt - y0) / DAY_MS)), to = Math.min(days - 1, Math.floor((r.data.closeTime - y0) / DAY_MS));
+    const openedAt = r.data.openTime ?? r.data.pendingAt, closedAt = r.data.closeTime ?? r.data.timestamp;
+    const from = Math.max(0, Math.floor((openedAt - y0) / DAY_MS)), to = Math.min(days - 1, Math.floor((closedAt - y0) / DAY_MS));
     for (let d = from; d <= to; d++) deployed[d] += r.data.cost;
   }
   let cashYield = 0, peak = 0, overDays = 0;
