@@ -96,7 +96,7 @@ The generator in [scripts/common/generate_months.mjs](scripts/common/generate_mo
 The engine simulates positions on minute candles and asks the exchange adapter for them. Yahoo only has daily bars. The adapter bridges the two with backtest-kit's own tools:
 
 - every request goes through `getCandlesSampled`; a `1d` request is handed to `getCandlesFilled`, which puts the bars on a continuous calendar grid and repairs weekends, holidays and anomalous bars (zeros, hundredfold wicks) with a flat bar from the neighbouring closes, and anything shorter repeats the repaired daily bar across its minutes or hours;
-- the strategy sets `CC_BACKTEST_STEP_MINUTES` to a full day, so the engine evaluates each position once per daily bar instead of 1440 times on identical candles;
+- the frame sets `watchInterval: "1d"`, so the engine evaluates each position once per daily bar instead of 1440 times on identical candles, while the strategy still ticks hourly;
 - `PersistCandleAdapter.useDummy()` keeps the synthesized candles out of Mongo.
 
 The accepted trade-off is printed in the engine's own documentation of the sampler: every minute of a day carries that day's high, low and close. For a time exit on the last day of the quarter this does not matter; for the −50% stop it means the stop fires on the day's low rather than at an intraday moment.

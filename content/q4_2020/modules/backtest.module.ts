@@ -33,6 +33,9 @@ PersistCandleAdapter.useDummy();
 addFrameSchema({
   frameName: "q4_2020_frame",
   interval: "1h",
+  // Свечи дневные с Yahoo, минутки семплированы и внутри дня одинаковы: позиция оценивается
+  // раз в сутки вместо поминутного цикла. Каденция тиков стратегии остаётся часовой.
+  watchInterval: "1d",
   startDate: new Date("2020-10-01T00:00:00Z"),
   endDate: new Date("2020-12-31T23:59:59Z"),
   note: "Q4 2020: October - December",

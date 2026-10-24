@@ -36,6 +36,9 @@ PersistCandleAdapter.useDummy();
 addFrameSchema({
   frameName: "q1_2026_frame",
   interval: "1h",
+  // Свечи дневные с Yahoo, минутки семплированы и внутри дня одинаковы: позиция оценивается
+  // раз в сутки вместо поминутного цикла. Каденция тиков стратегии остаётся часовой.
+  watchInterval: "1d",
   startDate: new Date("2026-01-01T00:00:00Z"),
   endDate: new Date("2026-03-31T23:59:59Z"),
   note: "Q1 2026: January - March",
