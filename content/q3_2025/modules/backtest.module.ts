@@ -36,7 +36,7 @@ PersistCandleAdapter.useDummy();
 
 addFrameSchema({
   frameName: "q3_2025_frame",
-  interval: "1h",
+  entryInterval: "1h",
   // Свечи дневные с Yahoo, минутки семплированы и внутри дня одинаковы: позиция оценивается
   // раз в сутки вместо поминутного цикла. Каденция тиков стратегии остаётся часовой.
   watchInterval: "1d",
